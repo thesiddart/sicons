@@ -1,0 +1,25 @@
+import React from 'react';
+import { IconProps } from '../IconWrapper';
+
+export const WeightBold: React.FC<IconProps> = ({
+  size = 24,
+  color = 'currentColor',
+  ...props
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M17.1801 5.25C15.4701 5.25 13.4301 5.9 13.4301 9V15C13.4301 18.1 15.4701 18.75 17.1801 18.75C18.8901 18.75 20.9301 18.1 20.9301 15V9C20.9301 5.9 18.8901 5.25 17.1801 5.25Z" fill="currentColor"/>
+<path d="M6.81995 5.25C5.10995 5.25 3.06995 5.9 3.06995 9V15C3.06995 18.1 5.10995 18.75 6.81995 18.75C8.52995 18.75 10.5699 18.1 10.5699 15V9C10.5699 5.9 8.52995 5.25 6.81995 5.25Z" fill="currentColor"/>
+<path d="M13.4299 11.25H10.5699V12.75H13.4299V11.25Z" fill="currentColor"/>
+<path d="M22.5 15.25C22.09 15.25 21.75 14.91 21.75 14.5V9.5C21.75 9.09 22.09 8.75 22.5 8.75C22.91 8.75 23.25 9.09 23.25 9.5V14.5C23.25 14.91 22.91 15.25 22.5 15.25Z" fill="currentColor"/>
+<path d="M1.5 15.25C1.09 15.25 0.75 14.91 0.75 14.5V9.5C0.75 9.09 1.09 8.75 1.5 8.75C1.91 8.75 2.25 9.09 2.25 9.5V14.5C2.25 14.91 1.91 15.25 1.5 15.25Z" fill="currentColor"/>
+    </svg>
+  );
+};
