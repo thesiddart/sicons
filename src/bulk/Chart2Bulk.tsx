@@ -1,0 +1,23 @@
+import React from 'react';
+import { IconProps } from '../IconWrapper';
+
+export const Chart2Bulk: React.FC<IconProps> = ({
+  size = 24,
+  color = 'currentColor',
+  ...props
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path opacity="0.4" d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2Z" fill="currentColor"/>
+<path d="M16.4201 7.8099V16.1899C16.4201 16.8299 15.9001 17.3499 15.2601 17.3499C14.6101 17.3499 14.0901 16.8299 14.0901 16.1899V7.8099C14.0901 7.1699 14.6101 6.6499 15.2601 6.6499C15.9001 6.6499 16.4201 7.1699 16.4201 7.8099Z" fill="currentColor"/>
+<path d="M9.91008 12.93V16.19C9.91008 16.83 9.39008 17.35 8.74008 17.35C8.10008 17.35 7.58008 16.83 7.58008 16.19V12.93C7.58008 12.29 8.10008 11.77 8.74008 11.77C9.39008 11.77 9.91008 12.29 9.91008 12.93Z" fill="currentColor"/>
+    </svg>
+  );
+};

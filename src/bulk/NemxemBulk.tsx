@@ -1,0 +1,23 @@
+import React from 'react';
+import { IconProps } from '../IconWrapper';
+
+export const NemxemBulk: React.FC<IconProps> = ({
+  size = 24,
+  color = 'currentColor',
+  ...props
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path opacity="0.6" d="M16.36 18.4901C16.35 18.5001 16.35 18.5101 16.35 18.5101C15.16 19.7701 13.73 20.9601 12 22.0001C12 22.0001 3.15998 17.5801 2.09998 7.08008C5.20998 17.1501 12 10.0001 12 10.0001C18.76 12.9001 16.52 18.1401 16.36 18.4901Z" fill="currentColor"/>
+<path opacity="0.4" d="M16.36 18.4898C16.52 18.1398 18.76 12.8998 12 9.99982C11 3.99982 16.07 2.93982 16.07 2.93982L16.66 2.81982H16.67C18.41 3.22982 20.2 3.91982 22 4.99982C22 4.99982 22 12.4998 16.36 18.4898Z" fill="currentColor"/>
+<path d="M16.66 2.82003L16.07 2.94003C16.07 2.94003 11 4.00003 12 10C12 10 5.20998 17.15 2.09998 7.08003V7.07003C2.03998 6.41003 2 5.71003 2 5.00003C2 5.00003 8.71997 0.97003 16.66 2.82003Z" fill="currentColor"/>
+    </svg>
+  );
+};

@@ -61,6 +61,7 @@ Code is a **representation**, not a redesign.
 |-----|------------|
 | `bold` | Filled or visually heavier icons |
 | `outline` | Stroke-based or lighter icons |
+| `bulk` | Partially filled icons with accent areas |
 
 Each style:
 - Has its own folder

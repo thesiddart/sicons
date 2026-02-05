@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 // Directories
 const ICONS_DIR = path.join(__dirname, '..', 'icons');
 const SRC_DIR = path.join(__dirname, '..', 'src');
-const STYLES = ['bold', 'outline'];
+const STYLES = ['bold', 'outline', 'bulk'];
 
 // Convert kebab-case to PascalCase
 function toPascalCase(str) {
@@ -73,7 +73,8 @@ export const ${componentName}: React.FC<IconProps> = ({
 function generateComponents() {
   const exportsByStyle = {
     bold: [],
-    outline: []
+    outline: [],
+    bulk: []
   };
 
   STYLES.forEach(style => {
@@ -127,6 +128,7 @@ function generateComponents() {
   const mainIndexContent = `export { IconProps } from './IconWrapper';
 export * from './bold';
 export * from './outline';
+export * from './bulk';
 `;
   
   fs.writeFileSync(path.join(SRC_DIR, 'index.ts'), mainIndexContent);
@@ -134,6 +136,7 @@ export * from './outline';
   console.log('\n✅ Component generation complete!');
   console.log(`   Bold icons: ${exportsByStyle.bold.length}`);
   console.log(`   Outline icons: ${exportsByStyle.outline.length}`);
+  console.log(`   Bulk icons: ${exportsByStyle.bulk.length}`);
 }
 
 // Run the script

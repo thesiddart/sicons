@@ -28,7 +28,7 @@ pnpm add sicons
 ## Usage
 
 ```tsx
-import { AddBold, AddOutline } from 'sicons';
+import { AddBold, AddOutline, AddBulk } from 'sicons';
 
 function App() {
   return (
@@ -39,6 +39,9 @@ function App() {
       {/* Outline style */}
       <AddOutline size={32} color="blue" />
       
+      {/* Bulk style */}
+      <AddBulk size={28} color="green" />
+      
       {/* Uses currentColor by default */}
       <AddOutline className="text-red-500" />
     </div>
@@ -48,14 +51,15 @@ function App() {
 
 ## Available Icons
 
-The library includes **~1,900+ icons** across two styles:
+The library includes **~2,950+ icons** across three styles:
 - **Bold**: 968 icons
 - **Outline**: 996 icons
+- **Bulk**: 989 icons
 
 All icons are available as React components with PascalCase names followed by their style:
-- `Add` → `AddBold` or `AddOutline`
-- `ArrowRight` → `ArrowRightBold` or `ArrowRightOutline`
-- `Calendar` → `CalendarBold` or `CalendarOutline`
+- `Add` → `AddBold`, `AddOutline`, or `AddBulk`
+- `ArrowRight` → `ArrowRightBold`, `ArrowRightOutline`, or `ArrowRightBulk`
+- `Calendar` → `CalendarBold`, `CalendarOutline`, or `CalendarBulk`
 
 ## Props
 
@@ -108,10 +112,12 @@ This will:
 sicons/
 ├── icons/              # Source SVG files
 │   ├── bold/           # Bold style SVGs
-│   └── outline/        # Outline style SVGs
+│   ├── outline/        # Outline style SVGs
+│   └── bulk/           # Bulk style SVGs
 ├── src/                # Generated React components
 │   ├── bold/           # Bold components
 │   ├── outline/        # Outline components
+│   ├── bulk/           # Bulk components
 │   ├── IconWrapper.tsx # Base icon wrapper
 │   └── index.ts        # Main entry point
 ├── scripts/            # Build scripts

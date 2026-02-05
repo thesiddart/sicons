@@ -4,9 +4,10 @@
 
 A complete React icon component library with:
 
-- **1,964 total icons** across two styles
+- **2,953 total icons** across three styles
   - 968 Bold icons
   - 996 Outline icons
+  - 989 Bulk icons
 - Full TypeScript support
 - Tree-shakable ESM and CommonJS builds
 - Zero runtime dependencies
@@ -28,14 +29,17 @@ Icon package/
 │
 ├── icons/                 # Source SVG files (provided)
 │   ├── bold/              # 968 bold SVGs
-│   └── outline/           # 996 outline SVGs
+│   ├── outline/           # 996 outline SVGs
+│   └── bulk/              # Bulk SVGs
 │
 ├── src/                   # Generated React components
 │   ├── IconWrapper.tsx    # Base wrapper component
 │   ├── index.ts           # Main exports
 │   ├── bold/              # 968 Bold components
 │   │   └── index.ts
-│   └── outline/           # 996 Outline components
+│   ├── outline/           # 996 Outline components
+│   │   └── index.ts
+│   └── bulk/              # Bulk components
 │       └── index.ts
 │
 ├── dist/                  # Build output
@@ -97,7 +101,7 @@ This runs:
 2. `build:lib` - Bundles with Rollup
 
 ### Add New Icons
-1. Add SVG files to `icons/bold/` or `icons/outline/`
+1. Add SVG files to `icons/bold/`, `icons/outline/`, or `icons/bulk/`
 2. Run `npm run build:components`
 3. Run `npm run build:lib`
 
