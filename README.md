@@ -20,9 +20,9 @@ An open-source icon component library for React.
 import { AddBold, HomeOutline } from 'sicons';
 ```
 
-Bundlers that follow ESM re-exports and respect `"sideEffects": false` can include only the icon modules you use.
+Modern bundlers (Vite, webpack 5, Rollup, etc.) usually **tree-shake** this well: the package sets `"sideEffects": false`, and each icon lives in its own file re-exported from the root barrel. You still depend on the toolchain **actually** following those re-exports—if you want zero ambiguity, use subpaths below.
 
-### Subpath (smallest module graph)
+### Subpath (smallest, strictest module graph)
 
 ```tsx
 import { AddBold } from 'sicons/bold/AddBold';
@@ -32,6 +32,11 @@ import { HomeOutline } from 'sicons/outline/HomeOutline';
 Use the **component basename** (PascalCase + style), matching the file under `dist/<style>/`. Also available: `sicons/bold`, `sicons/outline`, … (per-style barrels).
 
 Published `package.json` **`exports`** maps these paths to the matching `.js` / `.cjs` / `.d.ts` files.
+
+### Install size vs. what the browser downloads
+
+- **`node_modules/sicons` can be large on disk** (often tens of MB). That is expected: thousands of icon modules, **source maps**, **`.d.ts` files**, plus **ESM and CJS** copies. Installs and CI caches pay that cost.
+- **End users in the browser** do not download `node_modules` as a blob. They only get what your bundler **includes** in the production JS bundle—typically the icons you import (especially if you use **subpath** imports or a tree-shaken barrel).
 
 ## Installation
 
