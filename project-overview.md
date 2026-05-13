@@ -10,7 +10,7 @@ This document explains the **purpose, structure, constraints, and expected behav
 
 Its primary goals are:
 - Provide reusable icon components
-- Support multiple visual styles (currently: `bold`, `outline`)
+- Support multiple visual styles (`bold`, `outline`, `bulk`, `broken`)
 - Eliminate per-project SVG exports
 - Maintain a single source of truth between design and code
 
@@ -62,6 +62,7 @@ Code is a **representation**, not a redesign.
 | `bold` | Filled or visually heavier icons |
 | `outline` | Stroke-based or lighter icons |
 | `bulk` | Partially filled icons with accent areas |
+| `broken` | Stroke-based “broken” / dashed-line style (Iconsax Broken) |
 
 Each style:
 - Has its own folder
@@ -92,7 +93,7 @@ All icons must follow these rules:
 ### Consistency
 - Stroke width must be consistent within a style
 - Visual weight must match existing icons
-- Do not mix bold & outline semantics
+- Do not mix semantics across styles (each import is one style)
 
 ---
 

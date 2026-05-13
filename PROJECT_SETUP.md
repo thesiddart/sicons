@@ -4,10 +4,11 @@
 
 A complete React icon component library with:
 
-- **2,953 total icons** across three styles
+- **3,853 total icons** across four styles
   - 968 Bold icons
   - 996 Outline icons
   - 989 Bulk icons
+  - 900 Broken icons
 - Full TypeScript support
 - Tree-shakable ESM and CommonJS builds
 - Zero runtime dependencies
@@ -30,7 +31,8 @@ Icon package/
 ├── icons/                 # Source SVG files (provided)
 │   ├── bold/              # 968 bold SVGs
 │   ├── outline/           # 996 outline SVGs
-│   └── bulk/              # Bulk SVGs
+│   ├── bulk/              # 989 bulk SVGs
+│   └── broken/            # 900 broken SVGs
 │
 ├── src/                   # Generated React components
 │   ├── IconWrapper.tsx    # Base wrapper component
@@ -39,7 +41,9 @@ Icon package/
 │   │   └── index.ts
 │   ├── outline/           # 996 Outline components
 │   │   └── index.ts
-│   └── bulk/              # Bulk components
+│   ├── bulk/              # 989 Bulk components
+│   │   └── index.ts
+│   └── broken/            # 900 Broken components
 │       └── index.ts
 │
 ├── dist/                  # Build output
@@ -101,7 +105,7 @@ This runs:
 2. `build:lib` - Bundles with Rollup
 
 ### Add New Icons
-1. Add SVG files to `icons/bold/`, `icons/outline/`, or `icons/bulk/`
+1. Add SVG files to `icons/bold/`, `icons/outline/`, `icons/bulk/`, or `icons/broken/`
 2. Run `npm run build:components`
 3. Run `npm run build:lib`
 
@@ -126,6 +130,8 @@ function App() {
 - **dist/index.d.ts** - Main TypeScript definitions
 - **dist/bold/** - Individual Bold component types
 - **dist/outline/** - Individual Outline component types
+- **dist/bulk/** - Individual Bulk component types
+- **dist/broken/** - Individual Broken component types
 
 ## Next Steps
 

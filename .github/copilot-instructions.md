@@ -5,8 +5,8 @@
 **sicons** is a React icon component library that auto-generates 1,900+ components from SVG source files. The build pipeline transforms raw SVGs into tree-shakable TypeScript components.
 
 ### Critical Flow
-1. SVG files in `icons/{bold,outline,bulk}/` (source of truth)
-2. `generate-components.js` script transforms SVGs → React components in `src/{bold,outline,bulk}/`
+1. SVG files in `icons/{bold,outline,bulk,broken}/` (source of truth)
+2. `generate-components.js` script transforms SVGs → React components in `src/{bold,outline,bulk,broken}/`
 3. Rollup bundles components → `dist/` (CJS + ESM)
 
 **Key principle**: Never edit components in `src/` directly—they're auto-generated. Edit the generation script or source SVGs instead.
@@ -20,7 +20,7 @@
 - `npm run dev` — Watch mode for Rollup
 
 ### Adding New Icons
-1. Place SVG in `icons/bold/`, `icons/outline/`, or `icons/bulk/`
+1. Place SVG in `icons/bold/`, `icons/outline/`, `icons/bulk/`, or `icons/broken/`
 2. Run `npm run build:components` to generate React component
 3. Component appears in `src/{style}/` with auto-generated filename
 
@@ -59,8 +59,8 @@ export const IconNameStyle: React.FC<IconProps> = ({
 From [project-overview.md](project-overview.md):
 - **Canvas**: Always 24×24 viewBox
 - **Colors**: Replace hardcoded fills/strokes with `currentColor` (handled by script)
-- **Styles**: Bold, Outline, and Bulk are separate components, NOT a `variant` prop
-- **No runtime switching**: Import the specific style needed (`AddBold` vs `AddOutline` vs `AddBulk`)
+- **Styles**: Bold, Outline, Bulk, and Broken are separate components, NOT a `variant` prop
+- **No runtime switching**: Import the specific style needed (`AddBold` vs `AddOutline` vs `AddBulk` vs `AddBroken`)
 
 ## Generation Script Details
 
@@ -110,6 +110,7 @@ export { IconProps } from './IconWrapper';
 export * from './bold';      // Re-exports from src/bold/index.ts
 export * from './outline';   // Re-exports from src/outline/index.ts
 export * from './bulk';      // Re-exports from src/bulk/index.ts
+export * from './broken';    // Re-exports from src/broken/index.ts
 ```
 
 This enables tree-shaking: `import { AddBold } from 'sicons'` only bundles that one component.
@@ -123,13 +124,14 @@ No formal test suite currently. Validation checklist:
 4. Verify `currentColor` works by changing parent CSS color
 
 ## Files to Never Edit Directly
-- `src/bold/**/*.tsx` (except index.ts if manually managing exports)
+- `src/bold/**/*.tsx` (generated files)
 - `src/outline/**/*.tsx` (generated files)
 - `src/bulk/**/*.tsx` (generated files)
+- `src/broken/**/*.tsx` (generated files)
 - `dist/` (build output)
 
 ## Files to Edit for Changes
 - `scripts/generate-components.js` — Component generation logic
 - `src/IconWrapper.tsx` — Icon interface/props
-- `icons/{bold,outline,bulk}/` — Source SVG files
+- `icons/{bold,outline,bulk,broken}/` — Source SVG files
 - `rollup.config.js` — Bundle configuration

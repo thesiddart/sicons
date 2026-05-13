@@ -4,12 +4,12 @@ An open-source icon component library for React.
 
 ## Features
 
-- ✅ **Tree-shakable** - Import only the icons you need
-- 🎨 **Multiple styles** - Bold and Outline variants
-- ⚛️ **React components** - First-class React support
-- 🎯 **TypeScript** - Full type safety
-- 📦 **Design-system friendly** - Works with any design system
-- 🎨 **Customizable** - Control size and color via props
+- ✅ **Tree-shakable** — Import only the icons you need
+- 🎨 **Multiple styles** — Bold, Outline, Bulk, and Broken variants
+- ⚛️ **React components** — First-class React support
+- 🎯 **TypeScript** — Full type safety
+- 📦 **Design-system friendly** — Works with any design system
+- 🎨 **Customizable** — Control size and color via props
 
 ## Installation
 
@@ -28,20 +28,23 @@ pnpm add sicons
 ## Usage
 
 ```tsx
-import { AddBold, AddOutline, AddBulk } from 'sicons';
+import { AddBold, AddOutline, AddBulk, AddBroken } from 'sicons';
 
 function App() {
   return (
     <div>
-      {/* Bold style */}
+      {/* Bold */}
       <AddBold size={24} color="#000" />
-      
-      {/* Outline style */}
+
+      {/* Outline */}
       <AddOutline size={32} color="blue" />
-      
-      {/* Bulk style */}
+
+      {/* Bulk */}
       <AddBulk size={28} color="green" />
-      
+
+      {/* Broken (stroke “broken” / dashed style) */}
+      <AddBroken size={28} color="currentColor" />
+
       {/* Uses currentColor by default */}
       <AddOutline className="text-red-500" />
     </div>
@@ -49,17 +52,21 @@ function App() {
 }
 ```
 
-## Available Icons
+## Available icons
 
-The library includes **~2,950+ icons** across three styles:
-- **Bold**: 968 icons
-- **Outline**: 996 icons
-- **Bulk**: 989 icons
+The library includes **3,853 icons** across four styles:
 
-All icons are available as React components with PascalCase names followed by their style:
-- `Add` → `AddBold`, `AddOutline`, or `AddBulk`
-- `ArrowRight` → `ArrowRightBold`, `ArrowRightOutline`, or `ArrowRightBulk`
-- `Calendar` → `CalendarBold`, `CalendarOutline`, or `CalendarBulk`
+| Style | Count |
+|-------|------:|
+| **Bold** | 968 |
+| **Outline** | 996 |
+| **Bulk** | 989 |
+| **Broken** | 900 |
+
+Naming: kebab-case SVG basename → PascalCase + style suffix, for example:
+
+- `Add` → `AddBold`, `AddOutline`, `AddBulk`, `AddBroken`
+- `ArrowRight` → `ArrowRightBold`, `ArrowRightOutline`, `ArrowRightBulk`, `ArrowRightBroken`
 
 ## Props
 
@@ -86,12 +93,12 @@ Icons use `currentColor` by default, making them easy to style with CSS:
 <AddBold color="#3b82f6" />
 ```
 
-## Design Principles
+## Design principles
 
-- **24×24 canvas** - All icons fit within a 24×24 pixel canvas
-- **No hardcoded colors** - Icons use `currentColor` for easy theming
-- **Style separation** - Bold and Outline are separate components, not props
-- **Consistent weight** - Visual weight is consistent within each style
+- **24×24 canvas** — All icons use a 24×24 viewBox
+- **No hardcoded colors** — SVG fills/strokes are normalized to `currentColor` at build time
+- **Style separation** — Each visual style is a separate component, not a `variant` prop
+- **Consistent weight** — Visual weight is consistent within each style
 
 ## Development
 
@@ -102,28 +109,37 @@ npm run build
 ```
 
 This will:
-1. Generate React components from SVG files
-2. Bundle the library with Rollup
-3. Generate TypeScript declarations
 
-### Project Structure
+1. Generate React components from SVG files under `icons/{bold,outline,bulk,broken}/`
+2. Bundle the library with Rollup
+3. Emit TypeScript declarations into `dist/`
+
+### Project structure
 
 ```
 sicons/
 ├── icons/              # Source SVG files
-│   ├── bold/           # Bold style SVGs
-│   ├── outline/        # Outline style SVGs
-│   └── bulk/           # Bulk style SVGs
-├── src/                # Generated React components
-│   ├── bold/           # Bold components
-│   ├── outline/        # Outline components
-│   ├── bulk/           # Bulk components
-│   ├── IconWrapper.tsx # Base icon wrapper
-│   └── index.ts        # Main entry point
-├── scripts/            # Build scripts
+│   ├── bold/
+│   ├── outline/
+│   ├── bulk/
+│   └── broken/
+├── src/                # Generated React components (do not hand-edit style folders)
+│   ├── bold/
+│   ├── outline/
+│   ├── bulk/
+│   ├── broken/
+│   ├── IconWrapper.tsx
+│   └── index.ts
+├── scripts/
 │   └── generate-components.js
-└── dist/               # Built library
+└── dist/               # Published build output
 ```
+
+### Publish to npm
+
+1. Bump the `version` in `package.json` (this repo uses [Semantic Versioning](https://semver.org/)).
+2. Run `npm run build` and confirm it finishes without errors.
+3. Log in with `npm login` and publish: `npm publish --access public` (omit `--access public` if the package is already public).
 
 ## License
 
@@ -131,4 +147,6 @@ MIT
 
 ## Contributing
 
-Contributions are welcome! Please read the [project-overview.md](./project-overview.md) for guidelines on how icons should be structured and named.
+Contributions are welcome. Please read [project-overview.md](./project-overview.md) for how icons should be structured and named.
+
+Repository: [github.com/thesiddart/sicons](https://github.com/thesiddart/sicons)

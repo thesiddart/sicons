@@ -1,14 +1,23 @@
 {
   "name": "sicons",
-  "version": "0.2.0",
-  "description": "An open-source icon component library for React",
+  "version": "0.3.0",
+  "description": "React icon components in Bold, Outline, Bulk, and Broken styles (3,853 icons)",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "npm run build:components && npm run build:lib",
@@ -23,7 +32,13 @@
     "components",
     "svg",
     "design-system",
-    "ui"
+    "ui",
+    "outline-icons",
+    "bold-icons",
+    "bulk-icons",
+    "broken-icons",
+    "iconsax",
+    "vuesax"
   ],
   "author": "",
   "license": "MIT",
@@ -41,6 +56,10 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/thesiddart/sicons.git"
+  },
+  "homepage": "https://github.com/thesiddart/sicons#readme",
+  "bugs": {
+    "url": "https://github.com/thesiddart/sicons/issues"
   }
 }

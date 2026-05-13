@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   AddBold,
+  AddBroken,
   AddOutline,
   HeartBold,
   HeartOutline,
@@ -24,6 +25,7 @@ export function BasicExample() {
     <div>
       <AddBold size={24} />
       <AddOutline size={24} />
+      <AddBroken size={24} />
     </div>
   );
 }
