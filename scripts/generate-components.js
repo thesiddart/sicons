@@ -37,7 +37,25 @@ function processSVG(svgPath) {
   // Replace hardcoded colors with currentColor
   svgContent = svgContent.replace(/fill="[^"]*"/g, 'fill="currentColor"');
   svgContent = svgContent.replace(/stroke="[^"]*"/g, 'stroke="currentColor"');
-  
+
+  // React expects camelCase DOM props (SSR/DOM parity); source SVGs often use kebab-case
+  const kebabAttrReplacements = [
+    [/stroke-width=/g, 'strokeWidth='],
+    [/stroke-linecap=/g, 'strokeLinecap='],
+    [/stroke-linejoin=/g, 'strokeLinejoin='],
+    [/stroke-miterlimit=/g, 'strokeMiterlimit='],
+    [/stroke-dasharray=/g, 'strokeDasharray='],
+    [/stroke-dashoffset=/g, 'strokeDashoffset='],
+    [/fill-opacity=/g, 'fillOpacity='],
+    [/stroke-opacity=/g, 'strokeOpacity='],
+    [/clip-path=/g, 'clipPath='],
+    [/clip-rule=/g, 'clipRule='],
+    [/fill-rule=/g, 'fillRule='],
+  ];
+  for (const [pattern, replacement] of kebabAttrReplacements) {
+    svgContent = svgContent.replace(pattern, replacement);
+  }
+
   return svgContent;
 }
 
@@ -122,7 +140,7 @@ function generateComponents() {
 
   // Generate main index file
   const mainIndexContent = [
-    "export { IconProps } from './IconWrapper';",
+    "export { IconProps, IconWrapper } from './IconWrapper';",
     ...STYLES.map((s) => `export * from './${s}';`),
     '',
   ].join('\n');

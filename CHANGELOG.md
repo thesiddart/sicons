@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2026-05-14
+
+### Added
+
+- **Vitest** SSR suite: `renderToString` for barrel and `sicons/<style>/…` imports, all four styles, a11y-related props.
+- **Hydration checks** (jsdom + `hydrateRoot`) for barrel and subpath icons.
+- `pretest` runs full `npm run build` so tests always target fresh `dist/`.
+
+### Fixed
+
+- Generator: map common kebab-case SVG attributes (`stroke-width`, etc.) to React camelCase to avoid SSR/DOM warnings.
+
+## [0.4.1] - 2026-05-14
+
+### Added
+
+- `package.json` **`exports`** wildcards for `sicons/bold/*`, `sicons/outline/*`, `sicons/bulk/*`, `sicons/broken/*`, plus per-style barrels and `sicons/IconWrapper`.
+- `npm test` — `scripts/verify-packaging.mjs` smoke-imports a few built modules.
+
+### Changed
+
+- README: document subpath imports, RSC/Next notes, and build/test workflow.
+
+## [0.4.0] - 2026-05-14
+
+### Changed
+
+- **Breaking (publish layout):** library ships as **many small files** (`rollup` `preserveModules`) instead of a single large `dist/index.esm.js` / `dist/index.js` blob.
+- Dual output: ESM under `dist/`, CommonJS under `dist/cjs/*.cjs`.
+- `main` / `module` / `exports` updated for the new layout.
+
 ## [0.3.0] - 2026-05-14
 
 ### Added

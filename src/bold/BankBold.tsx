@@ -15,7 +15,7 @@ export const BankBold: React.FC<IconProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path d="M22 19V22H2V19C2 18.45 2.45 18 3 18H21C21.55 18 22 18.45 22 19Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 19V22H2V19C2 18.45 2.45 18 3 18H21C21.55 18 22 18.45 22 19Z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M7 11H5V18H7V11Z" fill="currentColor"/>
 <path d="M11 11H9V18H11V11Z" fill="currentColor"/>
 <path d="M15 11H13V18H15V11Z" fill="currentColor"/>

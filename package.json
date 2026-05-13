@@ -1,17 +1,63 @@
 {
   "name": "sicons",
-  "version": "0.3.0",
+  "version": "0.4.2",
   "description": "React icon components in Bold, Outline, Bulk, and Broken styles (3,853 icons)",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.js"
-    }
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./IconWrapper": {
+      "types": "./dist/IconWrapper.d.ts",
+      "import": "./dist/IconWrapper.js",
+      "require": "./dist/cjs/IconWrapper.cjs"
+    },
+    "./bold": {
+      "types": "./dist/bold/index.d.ts",
+      "import": "./dist/bold/index.js",
+      "require": "./dist/cjs/bold/index.cjs"
+    },
+    "./bold/*": {
+      "types": "./dist/bold/*.d.ts",
+      "import": "./dist/bold/*.js",
+      "require": "./dist/cjs/bold/*.cjs"
+    },
+    "./outline": {
+      "types": "./dist/outline/index.d.ts",
+      "import": "./dist/outline/index.js",
+      "require": "./dist/cjs/outline/index.cjs"
+    },
+    "./outline/*": {
+      "types": "./dist/outline/*.d.ts",
+      "import": "./dist/outline/*.js",
+      "require": "./dist/cjs/outline/*.cjs"
+    },
+    "./bulk": {
+      "types": "./dist/bulk/index.d.ts",
+      "import": "./dist/bulk/index.js",
+      "require": "./dist/cjs/bulk/index.cjs"
+    },
+    "./bulk/*": {
+      "types": "./dist/bulk/*.d.ts",
+      "import": "./dist/bulk/*.js",
+      "require": "./dist/cjs/bulk/*.cjs"
+    },
+    "./broken": {
+      "types": "./dist/broken/index.d.ts",
+      "import": "./dist/broken/index.js",
+      "require": "./dist/cjs/broken/index.cjs"
+    },
+    "./broken/*": {
+      "types": "./dist/broken/*.d.ts",
+      "import": "./dist/broken/*.js",
+      "require": "./dist/cjs/broken/*.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "sideEffects": false,
   "files": [
@@ -22,7 +68,9 @@
   "scripts": {
     "build": "npm run build:components && npm run build:lib",
     "build:components": "node scripts/generate-components.js",
-    "build:lib": "rollup -c",
+    "build:lib": "rimraf dist && rollup -c && tsc -p tsconfig.emitTypes.json",
+    "pretest": "npm run build",
+    "test": "vitest run && node scripts/verify-packaging.mjs",
     "dev": "rollup -c -w",
     "prepare": "npm run build"
   },
@@ -50,9 +98,14 @@
     "@types/react": "^18.2.48",
     "react": "^18.2.0",
     "rollup": "^4.9.6",
+    "rimraf": "^5.0.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "tslib": "^2.6.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^3.1.4",
+    "react-dom": "^18.2.0",
+    "@types/react-dom": "^18.2.18",
+    "jsdom": "^26.0.0"
   },
   "repository": {
     "type": "git",
