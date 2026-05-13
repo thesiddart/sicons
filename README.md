@@ -25,33 +25,6 @@ yarn add sicons
 pnpm add sicons
 ```
 
-## Usage
-
-```tsx
-import { AddBold, AddOutline, AddBulk, AddBroken } from 'sicons';
-
-function App() {
-  return (
-    <div>
-      {/* Bold */}
-      <AddBold size={24} color="#000" />
-
-      {/* Outline */}
-      <AddOutline size={32} color="blue" />
-
-      {/* Bulk */}
-      <AddBulk size={28} color="green" />
-
-      {/* Broken (stroke “broken” / dashed style) */}
-      <AddBroken size={28} color="currentColor" />
-
-      {/* Uses currentColor by default */}
-      <AddOutline className="text-red-500" />
-    </div>
-  );
-}
-```
-
 ## Available icons
 
 The library includes **3,853 icons** across four styles:
@@ -134,12 +107,6 @@ sicons/
 │   └── generate-components.js
 └── dist/               # Published build output
 ```
-
-### Publish to npm
-
-1. Bump the `version` in `package.json` (this repo uses [Semantic Versioning](https://semver.org/)).
-2. Run `npm run build` and confirm it finishes without errors.
-3. Log in with `npm login` and publish: `npm publish --access public` (omit `--access public` if the package is already public).
 
 ## License
 
