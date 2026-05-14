@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AnkrankrOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AnkrankrOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.8904 10.53C20.4804 10.53 20.1404 10.19 20.1404 9.78001V6.91001L12.0004 2.84001L3.86035 6.91001V9.78001C3.86035 10.19 3.52035 10.53 3.11035 10.53C2.70035 10.53 2.36035 10.19 2.36035 9.78001V6.45001C2.36035 6.17001 2.5204 5.91001 2.7804 5.78001L11.6703 1.34001C11.8803 1.23001 12.1304 1.23001 12.3404 1.34001L21.2303 5.78001C21.4803 5.91001 21.6504 6.17001 21.6504 6.45001V9.78001C21.6404 10.19 21.3004 10.53 20.8904 10.53Z" fill="currentColor"/>

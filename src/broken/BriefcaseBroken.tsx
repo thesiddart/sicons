@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BriefcaseBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BriefcaseBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.3708 14L21.7108 10.43C21.9708 7.99 21.2708 6 17.0008 6H7.0008C2.7308 6 2.0308 7.99 2.3008 10.43L3.0508 18.43C3.2608 20.39 3.9808 22 8.0008 22H16.0008C20.0208 22 20.7408 20.39 20.9508 18.43" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>

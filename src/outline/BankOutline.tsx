@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BankOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BankOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21 11.75H3C2.04 11.75 1.25 10.96 1.25 10V6.68001C1.25 6.00001 1.71998 5.31001 2.34998 5.06001L11.35 1.46003C11.73 1.31003 12.27 1.31003 12.65 1.46003L21.65 5.06001C22.28 5.31001 22.75 6.01 22.75 6.68001V10C22.75 10.96 21.96 11.75 21 11.75ZM12 2.84004C11.96 2.84004 11.92 2.83999 11.9 2.84999L2.90997 6.45002C2.84997 6.48002 2.75 6.61 2.75 6.68001V10C2.75 10.14 2.86 10.25 3 10.25H21C21.14 10.25 21.25 10.14 21.25 10V6.68001C21.25 6.61 21.16 6.48002 21.09 6.45002L12.09 2.84999C12.07 2.83999 12.04 2.84004 12 2.84004Z" fill="currentColor"/>

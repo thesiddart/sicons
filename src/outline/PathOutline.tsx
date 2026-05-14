@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PathOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PathOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.9802 13.2C16.7902 13.2 16.5902 13.12 16.4502 12.98L11.0502 7.57C10.8002 7.32 10.7602 6.94 10.9502 6.64L12.6402 3.97C13.1102 3.23 13.8202 2.77 14.6502 2.68C15.5802 2.59 16.5402 2.95 17.2902 3.7L20.3202 6.73C21.0402 7.45 21.4002 8.42 21.2902 9.38C21.2002 10.22 20.7502 10.95 20.0502 11.39L17.3802 13.08C17.2602 13.16 17.1202 13.2 16.9802 13.2ZM12.5302 6.94L17.0902 11.5L19.2602 10.13C19.5702 9.93 19.7702 9.61 19.8102 9.22C19.8702 8.72 19.6602 8.19 19.2702 7.8L16.2402 4.77C15.8102 4.34 15.2902 4.11 14.8202 4.18C14.4402 4.22 14.1302 4.43 13.9102 4.78L12.5302 6.94Z" fill="currentColor"/>

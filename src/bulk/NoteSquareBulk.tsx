@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const NoteSquareBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const NoteSquareBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M21 7.52002V15.48C21 15.84 20.98 16.19 20.93 16.51C20.89 16.51 20.84 16.49 20.8 16.48L18.52 15.72C18.5 15.71 18.49 15.7 18.47 15.7V20.31C17.99 20.58 17.45 20.77 16.85 20.87C16.95 20.69 17.01 20.48 17.01 20.25C17.01 19.52 16.41 18.92 15.67 18.92C14.94 18.92 14.34 19.52 14.34 20.25C14.34 20.53 14.42 20.79 14.57 21H7.52002C4.07002 21 2 18.94 2 15.48V7.52002C2 4.06002 4.07002 2 7.52002 2H15.48C18.93 2 21 4.06002 21 7.52002Z" fill="currentColor"/>

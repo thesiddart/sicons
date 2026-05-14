@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AlignRightBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AlignRightBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M4.62012 15.98V17.02C4.62012 18.61 5.22012 19.25 6.74012 19.25H18.6201V13.75H6.74012C5.22012 13.75 4.62012 14.39 4.62012 15.98Z" fill="currentColor"/>

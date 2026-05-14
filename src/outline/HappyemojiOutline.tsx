@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HappyemojiOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HappyemojiOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9697 22.75C6.04973 22.75 1.21973 17.93 1.21973 12C1.21973 6.07 6.04973 1.25 11.9697 1.25C17.8897 1.25 22.7197 6.07 22.7197 12C22.7197 17.93 17.8997 22.75 11.9697 22.75ZM11.9697 2.75C6.86973 2.75 2.71973 6.9 2.71973 12C2.71973 17.1 6.86973 21.25 11.9697 21.25C17.0697 21.25 21.2197 17.1 21.2197 12C21.2197 6.9 17.0697 2.75 11.9697 2.75Z" fill="currentColor"/>

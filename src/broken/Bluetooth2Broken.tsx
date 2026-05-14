@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Bluetooth2Broken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Bluetooth2Broken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.2306 3.38999L13.1006 2.43998C12.1006 1.60998 11.2806 1.98998 11.2806 3.28998V20.71C11.2806 22.01 12.1006 22.39 13.1006 21.56L16.9506 18.35C17.4906 17.9 17.5006 17.15 16.9906 16.68L4.64062 5.35996" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>

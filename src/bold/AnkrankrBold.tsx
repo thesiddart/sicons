@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AnkrankrBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AnkrankrBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.8899 10.5298C20.4799 10.5298 20.1399 10.1898 20.1399 9.77983V6.90983L11.9999 2.83982L3.85986 6.90983V9.77983C3.85986 10.1898 3.51986 10.5298 3.10986 10.5298C2.69986 10.5298 2.35986 10.1898 2.35986 9.77983V6.44982C2.35986 6.16982 2.51991 5.90983 2.77991 5.77983L11.6699 1.33982C11.8799 1.22982 12.1299 1.22982 12.3399 1.33982L21.2299 5.77983C21.4799 5.90983 21.6499 6.16982 21.6499 6.44982V9.77983C21.6399 10.1898 21.2999 10.5298 20.8899 10.5298Z" fill="currentColor"/>

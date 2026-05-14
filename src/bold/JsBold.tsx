@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const JsBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const JsBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.25 16.75H13.5C12.12 16.75 11 15.63 11 14.25C11 13.84 11.34 13.5 11.75 13.5C12.16 13.5 12.5 13.84 12.5 14.25C12.5 14.8 12.95 15.25 13.5 15.25H15.25C15.8 15.25 16.25 14.8 16.25 14.25C16.25 13.7 15.8 13.25 15.25 13.25H13.5C12.12 13.25 11 12.13 11 10.75C11 9.37 12.12 8.25 13.5 8.25H15.25C16.63 8.25 17.75 9.37 17.75 10.75C17.75 11.16 17.41 11.5 17 11.5C16.59 11.5 16.25 11.16 16.25 10.75C16.25 10.2 15.8 9.75 15.25 9.75H13.5C12.95 9.75 12.5 10.2 12.5 10.75C12.5 11.3 12.95 11.75 13.5 11.75H15.25C16.63 11.75 17.75 12.87 17.75 14.25C17.75 15.63 16.63 16.75 15.25 16.75Z" fill="currentColor"/>

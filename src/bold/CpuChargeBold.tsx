@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CpuChargeBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CpuChargeBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.98 7.75H10.01C8.75999 7.75 7.73999 8.76 7.73999 10.02V13.99C7.73999 15.24 8.74999 16.26 10.01 16.26H13.98C15.23 16.26 16.25 15.25 16.25 13.99V10.02C16.25 8.76 15.24 7.75 13.98 7.75ZM13.5 12.98L12.61 14.53C12.48 14.76 12.24 14.88 12 14.88C11.88 14.88 11.75 14.85 11.65 14.79C11.31 14.6 11.19 14.17 11.39 13.83L12.03 12.72H11.47C11.02 12.72 10.65 12.52 10.45 12.18C10.25 11.84 10.27 11.42 10.5 11.03L11.39 9.48C11.59 9.14 12.02 9.03 12.35 9.22C12.69 9.41 12.81 9.84 12.61 10.18L11.97 11.29H12.53C12.98 11.29 13.35 11.49 13.55 11.83C13.75 12.17 13.73 12.59 13.5 12.98Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ClockBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ClockBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.718 18.9977C15.1158 18.8426 15.5753 19.1816 15.4901 19.6C15.0001 21.5 13.9001 22 12.5501 22H11.4601C10.1101 22 9.00006 21.5 8.52006 19.59C8.43781 19.171 8.89508 18.8347 9.29271 18.9905C10.1473 19.3253 11.0609 19.5 12.0001 19.5C12.9438 19.5 13.8619 19.3314 14.718 18.9977Z" fill="currentColor"/>

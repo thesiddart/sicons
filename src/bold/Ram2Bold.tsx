@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Ram2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Ram2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.0098 20.97C16.0154 21.5261 15.5661 21.98 15.0099 21.98H8.99325C8.44357 21.98 7.99695 21.5364 7.99327 20.9867L7.97998 19C7.97998 17.9 8.86998 17 9.97998 17H13.99C15.09 17 15.98 17.89 15.99 18.99L16.0098 20.97Z" fill="currentColor"/>

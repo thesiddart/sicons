@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LikeShapesBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LikeShapesBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.88916 14.82L11.3391 15.94C11.5291 16.13 11.9492 16.22 12.2292 16.22H13.9991C14.5591 16.22 15.1691 15.8 15.3091 15.24L16.4291 11.82C16.6591 11.17 16.2392 10.6 15.5392 10.6H13.6692C13.3892 10.6 13.1592 10.3701 13.1992 10.0401L13.4291 8.54008C13.5191 8.12008 13.2392 7.65005 12.8192 7.51005C12.4492 7.37005 11.9792 7.56 11.7892 7.84L9.86914 10.69" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10"/>

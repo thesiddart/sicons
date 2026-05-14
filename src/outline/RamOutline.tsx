@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RamOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RamOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.5 22.75H8.5C4.79 22.75 2.75 20.71 2.75 17V7C2.75 3.29 4.79 1.25 8.5 1.25H15.5C19.15 1.25 21.25 3.35 21.25 7V8C21.25 8.96 20.46 9.75 19.5 9.75C19.36 9.75 19.25 9.86 19.25 10V12.17C19.25 12.5 19.38 12.82 19.62 13.05L20.45 13.88C20.97 14.4 21.26 15.09 21.26 15.82V17C21.25 20.65 19.15 22.75 15.5 22.75ZM8.5 2.75C5.64 2.75 4.25 4.14 4.25 7V17C4.25 19.86 5.64 21.25 8.5 21.25H15.5C18.32 21.25 19.75 19.82 19.75 17V15.83C19.75 15.5 19.62 15.18 19.38 14.95L18.55 14.12C18.03 13.6 17.74 12.91 17.74 12.18V10C17.74 9.04 18.53 8.25 19.49 8.25C19.63 8.25 19.74 8.14 19.74 8V7C19.74 4.18 18.31 2.75 15.49 2.75H8.5Z" fill="currentColor"/>

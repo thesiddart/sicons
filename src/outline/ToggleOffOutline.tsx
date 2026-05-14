@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ToggleOffOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ToggleOffOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.7 16.75H8.3C5.88 16.75 4.75 15.62 4.75 13.2V10.8C4.75 8.38 5.88 7.25 8.3 7.25H10.7C13.12 7.25 14.25 8.38 14.25 10.8V13.2C14.25 15.62 13.12 16.75 10.7 16.75ZM8.3 8.75C6.71 8.75 6.25 9.21 6.25 10.8V13.2C6.25 14.79 6.71 15.25 8.3 15.25H10.7C12.29 15.25 12.75 14.79 12.75 13.2V10.8C12.75 9.21 12.29 8.75 10.7 8.75H8.3Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GalleryTickBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GalleryTickBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22.0001 13.9001V16.1901C22.0001 19.8301 19.8301 22.0001 16.1901 22.0001H7.81006C5.26006 22.0001 3.42006 20.9301 2.56006 19.0301L2.67006 18.9501L7.59006 15.6501C8.39006 15.1101 9.52006 15.1701 10.2301 15.7901L10.5701 16.0701C11.3501 16.7401 12.6101 16.7401 13.3901 16.0701L17.5501 12.5001C18.3301 11.8301 19.5901 11.8301 20.3701 12.5001L22.0001 13.9001Z" fill="currentColor"/>

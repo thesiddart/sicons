@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BezierOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BezierOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M3 9.75C1.48 9.75 0.25 8.52 0.25 7C0.25 5.48 1.48 4.25 3 4.25C4.52 4.25 5.75 5.48 5.75 7C5.75 8.52 4.52 9.75 3 9.75ZM3 5.75C2.31 5.75 1.75 6.31 1.75 7C1.75 7.69 2.31 8.25 3 8.25C3.69 8.25 4.25 7.69 4.25 7C4.25 6.31 3.69 5.75 3 5.75Z" fill="currentColor"/>

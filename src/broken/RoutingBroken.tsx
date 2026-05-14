@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RoutingBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RoutingBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6.94003 9.41988C6.12003 10.1999 4.83003 10.1899 4.01003 9.41988C2.89003 8.34988 1.60002 6.62988 2.07002 4.59988C2.87002 1.13988 8.08003 1.13988 8.87003 4.59988C8.99003 5.08988 9.00002 5.54988 8.94002 5.99988" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

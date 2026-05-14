@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HomeWifiOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HomeWifiOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.5998 22.56H6.39983C4.57983 22.56 2.91983 21.1599 2.61983 19.3599L1.28984 11.4C1.07984 10.16 1.67985 8.56999 2.66985 7.77999L9.59984 2.22994C10.9398 1.14994 13.0498 1.15995 14.3998 2.23995L21.3298 7.77999C22.3098 8.56999 22.9098 10.16 22.7098 11.4L21.3798 19.3599C21.0798 21.1299 19.3898 22.56 17.5998 22.56ZM11.9898 2.9399C11.4598 2.9399 10.9298 3.09999 10.5398 3.40999L3.60982 8.95992C3.03982 9.41992 2.64982 10.44 2.76982 11.16L4.09984 19.12C4.27984 20.17 5.32983 21.06 6.39983 21.06H17.5998C18.6698 21.06 19.7198 20.1699 19.8998 19.1099L21.2298 11.15C21.3498 10.43 20.9499 9.39991 20.3899 8.94991L13.4598 3.40999C13.0598 3.09999 12.5298 2.9399 11.9898 2.9399Z" fill="currentColor"/>

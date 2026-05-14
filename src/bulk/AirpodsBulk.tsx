@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AirpodsBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AirpodsBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M10.5 4.83002V17.11C10.5 17.93 9.98 18.62 9.25 18.88C9.05 18.96 8.82999 19 8.60999 19C8.29999 19 8 18.92 7.75 18.78C7.14 18.47 6.72 17.84 6.72 17.11V9.56H5.78C3.7 9.56 2 7.86003 2 5.78003C2 4.74003 2.41999 3.79999 3.10999 3.10999C3.79999 2.41999 4.74 2 5.78 2H7.67001C9.22001 2 10.5 3.28002 10.5 4.83002Z" fill="currentColor"/>

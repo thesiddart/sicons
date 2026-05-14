@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const KeyOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const KeyOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6.18014 22.75C6.08014 22.75 5.97014 22.74 5.88014 22.73L3.71014 22.43C2.67014 22.29 1.73014 21.36 1.57014 20.3L1.27014 18.11C1.17014 17.41 1.47014 16.5 1.97014 15.99L6.36014 11.6C5.65014 8.76005 6.47014 5.76005 8.56014 3.69005C11.8001 0.460045 17.0701 0.450045 20.3201 3.69005C21.8901 5.26005 22.7501 7.35005 22.7501 9.57005C22.7501 11.79 21.8901 13.88 20.3201 15.45C18.2201 17.53 15.2301 18.35 12.4101 17.63L8.01014 22.02C7.59014 22.46 6.84014 22.75 6.18014 22.75ZM14.4301 2.76005C12.6801 2.76005 10.9401 3.42005 9.61014 4.75005C7.81014 6.54005 7.16014 9.16005 7.91014 11.6C7.99014 11.87 7.92014 12.15 7.72014 12.35L3.02014 17.05C2.85014 17.22 2.71014 17.66 2.74014 17.89L3.04014 20.08C3.10014 20.46 3.51014 20.89 3.89014 20.94L6.07014 21.24C6.31014 21.28 6.75014 21.14 6.92014 20.97L11.6401 16.26C11.8401 16.06 12.1301 16 12.3901 16.08C14.8001 16.84 17.4301 16.19 19.2301 14.39C20.5101 13.11 21.2201 11.39 21.2201 9.57005C21.2201 7.74005 20.5101 6.03005 19.2301 4.75005C17.9301 3.43005 16.1801 2.76005 14.4301 2.76005Z" fill="currentColor"/>

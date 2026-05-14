@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const OkbokbOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const OkbokbOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 17.75C13.83 17.75 11.25 15.17 11.25 12C11.25 8.83 13.83 6.25 17 6.25C20.17 6.25 22.75 8.83 22.75 12C22.75 15.17 20.17 17.75 17 17.75ZM17 7.75C14.66 7.75 12.75 9.66 12.75 12C12.75 14.34 14.66 16.25 17 16.25C19.34 16.25 21.25 14.34 21.25 12C21.25 9.66 19.34 7.75 17 7.75Z" fill="currentColor"/>

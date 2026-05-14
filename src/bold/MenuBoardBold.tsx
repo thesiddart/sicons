@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MenuBoardBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MenuBoardBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.9 9.85L21.49 19.74C21.51 20.01 21.38 20.19 21.31 20.27C21.23 20.36 21.06 20.5 20.78 20.5H18.05L20.21 9.85H20.9ZM22 6L21.99 6.02C22.01 6.26 21.99 6.51 21.93 6.76L14.56 20.29C14.32 21.3 13.42 22 12.38 22H20.78C22.07 22 23.09 20.91 22.99 19.62L22 6Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RefreshLeftSquareOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RefreshLeftSquareOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 18.01C8.83 18.01 6.25 15.43 6.25 12.26C6.25 11.12 6.58 10.01 7.22 9.07C7.45 8.73 7.91999 8.63 8.25999 8.86C8.59999 9.09 8.7 9.56 8.47 9.9C8 10.6 7.75999 11.42 7.75999 12.26C7.75999 14.6 9.66999 16.51 12.01 16.51C14.35 16.51 16.26 14.6 16.26 12.26C16.26 9.92 14.35 8.01 12.01 8.01C11.51 8.01 11.03 8.08 10.56 8.22C10.17 8.34 9.75 8.12 9.62 7.72C9.5 7.32 9.72 6.9 10.12 6.78C10.73 6.59 11.36 6.5 12.01 6.5C15.18 6.5 17.76 9.08 17.76 12.25C17.76 15.42 15.17 18.01 12 18.01Z" fill="currentColor"/>

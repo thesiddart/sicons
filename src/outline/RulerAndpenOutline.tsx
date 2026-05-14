@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RulerAndpenOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RulerAndpenOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.4697 22.75H14.4697C12.0497 22.75 10.7197 21.42 10.7197 19V5C10.7197 2.58 12.0497 1.25 14.4697 1.25H18.4697C20.8897 1.25 22.2197 2.58 22.2197 5V19C22.2197 21.42 20.8797 22.75 18.4697 22.75ZM14.4697 2.75C12.8897 2.75 12.2197 3.42 12.2197 5V19C12.2197 20.58 12.8897 21.25 14.4697 21.25H18.4697C20.0497 21.25 20.7197 20.58 20.7197 19V5C20.7197 3.42 20.0497 2.75 18.4697 2.75H14.4697Z" fill="currentColor"/>

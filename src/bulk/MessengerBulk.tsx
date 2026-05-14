@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MessengerBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MessengerBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M5.67999 18.44V20.29C5.67999 21.06 6.49998 21.54 7.16998 21.16L9.03003 20.11C9.97003 20.38 10.96 20.52 11.99 20.52C17.51 20.52 21.99 16.37 21.99 11.26C21.99 6.14999 17.51 2 11.99 2C6.46999 2 1.98999 6.14999 1.98999 11.26C1.99999 14.15 3.43999 16.74 5.67999 18.44Z" fill="currentColor"/>

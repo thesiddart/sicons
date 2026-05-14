@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Coin1Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Coin1Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 22.75C8 22.75 4.75 19.88 4.75 16.35V12.65C4.75 12.24 5.09 11.9 5.5 11.9C5.91 11.9 6.25 12.24 6.25 12.65C6.25 15.27 8.72 17.25 12 17.25C15.28 17.25 17.75 15.27 17.75 12.65C17.75 12.24 18.09 11.9 18.5 11.9C18.91 11.9 19.25 12.24 19.25 12.65V16.35C19.25 19.88 16 22.75 12 22.75ZM6.25 16.46C6.32 19.11 8.87 21.25 12 21.25C15.13 21.25 17.68 19.11 17.75 16.46C16.45 17.87 14.39 18.75 12 18.75C9.61 18.75 7.56 17.87 6.25 16.46Z" fill="currentColor"/>

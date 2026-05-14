@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HarmonyoneBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HarmonyoneBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22 5.74023V18.2602C22 20.3202 20.32 22.0002 18.26 22.0002H17.74C15.68 22.0002 14 20.3202 14 18.2602V11.8802C14.35 11.8402 14.69 11.7902 15.01 11.7202C17.05 11.3502 18.6 10.6502 19.72 9.94023C21.16 9.04023 22 7.44023 22 5.74023Z" fill="currentColor"/>

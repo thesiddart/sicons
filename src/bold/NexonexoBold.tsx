@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const NexonexoBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const NexonexoBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22 6.28017V17.7102C22 17.8902 21.91 18.0502 21.76 18.1402L18.87 19.8702C18.71 19.9602 18.52 19.9602 18.36 19.8702L8.75 14.2802C8.6 14.1902 8.5 14.0302 8.5 13.8502V12.5202C8.5 12.1302 8.91999 11.8902 9.25999 12.0902L17.75 17.1802C18.08 17.3802 18.51 17.1402 18.51 16.7502V8.42017C18.51 8.24017 18.42 8.08018 18.27 7.99018L14.19 5.54016C13.87 5.35016 13.87 4.88016 14.19 4.68016L16.76 3.13018C16.92 3.03018 17.12 3.03018 17.28 3.13018L21.78 5.83017C21.91 5.94017 22 6.11017 22 6.28017Z" fill="currentColor"/>

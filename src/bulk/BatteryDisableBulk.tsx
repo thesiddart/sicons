@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BatteryDisableBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BatteryDisableBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.4202 8.99998C20.2802 8.98998 20.1002 8.97998 19.9002 8.97998C19.5102 8.97998 19.2002 9.28998 19.2002 9.67998V14.33C19.2002 14.72 19.5102 15.03 19.9002 15.03C20.1002 15.03 20.2702 15.02 20.4402 15.01C22.0002 14.83 22.0002 13.73 22.0002 12.93V11.07C22.0002 10.27 22.0002 9.16998 20.4202 8.99998Z" fill="currentColor"/>

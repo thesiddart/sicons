@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DiscoverBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DiscoverBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M20.9799 3.01986C20.1099 2.14986 18.8799 1.80986 17.6899 2.10986L7.88986 4.55986C6.23986 4.96986 4.96986 6.24986 4.55986 7.88986L2.10986 17.6999C1.80986 18.8899 2.14986 20.1199 3.01986 20.9899C3.67986 21.6399 4.54986 21.9999 5.44986 21.9999C5.72986 21.9999 6.01986 21.9699 6.29986 21.8899L16.1099 19.4399C17.7499 19.0299 19.0299 17.7599 19.4399 16.1099L21.8899 6.29986C22.1899 5.10986 21.8499 3.87986 20.9799 3.01986Z" fill="currentColor"/>

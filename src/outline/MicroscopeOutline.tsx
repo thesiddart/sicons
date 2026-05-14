@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MicroscopeOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MicroscopeOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.0301 11.5199C14.7901 11.5199 14.5501 11.3999 14.4101 11.1899L11.2101 6.40994C11.1001 6.23994 11.0601 6.03994 11.1001 5.84994C11.1401 5.65994 11.2501 5.47993 11.4201 5.36993L17.0801 1.57992C17.5201 1.27992 18.0501 1.17993 18.5701 1.27993C19.0901 1.37993 19.5401 1.67993 19.8401 2.11993L21.6601 4.82992C22.2701 5.73992 22.0301 6.97993 21.1101 7.58993L15.4601 11.3799C15.3201 11.4799 15.1801 11.5199 15.0301 11.5199ZM12.8801 6.19995L15.2401 9.72995L20.2701 6.35992C20.5001 6.20992 20.5601 5.89993 20.4001 5.67993L18.5801 2.96994C18.5101 2.85994 18.4001 2.78994 18.2701 2.75994C18.1401 2.72994 18.0101 2.75992 17.9001 2.82992L12.8801 6.19995Z" fill="currentColor"/>

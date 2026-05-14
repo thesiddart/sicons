@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BrifecaseTickBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BrifecaseTickBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M21.8499 11.4102L21.2299 18.1902C21.0199 20.1902 20.1999 22.2302 15.7999 22.2302H8.1799C3.7799 22.2302 2.9599 20.1902 2.7599 18.2002L2.1499 11.6902C2.1599 11.7002 2.1699 11.7102 2.1899 11.7202C2.5299 11.9402 2.8599 12.1602 3.2199 12.3602C3.3599 12.4502 3.5099 12.5302 3.6599 12.6102C4.7899 13.2302 5.9999 13.7202 7.2499 14.0602C7.7499 14.2102 8.2599 14.3202 8.7799 14.4102C8.9799 16.0102 10.3499 17.2502 11.9999 17.2502C13.6699 17.2502 15.0499 15.9802 15.2299 14.3502V14.3402C15.7399 14.2402 16.2499 14.1102 16.7499 13.9602C17.9999 13.5702 19.2099 13.0502 20.3399 12.3902C20.3999 12.3602 20.4499 12.3302 20.4899 12.3002C20.9499 12.0502 21.3899 11.7602 21.8099 11.4602C21.8299 11.4502 21.8399 11.4302 21.8499 11.4102Z" fill="currentColor"/>

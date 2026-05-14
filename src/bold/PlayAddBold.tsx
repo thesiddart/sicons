@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PlayAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PlayAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.85 10.2502C21.07 5.80016 17.24 2.35016 12.73 2.03016C6.62996 1.59016 1.58996 6.64016 2.02996 12.7302C2.34996 17.2402 5.79996 21.0602 10.25 21.8402C11.4 22.0402 12.52 22.0402 13.59 21.8602C13.9 21.8102 14.08 21.4702 13.96 21.1902C13.66 20.5102 13.5 19.7602 13.5 18.9902C13.5 17.3002 14.25 15.7402 15.57 14.7002C16.54 13.9202 17.76 13.4902 19 13.4902C19.78 13.4902 20.52 13.6502 21.19 13.9502C21.48 14.0802 21.81 13.8902 21.87 13.5802C22.05 12.5202 22.05 11.4002 21.85 10.2502ZM14.5 13.5702L13.3 14.2602L12.1 14.9502C10.61 15.8102 9.38996 15.1102 9.38996 13.3802V12.0002V10.6102C9.38996 8.89016 10.61 8.18016 12.1 9.04016L13.3 9.73016L14.5 10.4202C15.99 11.3002 15.99 12.7002 14.5 13.5702Z" fill="currentColor"/>

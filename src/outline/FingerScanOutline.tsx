@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FingerScanOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FingerScanOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9996 15.63C10.6796 15.63 9.59961 14.55 9.59961 13.23V10.76C9.59961 9.44001 10.6796 8.35999 11.9996 8.35999C13.3196 8.35999 14.3996 9.44001 14.3996 10.76V13.23C14.3996 14.56 13.3196 15.63 11.9996 15.63ZM11.9996 9.87C11.5096 9.87 11.0996 10.27 11.0996 10.77V13.24C11.0996 13.74 11.4996 14.14 11.9996 14.14C12.4996 14.14 12.8996 13.74 12.8996 13.24V10.77C12.8996 10.27 12.4896 9.87 11.9996 9.87Z" fill="currentColor"/>

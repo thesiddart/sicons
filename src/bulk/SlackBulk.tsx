@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SlackBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SlackBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.5401 1.87988C13.3101 1.87988 12.3101 2.87989 12.3101 4.10989V8.74989C12.3101 9.97989 13.3101 10.9799 14.5401 10.9799C15.7701 10.9799 16.7701 9.97989 16.7701 8.74989V4.10989C16.7701 2.88989 15.7701 1.87988 14.5401 1.87988Z" fill="currentColor"/>

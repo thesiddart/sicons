@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StickynoteBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StickynoteBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.28998 6.29C7.86998 6.29 7.53998 5.95 7.53998 5.54V2.75C7.53998 2.34 7.86998 2 8.28998 2C8.70998 2 9.03998 2.34 9.03998 2.75V5.53C9.03998 5.95 8.70998 6.29 8.28998 6.29Z" fill="currentColor"/>

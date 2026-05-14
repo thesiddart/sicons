@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ToggleOnCircleBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ToggleOnCircleBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M10.14 3.85986H13.86C18.35 3.85986 22 7.50986 22 11.9999C22 16.4899 18.35 20.1399 13.86 20.1399H10.14C5.65 20.1399 2 16.4899 2 11.9999C2 7.50986 5.65 3.85986 10.14 3.85986Z" fill="currentColor"/>

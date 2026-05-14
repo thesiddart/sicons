@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WanchainwanBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WanchainwanBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.7499 9.42999L8.49992 15L7.86991 16.09L5.39991 20.31C5.21991 20.63 4.75992 20.64 4.55992 20.33L1.17991 15.28C1.06991 15.11 1.06991 14.89 1.17991 14.72L4.84993 9.22C4.93993 9.08 5.09991 9 5.26991 9H11.4999L11.7499 9.42999Z" fill="currentColor"/>

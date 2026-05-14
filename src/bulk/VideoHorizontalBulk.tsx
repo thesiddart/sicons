@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VideoHorizontalBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VideoHorizontalBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M22 7.81V16.19C22 16.25 22 16.31 21.99 16.36C21.99 16.9 21.93 17.4 21.82 17.86C21.35 20.02 19.91 21.42 17.72 21.85C17.25 21.95 16.75 22 16.22 22H7.72C7.19 21.99 6.69 21.94 6.22 21.84C4.07 21.4 2.65 20 2.18 17.86C2.07 17.4 2.01 16.9 2.01 16.36C2 16.31 2 16.25 2 16.19V7.81C2 7.3 2.04 6.81 2.13 6.36C2.55 4.1 4 2.62 6.22 2.16C6.69 2.05 7.19 2 7.72 2H16.23C16.76 2 17.26 2.05 17.72 2.15C19.98 2.59 21.45 4.08 21.87 6.36C21.96 6.81 22 7.3 22 7.81Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CpuOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CpuOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.4 20.75H9.6C5.21 20.75 3.25 18.79 3.25 14.4V9.6C3.25 5.21 5.21 3.25 9.6 3.25H14.4C18.79 3.25 20.75 5.21 20.75 9.6V14.4C20.75 18.79 18.79 20.75 14.4 20.75ZM9.6 4.75C6.02 4.75 4.75 6.02 4.75 9.6V14.4C4.75 17.98 6.02 19.25 9.6 19.25H14.4C17.98 19.25 19.25 17.98 19.25 14.4V9.6C19.25 6.02 17.98 4.75 14.4 4.75H9.6Z" fill="currentColor"/>

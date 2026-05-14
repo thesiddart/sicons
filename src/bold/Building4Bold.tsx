@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Building4Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Building4Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.3201 3H5.0901C3.1001 3 2.1001 4.01 2.1001 6.02V22H7.5001V18.25C7.5001 17.84 7.8401 17.5 8.2501 17.5C8.6601 17.5 9.0001 17.83 9.0001 18.25V22H14.3001V6.02C14.3001 4.01 13.3101 3 11.3201 3ZM10.7501 12.75H5.8001C5.3901 12.75 5.0501 12.41 5.0501 12C5.0501 11.59 5.3901 11.25 5.8001 11.25H10.7501C11.1601 11.25 11.5001 11.59 11.5001 12C11.5001 12.41 11.1601 12.75 10.7501 12.75ZM10.7501 9H5.8001C5.3901 9 5.0501 8.66 5.0501 8.25C5.0501 7.84 5.3901 7.5 5.8001 7.5H10.7501C11.1601 7.5 11.5001 7.84 11.5001 8.25C11.5001 8.66 11.1601 9 10.7501 9Z" fill="currentColor"/>

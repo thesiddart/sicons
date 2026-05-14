@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ChartFailOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ChartFailOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.2299 21.52C17.0399 21.52 16.8499 21.45 16.6999 21.3C16.4099 21.01 16.4099 20.53 16.6999 20.24L20.2399 16.7C20.5299 16.41 21.0099 16.41 21.2999 16.7C21.5899 16.99 21.5899 17.47 21.2999 17.76L17.7599 21.3C17.6199 21.44 17.4199 21.52 17.2299 21.52Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PrinterSlashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PrinterSlashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.75 7.75H7.25C6.84 7.75 6.5 7.41 6.5 7V5C6.5 2.44 7.69 1.25 10.25 1.25H13.75C16.31 1.25 17.5 2.44 17.5 5V7C17.5 7.41 17.16 7.75 16.75 7.75ZM8 6.25H16V5C16 3.3 15.45 2.75 13.75 2.75H10.25C8.55 2.75 8 3.3 8 5V6.25Z" fill="currentColor"/>

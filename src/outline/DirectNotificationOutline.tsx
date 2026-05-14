@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DirectNotificationOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DirectNotificationOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.7605 17.75H10.2305C9.13047 17.75 8.26047 17.21 7.77047 16.23L6.88047 14.44C6.67047 14.01 6.24047 13.75 5.76047 13.75H1.98047C1.57047 13.75 1.23047 13.41 1.23047 13C1.23047 12.59 1.57047 12.25 1.98047 12.25H5.77047C6.82047 12.25 7.76047 12.83 8.23047 13.77L9.12047 15.56C9.35047 16.02 9.72047 16.25 10.2405 16.25H13.7705C14.2505 16.25 14.6805 15.99 14.8905 15.56L15.7805 13.77C16.2505 12.83 17.1905 12.25 18.2405 12.25H21.9805C22.3905 12.25 22.7305 12.59 22.7305 13C22.7305 13.41 22.3905 13.75 21.9805 13.75H18.2405C17.7605 13.75 17.3305 14.01 17.1205 14.44L16.2305 16.23C15.7505 17.17 14.8105 17.75 13.7605 17.75Z" fill="currentColor"/>

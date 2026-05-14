@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Like1Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Like1Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.39001 18.4902V8.33022C8.39001 7.93022 8.51001 7.54022 8.73001 7.21022L11.46 3.15022C11.89 2.50022 12.96 2.04022 13.87 2.38022C14.85 2.71022 15.5 3.81022 15.29 4.79022L14.77 8.06022C14.73 8.36022 14.81 8.63022 14.98 8.84022C15.15 9.03022 15.4 9.15022 15.67 9.15022H19.78C20.57 9.15022 21.25 9.47022 21.65 10.0302C22.03 10.5702 22.1 11.2702 21.85 11.9802L19.39 19.4702C19.08 20.7102 17.73 21.7202 16.39 21.7202H12.49C11.82 21.7202 10.88 21.4902 10.45 21.0602L9.17001 20.0702C8.68001 19.7002 8.39001 19.1102 8.39001 18.4902Z" fill="currentColor"/>

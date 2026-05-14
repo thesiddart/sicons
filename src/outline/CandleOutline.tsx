@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CandleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CandleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6.5 22.75C6.09 22.75 5.75 22.41 5.75 22V15C5.75 14.59 6.09 14.25 6.5 14.25C6.91 14.25 7.25 14.59 7.25 15V22C7.25 22.41 6.91 22.75 6.5 22.75Z" fill="currentColor"/>

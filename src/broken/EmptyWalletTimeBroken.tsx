@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const EmptyWalletTimeBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const EmptyWalletTimeBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22.5608 13.9699V16.03C22.5608 16.58 22.1208 17.0299 21.5608 17.0499H19.6008C18.5208 17.0499 17.5308 16.2599 17.4408 15.1799C17.3808 14.5499 17.6208 13.9599 18.0408 13.5499C18.4108 13.1699 18.9208 12.95 19.4808 12.95H21.5608C22.1208 12.97 22.5608 13.4199 22.5608 13.9699Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

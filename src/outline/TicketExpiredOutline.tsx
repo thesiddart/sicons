@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TicketExpiredOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TicketExpiredOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.3802 20.75H10.9102C10.5002 20.75 10.1602 20.41 10.1602 20C10.1602 19.59 10.5002 19.25 10.9102 19.25H17.3802C20.4402 19.25 21.1602 18.75 21.2402 16.03C19.9202 15.69 18.9402 14.49 18.9402 13.07C18.9402 11.64 19.9202 10.43 21.2502 10.09V9.83C21.2502 6.54 20.6702 5.96 17.3802 5.96H11.7502V12C11.7502 12.41 11.4102 12.75 11.0002 12.75C10.5902 12.75 10.2502 12.41 10.2502 12V5.21C10.2502 4.8 10.5902 4.46 11.0002 4.46H17.3802C21.5002 4.46 22.7502 5.71 22.7502 9.83V10.75C22.7502 11.16 22.4102 11.5 22.0002 11.5C21.1402 11.5 20.4402 12.2 20.4402 13.07C20.4402 13.93 21.1402 14.63 22.0002 14.63C22.4102 14.63 22.7502 14.97 22.7502 15.38C22.7502 19.5 21.5002 20.75 17.3802 20.75Z" fill="currentColor"/>

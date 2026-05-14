@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RedoOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RedoOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.8701 19.06H8.87012C5.70012 19.06 3.12012 16.48 3.12012 13.31C3.12012 10.14 5.70012 7.56 8.87012 7.56H19.8701C20.2801 7.56 20.6201 7.9 20.6201 8.31C20.6201 8.72 20.2801 9.06 19.8701 9.06H8.87012C6.53012 9.06 4.62012 10.97 4.62012 13.31C4.62012 15.65 6.53012 17.56 8.87012 17.56H16.8701C17.2801 17.56 17.6201 17.9 17.6201 18.31C17.6201 18.72 17.2901 19.06 16.8701 19.06Z" fill="currentColor"/>

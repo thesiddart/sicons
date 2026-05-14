@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AirdropOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AirdropOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9995 13.74C11.2195 13.74 10.4795 13.44 9.90946 12.88C9.17946 12.15 8.88946 11.1 9.12946 10.07C9.37946 9.02001 10.2195 8.17999 11.2695 7.92999C12.2895 7.67999 13.3395 7.97002 14.0795 8.71002C14.8195 9.45002 15.0995 10.49 14.8595 11.52C14.6095 12.57 13.7695 13.41 12.7195 13.66C12.4795 13.71 12.2395 13.74 11.9995 13.74ZM11.9995 9.34003C11.8795 9.34003 11.7495 9.36001 11.6295 9.39001C11.1295 9.51001 10.7195 9.91998 10.5995 10.42C10.4695 10.94 10.6095 11.45 10.9795 11.81C11.3495 12.18 11.8495 12.31 12.3795 12.19C12.8795 12.07 13.2895 11.66 13.4095 11.16C13.5395 10.64 13.3995 10.13 13.0295 9.77002C12.7495 9.49002 12.3895 9.34003 11.9995 9.34003Z" fill="currentColor"/>

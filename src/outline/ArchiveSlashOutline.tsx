@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ArchiveSlashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ArchiveSlashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M2.00043 22.75C1.81043 22.75 1.62043 22.68 1.47043 22.53C1.18043 22.24 1.18043 21.76 1.47043 21.47L21.4704 1.47C21.7604 1.18 22.2404 1.18 22.5304 1.47C22.8204 1.76 22.8204 2.24 22.5304 2.53L2.53043 22.53C2.38043 22.68 2.19043 22.75 2.00043 22.75Z" fill="currentColor"/>

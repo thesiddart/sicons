@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Like1Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Like1Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.2804 22.1H12.4804C11.9204 22.1 10.7004 21.93 10.0504 21.28L7.02035 18.94L7.94035 17.75L11.0404 20.15C11.2904 20.39 11.9204 20.59 12.4804 20.59H16.2804C17.1804 20.59 18.1504 19.87 18.3504 19.06L20.7704 11.71C20.9304 11.27 20.9004 10.87 20.6904 10.58C20.4704 10.27 20.0704 10.09 19.5804 10.09H15.5804C15.0604 10.09 14.5804 9.86999 14.2504 9.48999C13.9104 9.09999 13.7604 8.57999 13.8404 8.03999L14.3404 4.82999C14.4604 4.26999 14.0804 3.63999 13.5404 3.45999C13.0504 3.27999 12.4204 3.53999 12.2004 3.85999L8.10035 9.95999L6.86035 9.12999L10.9604 3.02999C11.5904 2.08999 12.9704 1.63999 14.0504 2.04999C15.3004 2.45999 16.1004 3.83999 15.8204 5.11999L15.3304 8.26999C15.3204 8.33999 15.3204 8.43999 15.3904 8.51999C15.4404 8.56999 15.5104 8.59999 15.5904 8.59999H19.5904C20.5704 8.59999 21.4204 9.00999 21.9204 9.71999C22.4104 10.41 22.5104 11.32 22.1904 12.2L19.8004 19.48C19.4304 20.93 17.8904 22.1 16.2804 22.1Z" fill="currentColor"/>

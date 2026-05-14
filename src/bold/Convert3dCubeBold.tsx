@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Convert3dCubeBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Convert3dCubeBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.9999 22.75C14.7299 22.75 14.4799 22.6 14.3499 22.37C14.2199 22.14 14.2199 21.85 14.3599 21.62L15.4099 19.87C15.6199 19.51 16.0799 19.4 16.4399 19.61C16.7999 19.82 16.9099 20.28 16.6999 20.64L16.4299 21.09C19.1899 20.44 21.2599 17.96 21.2599 15C21.2599 14.59 21.5999 14.25 22.0099 14.25C22.4199 14.25 22.7599 14.59 22.7599 15C22.7499 19.27 19.2699 22.75 14.9999 22.75Z" fill="currentColor"/>

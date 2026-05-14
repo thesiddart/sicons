@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TriangleBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TriangleBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.25 3.9001V12.9201C11.25 13.2501 11.09 13.5501 10.82 13.7401L3.60999 18.7901C3.01999 19.2001 2.17999 18.8801 2.04999 18.1701C1.89999 17.3101 2.09999 16.3001 2.69999 15.2101L5.81999 9.6001L8.75999 4.3101C8.98999 3.9001 9.23999 3.5401 9.49999 3.2301C10.1 2.5301 11.25 2.9801 11.25 3.9001Z" fill="currentColor"/>

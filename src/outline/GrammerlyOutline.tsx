@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GrammerlyOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GrammerlyOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0001 22.72C9.33006 22.72 6.65005 21.76 4.62005 19.83C2.49005 17.81 1.29006 15.09 1.25006 12.17C1.21006 9.23997 2.33005 6.48997 4.40005 4.41997C8.59005 0.229966 15.4101 0.229966 19.6001 4.41997C21.6701 6.48997 22.7901 9.23997 22.7501 12.17C22.7101 15.1 21.5101 17.82 19.3801 19.83C17.3501 21.76 14.6701 22.72 12.0001 22.72ZM12.0001 2.78001C9.63006 2.78001 7.26005 3.67996 5.46005 5.47996C3.68005 7.25996 2.72006 9.63001 2.75006 12.15C2.78006 14.67 3.81005 17.01 5.65005 18.74C9.15005 22.06 14.8501 22.05 18.3501 18.74C20.1801 17.01 21.2101 14.66 21.2501 12.15C21.2901 9.64001 20.3201 7.25996 18.5401 5.47996C16.7401 3.67996 14.3701 2.78001 12.0001 2.78001Z" fill="currentColor"/>

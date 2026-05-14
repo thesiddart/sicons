@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TeacherBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TeacherBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5.99953 5.17007L4.02953 6.46007C2.09953 7.72007 2.09953 10.5401 4.02953 11.8001L10.0495 15.7301C11.1295 16.4401 12.9095 16.4401 13.9895 15.7301L19.9795 11.8001C21.8995 10.5401 21.8995 7.73007 19.9795 6.47007L13.9895 2.54007C12.9095 1.83007 11.1295 1.83007 10.0495 2.54007" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

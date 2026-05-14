@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BinanceUsdbusdBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BinanceUsdbusdBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.4001 2.35002L6.2501 7.50002C6.0501 7.70002 6.0501 8.01002 6.2501 8.21002L7.98011 9.94002C8.18011 10.14 8.4901 10.14 8.6901 9.94002L13.8401 4.79002C14.0401 4.59002 14.0401 4.28002 13.8401 4.08002L12.1101 2.35002C11.9101 2.16002 11.6001 2.16002 11.4001 2.35002Z" fill="currentColor"/>

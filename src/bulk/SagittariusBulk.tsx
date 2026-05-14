@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SagittariusBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SagittariusBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.6899 2.71027C21.6099 2.53027 21.4699 2.38023 21.2799 2.30023C21.1899 2.26023 21.0899 2.24023 20.9899 2.24023H11.9899C11.5799 2.24023 11.2399 2.58023 11.2399 2.99023C11.2399 3.40023 11.5799 3.74023 11.9899 3.74023H19.1799L2.45993 20.4603C2.16993 20.7503 2.16993 21.2303 2.45993 21.5203C2.60993 21.6703 2.7999 21.7402 2.9899 21.7402C3.1799 21.7402 3.36993 21.6703 3.51993 21.5203L20.2399 4.80023V12.0002C20.2399 12.4102 20.5799 12.7502 20.9899 12.7502C21.3999 12.7502 21.7399 12.4102 21.7399 12.0002V3.00024C21.7499 2.90024 21.7299 2.81027 21.6899 2.71027Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DeviceMessageOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DeviceMessageOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.5 19.15H6.5C3.16 19.15 1.25 17.24 1.25 13.9V8.5C1.25 5.16 3.16 3.25 6.5 3.25H9.2C9.44 3.25 9.67 3.37006 9.81 3.56006C9.95 3.75006 9.99 4.00999 9.91 4.23999C9.8 4.54999 9.75 4.89 9.75 5.25V9.15002C9.75 9.91002 9.98 10.54 10.42 10.98C10.86 11.42 11.49 11.65 12.25 11.65C12.66 11.65 13 11.99 13 12.4V13.6L15.73 11.77C15.85 11.69 16 11.64 16.15 11.64H18.75C19.11 11.64 19.45 11.59 19.76 11.48C19.99 11.4 20.24 11.44 20.44 11.58C20.64 11.72 20.75 11.9499 20.75 12.1899V13.89C20.75 17.24 18.84 19.15 15.5 19.15ZM6.5 4.75C3.98 4.75 2.75 5.98 2.75 8.5V13.9C2.75 16.42 3.98 17.65 6.5 17.65H15.5C18.02 17.65 19.25 16.42 19.25 13.9V13.12C19.09 13.14 18.92 13.15 18.75 13.15H16.38L13.68 14.95C13.24 15.23 12.69 15.26 12.24 15.01C11.79 14.77 11.51 14.3 11.51 13.79V13.09C10.67 12.96 9.93 12.59 9.37 12.04C8.66 11.33 8.26 10.3 8.26 9.15002V5.25C8.26 5.08 8.27 4.91 8.28 4.75H6.5Z" fill="currentColor"/>

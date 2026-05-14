@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StacksstxOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StacksstxOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.5 11.25H7.5C7.09 11.25 6.75 10.91 6.75 10.5C6.75 10.09 7.09 9.75 7.5 9.75H16.5C16.91 9.75 17.25 10.09 17.25 10.5C17.25 10.91 16.91 11.25 16.5 11.25Z" fill="currentColor"/>

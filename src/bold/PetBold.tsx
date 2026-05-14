@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PetBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PetBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.08 15.7198C18.49 12.1898 15.1 9.31982 11.52 9.31982C7.63003 9.31982 4.21003 12.4698 3.88003 16.3498C3.75003 17.8498 4.23003 19.2698 5.22003 20.3398C6.20003 21.4098 7.58003 21.9998 9.08003 21.9998H13.76C15.45 21.9998 16.93 21.3398 17.94 20.1498C18.95 18.9598 19.35 17.3798 19.08 15.7198Z" fill="currentColor"/>

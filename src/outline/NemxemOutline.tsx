@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const NemxemOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const NemxemOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0303 22.85L11.6602 22.67C11.5602 22.62 1.24023 17.32 1.24023 4.99998V4.57999L1.60022 4.35999C1.70022 4.29999 12.1102 -1.80001 22.3702 4.35999L22.7302 4.57999V4.99998C22.7302 5.46999 22.6102 16.5 12.3702 22.64L12.0303 22.85ZM2.75024 5.43999C2.96024 15.28 10.2702 20.13 11.9802 21.13C20.0602 16.05 21.1002 7.41998 21.2302 5.41998C12.9202 0.699983 4.59024 4.48999 2.75024 5.43999Z" fill="currentColor"/>

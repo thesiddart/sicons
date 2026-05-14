@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MirroringScreenBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MirroringScreenBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M2 9V8C2 5.24 4.24 3 7 3H17C19.76 3 22 5.24 22 8V16C22 18.76 19.76 21 17 21H16H7C4.24 21 2 18.76 2 16V9Z" fill="currentColor"/>

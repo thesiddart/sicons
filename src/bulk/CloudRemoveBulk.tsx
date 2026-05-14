@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudRemoveBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudRemoveBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M20.27 17.1901C19.27 18.1001 17.98 18.6001 16.63 18.5901H16.54C16.84 17.9701 17 17.2701 17 16.5301C17 13.7701 14.76 11.5301 12 11.5301C9.24003 11.5301 7.00003 13.7701 7.00003 16.5301C7.00003 17.2701 7.16003 17.9701 7.46003 18.5901H5.54003C0.860029 18.2601 0.860029 11.4501 5.54003 11.1201H5.59003C2.38003 2.19015 15.92 -1.37986 17.47 8.00014C21.8 8.55014 23.55 14.3201 20.27 17.1901Z" fill="currentColor"/>

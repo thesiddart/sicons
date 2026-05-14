@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const EthereumethOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const EthereumethOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9999 13.53C11.5599 13.53 11.1199 13.44 10.7699 13.27L7.03992 11.4C6.25992 11.01 5.70992 10.33 5.53992 9.55C5.36992 8.76 5.57991 7.92 6.12991 7.24L9.85992 2.58C10.4099 1.89 11.1899 1.5 11.9999 1.5C12.8099 1.5 13.5899 1.89 14.1399 2.58L17.8699 7.25C18.4199 7.93 18.6299 8.77 18.4599 9.56C18.2899 10.35 17.7399 11.02 16.9599 11.41L13.2299 13.28C12.8799 13.45 12.4399 13.53 11.9999 13.53ZM11.0299 3.52L7.29992 8.18C7.03992 8.51 6.92992 8.88 7.00992 9.23C7.08992 9.58 7.33992 9.87 7.71992 10.06L11.4499 11.93C11.7299 12.07 12.2799 12.07 12.5599 11.93L16.2899 10.06C16.6699 9.87 16.9199 9.57 16.9999 9.23C17.0799 8.89 16.9699 8.51 16.7099 8.18L12.9799 3.52C12.4299 2.85 11.5699 2.85 11.0299 3.52Z" fill="currentColor"/>

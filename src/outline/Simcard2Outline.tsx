@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Simcard2Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Simcard2Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.11 22.72H5.89C3.16 22.72 1.25 20.81 1.25 18.08V10.31C1.25 7.58004 3.16 5.67004 5.89 5.67004H9.72C10.94 5.67004 12.14 6.17004 13 7.03004L15.39 9.41004C16.26 10.28 16.75 11.47 16.75 12.69V18.08C16.75 20.81 14.84 22.72 12.11 22.72ZM5.89 7.17004C3.98 7.17004 2.75 8.40004 2.75 10.31V18.08C2.75 19.99 3.98 21.22 5.89 21.22H12.11C14.02 21.22 15.25 19.99 15.25 18.08V12.69C15.25 11.86 14.91 11.06 14.33 10.47L11.94 8.09004C11.35 7.50004 10.54 7.17004 9.72 7.17004H5.89Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Blend2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Blend2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.9 8.07C15.45 4.64 12.52 2 8.97 2C5.1 2 1.97 5.13 1.97 9C1.97 12.55 4.61 15.48 8.04 15.93C8.34 15.98 8.65 16 8.97 16C9.08637 16 9.20124 15.997 9.31519 15.991C9.53556 15.9793 9.62604 15.716 9.47 15.56C9.18 15.26 9.18 14.79 9.47 14.5C9.76 14.2 10.24 14.2 10.53 14.5L11.3095 15.2795C11.4496 15.4196 11.6599 15.4653 11.8409 15.3847C12.2234 15.2145 12.5852 15.0103 12.9264 14.7743C13.1706 14.6053 13.1861 14.2581 12.9749 14.0493L12.47 13.55C12.18 13.26 12.17 12.79 12.47 12.49C12.76 12.2 13.23 12.19 13.53 12.48L14.0386 12.9829C14.2484 13.1904 14.5929 13.1728 14.7609 12.9302C14.9917 12.5969 15.1925 12.2431 15.3575 11.869C15.4369 11.689 15.3906 11.4806 15.2515 11.3415L14.47 10.56C14.18 10.26 14.18 9.79 14.47 9.5C14.76 9.2 15.24 9.2 15.53 9.5C15.686 9.65604 15.9493 9.56556 15.961 9.34519C15.967 9.23124 15.97 9.11637 15.97 9C15.97 8.68 15.95 8.37 15.9 8.07Z" fill="currentColor"/>

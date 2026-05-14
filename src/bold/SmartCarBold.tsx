@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SmartCarBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SmartCarBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.71 9.49C18.61 9.49 18.51 9.47001 18.41 9.43001C18.03 9.26 17.86 8.82 18.02 8.44C18.21 8.01 18.1 7.38 17.75 6.86C17.4 6.33 16.87 5.97 16.39 6C15.95 6 15.64 5.67 15.63 5.26C15.63 4.84 15.96 4.51 16.37 4.5C17.4 4.48 18.37 5.07 19 6.02C19.64 6.98 19.79 8.13 19.4 9.03C19.28 9.32 19 9.49 18.71 9.49Z" fill="currentColor"/>

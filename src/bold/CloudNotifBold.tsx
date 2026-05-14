@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudNotifBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudNotifBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.27 8.75977C21.27 9.77977 20.8 10.6998 20.04 11.2998C19.49 11.7498 18.78 12.0198 18.01 12.0198C16.22 12.0198 14.76 10.5598 14.76 8.76977C14.76 7.87977 15.12 7.06977 15.72 6.47977V6.46977C16.31 5.87977 17.12 5.50977 18.01 5.50977C19.81 5.50977 21.27 6.96977 21.27 8.75977Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FlashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FlashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.57 22.3801C13.34 22.3801 13.11 22.3401 12.89 22.2601C12.14 21.9801 11.66 21.2801 11.66 20.4801V14.0301H9.31997C8.55997 14.0301 7.89996 13.6001 7.58996 12.9101C7.27996 12.2201 7.39996 11.4401 7.89996 10.8701L15.47 2.27006C16 1.67006 16.82 1.46006 17.57 1.75006C18.32 2.03006 18.7999 2.73006 18.7999 3.53006V9.98006H21.14C21.9 9.98006 22.56 10.4101 22.87 11.1001C23.18 11.7901 23.06 12.5701 22.56 13.1401L14.99 21.7401C14.62 22.1601 14.1 22.3801 13.57 22.3801ZM16.88 3.12006C16.79 3.12006 16.68 3.15006 16.59 3.26006L9.01995 11.8701C8.85995 12.0501 8.91997 12.2301 8.94997 12.3001C8.97997 12.3701 9.07997 12.5401 9.31997 12.5401H12.41C12.82 12.5401 13.16 12.8801 13.16 13.2901V20.4901C13.16 20.7401 13.34 20.8401 13.42 20.8701C13.5 20.9001 13.6999 20.9501 13.8599 20.7601L21.43 12.1501C21.59 11.9701 21.53 11.7901 21.5 11.7201C21.47 11.6501 21.37 11.4801 21.13 11.4801H18.04C17.63 11.4801 17.29 11.1401 17.29 10.7301V3.53006C17.29 3.28006 17.11 3.18006 17.03 3.15006C17 3.13006 16.94 3.12006 16.88 3.12006Z" fill="currentColor"/>

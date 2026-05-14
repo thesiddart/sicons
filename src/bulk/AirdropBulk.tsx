@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AirdropBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AirdropBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.13 11.3401C14.52 9.70008 13.09 8.27003 11.45 8.66003C10.68 8.85003 10.05 9.48005 9.85998 10.2501C9.46998 11.8901 10.9 13.32 12.54 12.93C13.32 12.74 13.95 12.1101 14.13 11.3401Z" fill="currentColor"/>

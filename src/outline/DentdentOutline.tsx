@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DentdentOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DentdentOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9997 18.9C10.8597 18.9 9.92969 17.97 9.92969 16.83V7.17C9.92969 6.03 10.8597 5.10001 11.9997 5.10001C13.1397 5.10001 14.0697 6.03 14.0697 7.17V16.83C14.0697 17.97 13.1397 18.9 11.9997 18.9ZM11.9997 6.60001C11.6897 6.60001 11.4297 6.85 11.4297 7.17V16.83C11.4297 17.14 11.6797 17.4 11.9997 17.4C12.3197 17.4 12.5697 17.15 12.5697 16.83V7.17C12.5697 6.86 12.3097 6.60001 11.9997 6.60001Z" fill="currentColor"/>

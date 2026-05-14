@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Arrow3Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Arrow3Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.9799 6.19L7.26994 2.48C7.19994 2.41 7.10994 2.35 7.00994 2.31C6.99994 2.31 6.98994 2.31 6.97994 2.3C6.89994 2.27 6.81994 2.25 6.72994 2.25C6.52994 2.25 6.33994 2.33 6.19994 2.47L2.46994 6.19C2.17994 6.48 2.17994 6.96 2.46994 7.25C2.75994 7.54 3.23994 7.54 3.52994 7.25L5.97994 4.8V21C5.97994 21.41 6.31994 21.75 6.72994 21.75C7.13994 21.75 7.47994 21.41 7.47994 21V4.81L9.91994 7.25C10.0699 7.4 10.2599 7.47 10.4499 7.47C10.6399 7.47 10.8299 7.4 10.9799 7.25C11.2699 6.96 11.2699 6.49 10.9799 6.19Z" fill="currentColor"/>

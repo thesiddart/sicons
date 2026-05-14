@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LayerBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LayerBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.37 4.89012L13.51 2.28012C12.65 1.90012 11.35 1.90012 10.49 2.28012L4.62999 4.89012C3.14999 5.55012 2.92999 6.45012 2.92999 6.93012C2.92999 7.41012 3.14999 8.31012 4.62999 8.97012L10.49 11.5801C10.92 11.7701 11.46 11.8701 12 11.8701C12.54 11.8701 13.08 11.7701 13.51 11.5801L19.37 8.97012C20.85 8.31012 21.07 7.41012 21.07 6.93012C21.07 6.45012 20.86 5.55012 19.37 4.89012Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SliderVerticalBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SliderVerticalBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.9401 3.5H5.06006C4.65006 3.5 4.31006 3.16 4.31006 2.75C4.31006 2.34 4.65006 2 5.06006 2H18.9401C19.3501 2 19.6901 2.34 19.6901 2.75C19.6901 3.16 19.3501 3.5 18.9401 3.5Z" fill="currentColor"/>

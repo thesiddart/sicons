@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const NebulasnasOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const NebulasnasOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.5005 14C9.3305 14 9.15051 13.94 9.01051 13.82C8.78051 13.62 8.69049 13.31 8.78049 13.03L11.2805 5.03C11.3705 4.73 11.6405 4.52 11.9505 4.51C12.2705 4.49 12.5505 4.67 12.6805 4.95L15.1805 10.45C15.3505 10.82 15.1905 11.25 14.8305 11.43L9.83048 13.93C9.73048 13.97 9.6105 14 9.5005 14ZM12.1305 7.35001L10.7405 11.79L13.5205 10.4L12.1305 7.35001Z" fill="currentColor"/>

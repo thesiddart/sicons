@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PercentageCircleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PercentageCircleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.56976 16.02C8.37976 16.02 8.18977 15.95 8.03977 15.8C7.74977 15.51 7.74977 15.03 8.03977 14.74L14.5898 8.19003C14.8798 7.90003 15.3598 7.90003 15.6498 8.19003C15.9398 8.48003 15.9398 8.96003 15.6498 9.25003L9.09976 15.8C8.94976 15.95 8.75976 16.02 8.56976 16.02Z" fill="currentColor"/>

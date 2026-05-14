@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SecurityCardBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SecurityCardBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M2.00023 7.14012C2.00023 5.92012 2.93024 4.57012 4.07024 4.14012L9.05023 2.2701C9.87023 1.9601 11.2302 1.9601 12.0502 2.2701L17.0202 4.14012C17.9702 4.50012 18.7802 5.5001 19.0302 6.5201H11.7302C11.5102 6.5201 11.3102 6.53011 11.1202 6.53011C9.27022 6.64011 8.79022 7.31012 8.79022 9.42012V14.8501C8.79022 17.1601 9.38022 17.7501 11.7302 17.7501H17.6502C17.5602 17.8301 17.4702 17.9001 17.3802 17.9801L13.1102 21.1801C11.7002 22.2301 9.40022 22.2301 7.98022 21.1801L3.70023 17.9801C2.76023 17.2801 1.99023 15.7301 1.99023 14.5601V11.2401" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

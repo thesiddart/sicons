@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MonitorMobbileOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MonitorMobbileOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10 17.7H6.21C2.41 17.7 1.25 16.54 1.25 12.74V6.74003C1.25 2.94003 2.41 1.78003 6.21 1.78003H16.74C20.54 1.78003 21.7 2.94003 21.7 6.74003C21.7 7.15003 21.36 7.49003 20.95 7.49003C20.54 7.49003 20.2 7.15003 20.2 6.74003C20.2 3.80003 19.68 3.28003 16.74 3.28003H6.21C3.27 3.28003 2.75 3.80003 2.75 6.74003V12.74C2.75 15.68 3.27 16.2 6.21 16.2H10C10.41 16.2 10.75 16.54 10.75 16.95C10.75 17.36 10.41 17.7 10 17.7Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CardanoadaOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CardanoadaOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.75 10.5C12.92 10.5 12.25 9.83 12.25 9C12.25 8.17 12.92 7.5 13.75 7.5C14.58 7.5 15.25 8.17 15.25 9C15.25 9.83 14.58 10.5 13.75 10.5ZM13.75 8.5C13.47 8.5 13.25 8.72 13.25 9C13.25 9.28 13.47 9.5 13.75 9.5C14.03 9.5 14.25 9.28 14.25 9C14.25 8.72 14.03 8.5 13.75 8.5Z" fill="currentColor"/>

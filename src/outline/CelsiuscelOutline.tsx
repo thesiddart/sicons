@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CelsiuscelOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CelsiuscelOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9996 18.19C8.58957 18.19 5.80957 15.41 5.80957 12C5.80957 8.59 8.58957 5.81 11.9996 5.81C13.3496 5.81 14.6396 6.24 15.7196 7.05C16.0496 7.3 16.1196 7.77001 15.8696 8.10001C15.6196 8.43001 15.1496 8.5 14.8196 8.25C13.9996 7.63 13.0296 7.31 11.9996 7.31C9.41957 7.31 7.30957 9.41 7.30957 12C7.30957 14.59 9.40957 16.69 11.9996 16.69C13.4796 16.69 14.8396 16.01 15.7396 14.83C15.9896 14.5 16.4596 14.44 16.7896 14.69C17.1196 14.94 17.1796 15.41 16.9296 15.74C15.7496 17.29 13.9496 18.19 11.9996 18.19Z" fill="currentColor"/>

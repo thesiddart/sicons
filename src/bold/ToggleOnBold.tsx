@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ToggleOnBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ToggleOnBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.65 3.85986H7.35C3.25 3.85986 2 5.10986 2 9.20986V14.7899C2 18.8899 3.25 20.1399 7.35 20.1399H16.65C20.75 20.1399 22 18.8899 22 14.7899V9.20986C22 5.10986 20.75 3.85986 16.65 3.85986ZM18.74 13.1199C18.74 15.3699 17.69 16.4199 15.44 16.4199H13.21C10.96 16.4199 9.91 15.3699 9.91 13.1199V10.8899C9.91 8.63986 10.96 7.58986 13.21 7.58986H15.44C17.69 7.58986 18.74 8.63986 18.74 10.8899V13.1199Z" fill="currentColor"/>

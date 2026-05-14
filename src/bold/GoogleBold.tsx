@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GoogleBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GoogleBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5.94013 16.7698L4.28016 19.5898C4.16016 19.7998 3.8501 19.7998 3.7201 19.5898L2.03016 16.7698C1.90016 16.5498 2.06013 16.2798 2.31013 16.2798H5.6601C5.9101 16.2798 6.06013 16.5598 5.94013 16.7698Z" fill="currentColor"/>

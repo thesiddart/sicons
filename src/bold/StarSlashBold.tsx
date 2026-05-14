@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StarSlashBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StarSlashBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.7 14.46C18.35 14.81 18.15 15.51 18.26 15.99L18.95 19.01C19.24 20.26 19.06 21.2 18.44 21.65C18.19 21.83 17.89 21.92 17.54 21.92C17.03 21.92 16.43 21.73 15.77 21.34L12.84 19.6C12.38 19.33 11.62 19.33 11.16 19.6L8.23001 21.34C7.12001 21.99 6.17001 22.1 5.56001 21.65C5.52001 21.62 5.48001 21.59 5.45001 21.55L18.07 8.93003C18.53 8.47003 19.18 8.26003 19.82 8.37003L19.97 8.40003C21.03 8.58003 21.74 9.06003 21.97 9.76003C22.19 10.46 21.89 11.27 21.13 12.03L18.7 14.46Z" fill="currentColor"/>

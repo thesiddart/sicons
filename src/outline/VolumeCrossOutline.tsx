@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VolumeCrossOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VolumeCrossOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.55 20.59C11.76 20.59 10.89 20.31 10.02 19.76L7.1 17.93C6.9 17.81 6.67 17.74 6.44 17.74H5C2.58 17.74 1.25 16.41 1.25 13.99V9.99001C1.25 7.57001 2.58 6.24001 5 6.24001H6.43C6.66 6.24001 6.89 6.17001 7.09 6.05001L10.01 4.22001C11.47 3.31001 12.89 3.14001 14.01 3.76001C15.13 4.38001 15.74 5.67001 15.74 7.40001V16.57C15.74 18.29 15.12 19.59 14.01 20.21C13.57 20.47 13.07 20.59 12.55 20.59ZM5 7.75001C3.42 7.75001 2.75 8.42001 2.75 10V14C2.75 15.58 3.42 16.25 5 16.25H6.43C6.95 16.25 7.45 16.39 7.89 16.67L10.81 18.5C11.78 19.1 12.68 19.26 13.29 18.92C13.9 18.58 14.25 17.73 14.25 16.6V7.41001C14.25 6.27001 13.9 5.42001 13.29 5.09001C12.68 4.75001 11.77 4.90001 10.81 5.51001L7.88 7.33001C7.45 7.61001 6.94 7.75001 6.43 7.75001H5Z" fill="currentColor"/>

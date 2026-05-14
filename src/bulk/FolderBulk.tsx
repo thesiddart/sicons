@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FolderBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FolderBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22 11.0699V16.6499C22 19.5999 19.6 21.9999 16.65 21.9999H7.35C4.4 21.9999 2 19.5999 2 16.6499V9.43994H21.74C21.89 9.88994 21.97 10.3499 21.99 10.8399C22 10.9099 22 10.9999 22 11.0699Z" fill="currentColor"/>

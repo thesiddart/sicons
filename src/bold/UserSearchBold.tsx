@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const UserSearchBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const UserSearchBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 14C6.99003 14 2.91003 17.36 2.91003 21.5C2.91003 21.78 3.13003 22 3.41003 22H20.59C20.87 22 21.09 21.78 21.09 21.5C21.09 17.36 17.01 14 12 14Z" fill="currentColor"/>

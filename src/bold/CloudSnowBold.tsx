@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudSnowBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudSnowBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.17 17.5699C19.64 18.0599 19.03 18.4299 18.37 18.6799C17.71 18.9299 17 18.4499 17 17.7399V16.4199C17 14.4699 15.42 12.8899 13.47 12.8899H10.53C8.58 12.8899 7 14.4699 7 16.4199V17.9999C7 18.5499 6.55 18.9999 6 18.9999H5.55C3.1 18.6299 2 16.6399 2 14.8599C2 13.1799 2.98 11.3199 5.11 10.7999C4.52 8.46994 5.02 6.27994 6.54 4.68994C8.27 2.87994 11.03 2.15994 13.41 2.89994C15.6 3.56994 17.14 5.36994 17.69 7.86994C19.6 8.29994 21.13 9.73994 21.74 11.7399C22.4 13.9099 21.8 16.1399 20.17 17.5699Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudFogOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudFogOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M4.29008 12.37C3.98008 12.37 3.69011 12.18 3.58011 11.87C2.57011 9.04996 3.03012 6.33998 4.84012 4.44998C6.69012 2.50998 9.65012 1.73996 12.2101 2.52996C14.5501 3.24996 16.2001 5.17995 16.8001 7.85995C18.6001 8.26995 20.1101 9.52995 20.8801 11.33C21.0401 11.71 20.8701 12.15 20.4901 12.32C20.1101 12.48 19.6701 12.31 19.5001 11.93C18.8501 10.43 17.6001 9.45998 16.0601 9.25998C15.7301 9.21998 15.4701 8.96998 15.4101 8.63998C15.0101 6.23998 13.7101 4.57998 11.7601 3.97998C9.74011 3.35998 7.39008 3.96997 5.92008 5.49997C4.49008 6.98997 4.16008 9.07997 4.98008 11.38C5.12008 11.77 4.92013 12.2 4.53013 12.34C4.46013 12.35 4.37008 12.37 4.29008 12.37Z" fill="currentColor"/>

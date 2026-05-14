@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Tag2Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Tag2Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0701 21.98C10.6601 21.98 9.24009 21.44 8.17009 20.37L3.64009 15.84C2.54009 14.74 1.96009 13.22 2.03009 11.67L2.27009 6.66C2.38009 4.27 4.27009 2.38 6.67009 2.26L11.6701 2.02C13.2301 1.95 14.7401 2.53 15.8401 3.63L20.3701 8.16C22.5201 10.31 22.5201 13.82 20.3701 15.97L15.9801 20.36C14.9001 21.44 13.4901 21.98 12.0701 21.98ZM4.70009 14.77L9.23009 19.3C10.8001 20.87 13.3501 20.87 14.9201 19.3L19.3101 14.91C20.8801 13.34 20.8801 10.79 19.3101 9.22L14.7701 4.7C13.9701 3.9 12.8801 3.48 11.7301 3.53L6.73009 3.77C5.11009 3.84 3.84009 5.11 3.76009 6.73L3.52009 11.74C3.47009 12.86 3.90009 13.97 4.70009 14.77Z" fill="currentColor"/>

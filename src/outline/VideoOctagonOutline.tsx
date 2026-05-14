@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VideoOctagonOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VideoOctagonOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0002 22.75C11.3302 22.75 10.6501 22.58 10.0501 22.23L4.11014 18.8C2.91014 18.1 2.16016 16.81 2.16016 15.42V8.57999C2.16016 7.18999 2.91014 5.89999 4.11014 5.19999L10.0501 1.77C11.2501 1.07 12.7402 1.07 13.9502 1.77L19.8902 5.19999C21.0902 5.89999 21.8401 7.18999 21.8401 8.57999V15.42C21.8401 16.81 21.0902 18.1 19.8902 18.8L13.9502 22.23C13.3502 22.58 12.6702 22.75 12.0002 22.75ZM12.0002 2.74998C11.5902 2.74998 11.1701 2.85998 10.8001 3.06998L4.86014 6.49998C4.12014 6.92998 3.66016 7.71999 3.66016 8.57999V15.42C3.66016 16.27 4.12014 17.07 4.86014 17.5L10.8001 20.93C11.5401 21.36 12.4602 21.36 13.2002 20.93L19.1402 17.5C19.8802 17.07 20.3401 16.28 20.3401 15.42V8.57999C20.3401 7.72999 19.8802 6.92998 19.1402 6.49998L13.2002 3.06998C12.8302 2.85998 12.4102 2.74998 12.0002 2.74998Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CiviccvcOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CiviccvcOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0001 16.75C10.9001 16.75 10.0001 15.85 10.0001 14.75V13.15C9.29012 12.56 8.87012 11.69 8.87012 10.75C8.87012 9.77999 9.31012 8.87999 10.0901 8.27999C10.8701 7.67999 11.8701 7.48 12.8401 7.74C13.9001 8.02 14.7601 8.88 15.0301 9.94C15.3401 11.15 14.9301 12.39 14.0001 13.15V14.75C14.0001 15.85 13.1001 16.75 12.0001 16.75ZM12.0001 9.13C11.6401 9.13 11.3001 9.25 11.0101 9.47C10.6101 9.78 10.3801 10.25 10.3801 10.75C10.3801 11.32 10.6701 11.83 11.1501 12.13L11.5101 12.35V14.75C11.5101 15.03 11.7301 15.25 12.0101 15.25C12.2901 15.25 12.5101 15.03 12.5101 14.75V12.35L12.8701 12.13C13.4901 11.75 13.7701 11.03 13.5901 10.31C13.4501 9.77999 13.0001 9.33 12.4701 9.19C12.3001 9.15 12.1501 9.13 12.0001 9.13Z" fill="currentColor"/>

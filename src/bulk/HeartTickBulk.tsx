@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartTickBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartTickBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.1999 12.3999C14.5499 12.3999 12.3999 14.5499 12.3999 17.1999C12.3999 18.0999 12.6499 18.9499 13.0999 19.6699C13.9299 21.0599 15.4499 21.9999 17.1999 21.9999C18.9499 21.9999 20.4799 21.0599 21.2999 19.6699C21.7399 18.9499 21.9999 18.0999 21.9999 17.1999C21.9999 14.5499 19.8499 12.3999 17.1999 12.3999ZM19.5799 16.5699L17.0199 18.9299C16.8799 19.0599 16.6899 19.1299 16.5099 19.1299C16.3199 19.1299 16.1299 19.0599 15.9799 18.9099L14.7999 17.7299C14.5099 17.4399 14.5099 16.9599 14.7999 16.6699C15.0899 16.3799 15.5699 16.3799 15.8599 16.6699L16.5299 17.3399L18.5599 15.4599C18.8599 15.1799 19.3399 15.1999 19.6199 15.4999C19.8999 15.8099 19.8799 16.2899 19.5799 16.5699Z" fill="currentColor"/>

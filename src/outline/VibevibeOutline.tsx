@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VibevibeOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VibevibeOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9996 12.6C11.7596 12.6 11.5396 12.49 11.3996 12.3L8.89964 8.97002C8.72964 8.74002 8.69963 8.44001 8.82963 8.18001C8.95963 7.92001 9.21962 7.77002 9.49962 7.77002H14.4996C14.7796 7.77002 15.0396 7.93001 15.1696 8.18001C15.2996 8.43001 15.2696 8.74002 15.0996 8.97002L12.5996 12.3C12.4596 12.49 12.2396 12.6 11.9996 12.6ZM10.9996 9.27002L11.9996 10.6L12.9996 9.27002H10.9996Z" fill="currentColor"/>

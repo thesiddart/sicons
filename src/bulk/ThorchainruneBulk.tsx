@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ThorchainruneBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ThorchainruneBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M16.38 17.57L6.07999 21.91C5.00999 22.36 4.07999 21.03 4.86999 20.18L12.68 11.7L16.73 15.82C17.27 16.36 17.09 17.28 16.38 17.57Z" fill="currentColor"/>

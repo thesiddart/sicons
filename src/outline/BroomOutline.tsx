@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BroomOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BroomOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6.44977 8.50008C6.38977 8.50008 6.32978 8.49006 6.26978 8.48006C6.07978 8.43006 5.90977 8.3101 5.80977 8.1401L4.24978 5.5801C3.86978 4.9601 3.74977 4.22008 3.92977 3.50008C4.09977 2.79008 4.53977 2.18007 5.16977 1.80007C5.78977 1.42007 6.52978 1.30006 7.24978 1.48006C7.96978 1.65006 8.56977 2.09005 8.94977 2.72005L10.5098 5.28011C10.7298 5.63011 10.6098 6.09008 10.2598 6.31008L6.83977 8.3901C6.71977 8.4601 6.58977 8.50008 6.44977 8.50008ZM6.58977 2.90011C6.35977 2.90011 6.13977 2.9601 5.94977 3.0801C5.66977 3.2501 5.46978 3.53006 5.38978 3.85006C5.30977 4.18006 5.35977 4.51006 5.52977 4.79006L6.69977 6.7101L8.83977 5.41005L7.66977 3.49007C7.49977 3.21007 7.21977 3.01007 6.89977 2.93007C6.78977 2.91007 6.68977 2.90011 6.58977 2.90011Z" fill="currentColor"/>

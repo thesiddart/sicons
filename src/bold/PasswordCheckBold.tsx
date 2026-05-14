@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PasswordCheckBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PasswordCheckBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18 4H15.75V2.75C15.75 2.34 15.41 2 15 2C14.59 2 14.25 2.34 14.25 2.75V21.25C14.25 21.66 14.59 22 15 22C15.41 22 15.75 21.66 15.75 21.25V20H18C20.21 20 22 18.21 22 16V8C22 5.79 20.21 4 18 4Z" fill="currentColor"/>

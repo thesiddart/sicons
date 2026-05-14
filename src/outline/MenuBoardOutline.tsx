@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MenuBoardOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MenuBoardOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.3799 22.75H3.23993C2.28993 22.75 1.40993 22.31 0.839932 21.54C0.259932 20.76 0.0899403 19.78 0.37994 18.85L4.58993 5.31995C4.96993 4.05995 6.12995 3.19995 7.44995 3.19995H19.7499C20.9599 3.19995 22.0499 3.92004 22.5099 5.04004C22.7599 5.62004 22.8099 6.28005 22.6599 6.93005L19.2899 20.46C18.9699 21.81 17.7699 22.75 16.3799 22.75ZM7.45993 4.70996C6.80993 4.70996 6.21993 5.14002 6.02993 5.77002L1.81994 19.3C1.67994 19.77 1.75993 20.26 2.05993 20.66C2.33993 21.04 2.77994 21.26 3.24994 21.26H16.3899C17.08 21.26 17.6799 20.79 17.8399 20.12L21.2099 6.57996C21.2899 6.24996 21.2699 5.92 21.1399 5.63C20.9 5.06 20.3699 4.69995 19.7599 4.69995H7.45993V4.70996Z" fill="currentColor"/>

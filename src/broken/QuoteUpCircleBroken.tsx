@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const QuoteUpCircleBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const QuoteUpCircleBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.0009 11.84H14.3209C13.6109 11.84 13.1309 11.3 13.1309 10.65V9.15997C13.1309 8.50997 13.6109 7.96997 14.3209 7.96997H15.8109C16.4609 7.96997 17.0009 8.50997 17.0009 9.15997V11.84Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

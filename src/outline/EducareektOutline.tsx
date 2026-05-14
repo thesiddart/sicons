@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const EducareektOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const EducareektOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9997 8.91002C11.5097 8.91002 11.0296 8.73002 10.6596 8.36002L7.98964 5.69002C7.44964 5.15002 7.27967 4.34001 7.57967 3.62001C7.86967 2.91001 8.55967 2.45001 9.32967 2.45001H14.6796C15.4496 2.45001 16.1396 2.91001 16.4296 3.62001C16.7196 4.33001 16.5597 5.14002 16.0197 5.69002L13.3496 8.36002C12.9696 8.72002 12.4897 8.91002 11.9997 8.91002ZM9.04964 4.62001L11.7196 7.29001C11.8696 7.44001 12.1197 7.44001 12.2797 7.29001L14.9497 4.62001C15.1197 4.45001 15.0697 4.26002 15.0297 4.19002C14.9897 4.12002 14.8996 3.95001 14.6696 3.95001H9.31966C9.07966 3.95001 8.98967 4.12002 8.95967 4.19002C8.92967 4.26002 8.87964 4.45001 9.04964 4.62001Z" fill="currentColor"/>

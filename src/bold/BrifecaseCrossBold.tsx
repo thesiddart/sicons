@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BrifecaseCrossBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BrifecaseCrossBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.6 14.5099L13.07 13.9799L13.57 13.4799C13.86 13.1899 13.86 12.7099 13.57 12.4199C13.28 12.1299 12.8 12.1299 12.51 12.4199L12.01 12.9199L11.48 12.3899C11.19 12.0999 10.71 12.0999 10.42 12.3899C10.13 12.6799 10.13 13.1599 10.42 13.4499L10.95 13.9799L10.4 14.5299C10.11 14.8199 10.11 15.2999 10.4 15.5899C10.55 15.7399 10.74 15.8099 10.93 15.8099C11.12 15.8099 11.31 15.7399 11.46 15.5899L12.01 15.0399L12.54 15.5699C12.69 15.7199 12.88 15.7899 13.07 15.7899C13.26 15.7899 13.45 15.7199 13.6 15.5699C13.89 15.2799 13.89 14.8099 13.6 14.5099Z" fill="currentColor"/>

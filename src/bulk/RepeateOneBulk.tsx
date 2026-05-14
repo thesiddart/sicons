@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RepeateOneBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RepeateOneBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M3.91 17.1799C3.72 17.1799 3.53 17.1099 3.38 16.9599C2.01 15.5799 1.25 13.7599 1.25 11.8299C1.25 7.81994 4.5 4.55992 8.5 4.55992L14.57 4.57994L13.48 3.5399C13.18 3.2499 13.17 2.77991 13.46 2.47991C13.75 2.17991 14.22 2.16995 14.52 2.45995L16.96 4.79991C17.18 5.00991 17.25 5.33992 17.14 5.61992C17.03 5.89992 16.75 6.08995 16.44 6.08995L8.48999 6.06993C5.31999 6.06993 2.73999 8.65995 2.73999 11.84C2.73999 13.37 3.33999 14.8199 4.42999 15.9099C4.71999 16.1999 4.71999 16.6799 4.42999 16.9699C4.28999 17.1099 4.1 17.1799 3.91 17.1799Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PlayBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PlayBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.49 9.60014L5.6 16.7701C4.9 17.1901 4 16.6901 4 15.8701V7.87014C4 4.38014 7.77 2.20014 10.8 3.94014L15.39 6.58014L17.48 7.78014C18.17 8.19014 18.18 9.19014 17.49 9.60014Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BitcoinRefreshBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BitcoinRefreshBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M23.53 12.0502C23.24 11.7602 22.76 11.7602 22.47 12.0502L22.01 12.5102V12.0002C22.01 6.48023 17.52 1.99023 12 1.99023C8.95 1.99023 6.1 3.36023 4.19 5.74023C3.93 6.06023 3.98 6.54023 4.31 6.80023C4.63 7.05023 5.1 7.00023 5.36 6.68023C6.99 4.65023 9.41 3.49023 12 3.49023C16.69 3.49023 20.51 7.31023 20.51 12.0002V12.5002L20.05 12.0402C19.76 11.7502 19.28 11.7502 18.99 12.0402C18.7 12.3302 18.7 12.8102 18.99 13.1002L20.73 14.8402C20.8 14.9102 20.88 14.9602 20.97 15.0002C21.06 15.0402 21.16 15.0602 21.26 15.0602C21.36 15.0602 21.45 15.0402 21.55 15.0002C21.64 14.9602 21.72 14.9102 21.79 14.8402L23.53 13.1002C23.82 12.8202 23.82 12.3402 23.53 12.0502Z" fill="currentColor"/>

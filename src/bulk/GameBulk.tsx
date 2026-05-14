@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GameBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GameBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.13 15.0099L9.09996 13.9799L10.09 12.9899C10.38 12.6999 10.38 12.2199 10.09 11.9299C9.79996 11.6399 9.31996 11.6399 9.02996 11.9299L8.03996 12.9199L7.07996 11.9599C6.78996 11.6699 6.30996 11.6699 6.01996 11.9599C5.72996 12.2499 5.72996 12.7299 6.01996 13.0199L6.97996 13.9799L5.98996 14.9699C5.69996 15.2599 5.69996 15.7399 5.98996 16.0299C6.13996 16.1799 6.32996 16.2499 6.51996 16.2499C6.70996 16.2499 6.89996 16.1799 7.04996 16.0299L8.03996 15.0399L9.06996 16.0699C9.21996 16.2199 9.40996 16.2899 9.59996 16.2899C9.78996 16.2899 9.97996 16.2199 10.13 16.0699C10.42 15.7799 10.42 15.2999 10.13 15.0099Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PenTool2Bulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PenTool2Bulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.52 1.5H11.52C10.69 1.5 10.02 2.17 10.02 3V4C10.02 4.83 10.69 5.5 11.52 5.5H12.52C13.35 5.5 14.02 4.83 14.02 4V3C14.02 2.17 13.35 1.5 12.52 1.5Z" fill="currentColor"/>

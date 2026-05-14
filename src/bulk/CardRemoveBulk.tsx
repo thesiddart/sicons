@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CardRemoveBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CardRemoveBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.9004 15.03C16.6904 15.03 14.9004 16.82 14.9004 19.03C14.9004 21.24 16.6904 23.03 18.9004 23.03C21.1104 23.03 22.9004 21.24 22.9004 19.03C22.9004 16.82 21.1104 15.03 18.9004 15.03ZM20.5004 20.68C20.3504 20.83 20.1603 20.9 19.9703 20.9C19.7803 20.9 19.5904 20.83 19.4404 20.68L18.9103 20.15L18.3604 20.7C18.2104 20.85 18.0204 20.92 17.8304 20.92C17.6404 20.92 17.4504 20.85 17.3004 20.7C17.0104 20.41 17.0104 19.93 17.3004 19.64L17.8503 19.09L17.3204 18.56C17.0304 18.27 17.0304 17.79 17.3204 17.5C17.6104 17.21 18.0904 17.21 18.3804 17.5L18.9103 18.03L19.4103 17.53C19.7003 17.24 20.1803 17.24 20.4703 17.53C20.7603 17.82 20.7603 18.3 20.4703 18.59L19.9703 19.09L20.5004 19.62C20.7904 19.91 20.7904 20.39 20.5004 20.68Z" fill="currentColor"/>

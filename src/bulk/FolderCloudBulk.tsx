@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FolderCloudBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FolderCloudBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M21.9902 10.8402C21.9702 10.3602 21.8902 9.89023 21.7402 9.44023C21.0502 7.28023 19.0303 5.72023 16.6503 5.72023H13.8602C13.2802 5.72023 13.2402 5.66023 12.9302 5.25023L11.5303 3.39023C10.8803 2.52023 10.3702 1.99023 8.74023 1.99023H6.41022C3.97022 1.99023 1.99023 3.97023 1.99023 6.41023V9.43022V16.6402C1.99023 19.5902 4.39027 21.9902 7.34027 21.9902H16.6403C19.5903 21.9902 21.9902 19.5902 21.9902 16.6402V11.0602C22.0002 11.0002 22.0002 10.9102 21.9902 10.8402Z" fill="currentColor"/>

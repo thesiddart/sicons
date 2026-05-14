@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ZelzelOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ZelzelOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8 16.5C7.87 16.5 7.74 16.47 7.63 16.4L5.13 14.96C4.9 14.83 4.75 14.58 4.75 14.31V11.46C4.75 11.19 4.89 10.94 5.13 10.81L7.63 9.36999C7.86 9.23999 8.15 9.23999 8.38 9.36999L10.88 10.81C11.11 10.94 11.26 11.19 11.26 11.46V14.31C11.26 14.58 11.12 14.83 10.88 14.96L8.38 16.4C8.26 16.47 8.13 16.5 8 16.5ZM6.25 13.88L8 14.89L9.75 13.88V11.89L8 10.88L6.25 11.89V13.88Z" fill="currentColor"/>

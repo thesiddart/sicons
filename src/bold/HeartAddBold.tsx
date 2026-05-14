@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.68 13.9099V13.8999C19.8 12.9699 18.57 12.3999 17.2 12.3999C14.55 12.3999 12.4 14.5499 12.4 17.1999C12.4 18.4299 12.87 19.5499 13.63 20.3999C14.51 21.3799 15.78 21.9999 17.2 21.9999C19.85 21.9999 22 19.8499 22 17.1999C22 15.9299 21.5 14.7699 20.68 13.9099ZM18.99 18.0099H17.95V19.0999C17.95 19.5099 17.61 19.8499 17.2 19.8499C16.79 19.8499 16.45 19.5099 16.45 19.0999V18.0099H15.41C14.99 18.0099 14.66 17.6799 14.66 17.2599C14.66 16.8499 14.98 16.5199 15.4 16.5099H16.45V15.5099C16.45 15.4899 16.45 15.4699 16.46 15.4499C16.48 15.0699 16.81 14.7599 17.2 14.7599C17.6 14.7599 17.93 15.0799 17.95 15.4799V16.5099H18.99C19.41 16.5099 19.74 16.8499 19.74 17.2599C19.74 17.6799 19.41 18.0099 18.99 18.0099Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PlayCricleBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PlayCricleBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.07 19.8201C18.88 19.8201 18.69 19.7501 18.54 19.6001C18.25 19.3101 18.25 18.8301 18.54 18.5401C22.15 14.9301 22.15 9.06012 18.54 5.46012C18.25 5.17012 18.25 4.69012 18.54 4.40012C18.83 4.11012 19.31 4.11012 19.6 4.40012C23.79 8.59012 23.79 15.4101 19.6 19.6001C19.45 19.7501 19.26 19.8201 19.07 19.8201Z" fill="currentColor"/>

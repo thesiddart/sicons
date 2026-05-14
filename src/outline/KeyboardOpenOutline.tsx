@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const KeyboardOpenOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const KeyboardOpenOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.7398 19.59H7.26978C6.47978 19.59 5.90977 19.56 5.41977 19.49C1.94977 19.11 1.25977 17.03 1.25977 13.58V7.26001C1.25977 3.81001 1.93977 1.72998 5.43977 1.34998C5.91977 1.27998 6.48978 1.25 7.26978 1.25H16.7398C17.5198 1.25 18.0898 1.27998 18.5898 1.34998C22.0698 1.72998 22.7498 3.81001 22.7498 7.26001V13.58C22.7498 17.03 22.0698 19.11 18.5698 19.49C18.0998 19.56 17.5298 19.59 16.7398 19.59ZM7.25977 2.75C6.54977 2.75 6.03977 2.78003 5.61977 2.84003C3.45977 3.08003 2.74977 3.75002 2.74977 7.27002V13.59C2.74977 17.1 3.45978 17.78 5.59978 18.01C6.03978 18.07 6.54978 18.1 7.26978 18.1H16.7398C17.4598 18.1 17.9598 18.07 18.3798 18.01C20.5398 17.77 21.2498 17.1 21.2498 13.58V7.26001C21.2498 3.75001 20.5398 3.07003 18.3998 2.84003C17.9498 2.78003 17.4498 2.75 16.7298 2.75H7.25977Z" fill="currentColor"/>

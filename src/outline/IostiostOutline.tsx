@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const IostiostOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const IostiostOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 22.43C11.52 22.43 11.04 22.3 10.61 22.05L4.10999 18.23C3.26999 17.74 2.75 16.83 2.75 15.86V8.15C2.75 7.18 3.26999 6.27001 4.10999 5.78001L10.61 1.96001C11.47 1.45001 12.54 1.45001 13.4 1.96001L19.9 5.78001C20.74 6.27001 21.26 7.18 21.26 8.15V15.86C21.26 16.83 20.74 17.74 19.9 18.23L13.4 22.05C12.96 22.3 12.48 22.43 12 22.43ZM11.37 3.24001L4.87 7.06001C4.49 7.28001 4.25 7.70001 4.25 8.14001V15.85C4.25 16.29 4.49 16.7 4.87 16.93L11.37 20.75C11.76 20.98 12.25 20.98 12.64 20.75L19.14 16.93C19.52 16.71 19.76 16.29 19.76 15.85V8.14001C19.76 7.70001 19.52 7.29001 19.14 7.06001L12.64 3.24001C12.24 3.01001 11.76 3.01001 11.37 3.24001Z" fill="currentColor"/>

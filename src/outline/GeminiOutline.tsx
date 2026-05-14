@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GeminiOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GeminiOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0001 5.53005C8.41012 5.53005 4.82012 4.57004 1.61012 2.65004C1.25012 2.44004 1.14012 1.98001 1.35012 1.62001C1.56012 1.26001 2.02012 1.15 2.38012 1.36C8.31012 4.92 15.6801 4.92 21.6101 1.36C21.9601 1.15 22.4301 1.26001 22.6401 1.62001C22.8501 1.98001 22.7401 2.44004 22.3801 2.65004C19.1801 4.57004 15.5901 5.53005 12.0001 5.53005Z" fill="currentColor"/>

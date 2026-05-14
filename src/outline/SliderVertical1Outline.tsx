@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SliderVertical1Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SliderVertical1Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 18.75H7C6.25 18.75 5.7 18.72 5.23 18.65C1.91 18.29 1.25 16.3 1.25 13V11C1.25 7.7 1.91 5.71 5.26 5.34C5.7 5.28 6.25 5.25 7 5.25H17C17.75 5.25 18.3 5.28 18.77 5.35C22.1 5.72 22.75 7.7 22.75 11V13C22.75 16.3 22.09 18.29 18.74 18.66C18.3 18.72 17.75 18.75 17 18.75ZM7 6.75C6.32 6.75 5.84 6.78 5.45 6.83C3.42 7.06 2.75 7.69 2.75 11V13C2.75 16.31 3.42 16.94 5.42 17.17C5.84 17.23 6.32 17.25 7 17.25H17C17.68 17.25 18.16 17.22 18.55 17.17C20.58 16.95 21.25 16.31 21.25 13V11C21.25 7.69 20.58 7.06 18.58 6.83C18.16 6.77 17.68 6.75 17 6.75H7Z" fill="currentColor"/>

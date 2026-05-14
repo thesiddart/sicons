@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MessageAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MessageAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5.21 13.5098C4.12 13.4398 3 13.8398 2.17 14.6698C0.61 16.2298 0.61 18.7598 2.17 20.3298C2.7 20.8598 3.35 21.2098 4.04 21.3798C4.42 21.4798 4.82 21.5098 5.22 21.4898C6.17 21.4498 7.1 21.0698 7.83 20.3398C8.86 19.3098 9.21 17.8598 8.88 16.5498C8.72 15.8598 8.36 15.2098 7.83 14.6798C7.11 13.9498 6.17 13.5598 5.21 13.5098ZM7.24 17.4798C7.24 17.6898 7.16 17.8698 7.02 18.0098C6.88 18.1498 6.7 18.2298 6.49 18.2298H5.75V19.0098C5.75 19.2198 5.67 19.3998 5.53 19.5398C5.39 19.6798 5.21 19.7598 5 19.7598C4.59 19.7598 4.25 19.4198 4.25 19.0098V18.2298H3.5C3.09 18.2298 2.75 17.8898 2.75 17.4798C2.75 17.0698 3.09 16.7298 3.5 16.7298H4.25V16.0198C4.25 15.6098 4.59 15.2698 5 15.2698C5.41 15.2698 5.75 15.6098 5.75 16.0198V16.7298H6.49C6.91 16.7298 7.24 17.0698 7.24 17.4798Z" fill="currentColor"/>

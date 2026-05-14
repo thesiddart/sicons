@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PaypalBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PaypalBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19 7C19 7.18 18.99 7.34999 18.97 7.51999C18.85 8.96999 18.21 10.28 17.24 11.24C16.16 12.33 14.66 13 13 13H9.86996C9.36996 13 8.94997 13.37 8.87997 13.86L8.11996 19.14C8.05996 19.53 7.77997 19.85 7.40997 19.95C7.31997 19.99 7.22997 20 7.12997 20H5.17996C4.55996 20 4.08997 19.45 4.18997 18.84L6.57995 4.51001C6.81995 3.06001 8.06998 2 9.53998 2H14C16.76 2 19 4.24 19 7Z" fill="currentColor"/>

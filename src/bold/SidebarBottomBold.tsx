@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SidebarBottomBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SidebarBottomBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M3.05002 19.8698C3.34002 20.2898 3.71002 20.6598 4.13002 20.9498C5.08002 21.6398 6.32002 21.9998 7.81002 21.9998H16.19C19.63 21.9998 21.76 20.0598 21.97 16.7798H2.02002C2.10002 18.0098 2.45002 19.0498 3.05002 19.8698Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AwardBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AwardBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M17.9501 7.7101L17.8101 7.6301L16.4201 6.8301L13.5501 5.1701C12.6701 4.6601 11.3301 4.6601 10.4501 5.1701L7.5801 6.8301L6.1901 7.6401L6.0101 7.7401C4.2201 8.9401 4.1001 9.1601 4.1001 11.0901V15.7001C4.1001 17.6301 4.2201 17.8501 6.0501 19.0801L10.4501 21.6201C10.8901 21.8801 11.4401 22.0001 12.0001 22.0001C12.5501 22.0001 13.1101 21.8801 13.5501 21.6201L17.9901 19.0501C19.7801 17.8501 19.9001 17.6301 19.9001 15.7001V11.0901C19.9001 9.1601 19.7801 8.9401 17.9501 7.7101Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TagCrossOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TagCrossOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.0002 21H10.2802C8.66023 21 7.11023 20.31 6.03023 19.12L2.50023 15.24C0.820234 13.4 0.820234 10.62 2.50023 8.77L6.03023 4.89C7.11023 3.69 8.66023 3 10.2802 3H17.0002C20.1702 3 22.7502 5.58 22.7502 8.75V15.25C22.7502 18.42 20.1702 21 17.0002 21ZM10.2802 4.5C9.09023 4.5 7.94023 5.01 7.14023 5.89L3.60023 9.78C2.45023 11.05 2.45023 12.96 3.60023 14.23L7.13023 18.11C7.93023 18.99 9.08024 19.5 10.2702 19.5H17.0002C19.3402 19.5 21.2502 17.59 21.2502 15.25V8.75C21.2502 6.41 19.3402 4.5 17.0002 4.5H10.2802Z" fill="currentColor"/>

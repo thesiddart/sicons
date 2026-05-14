@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FolderCrossOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FolderCrossOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.81 16.48C13.62 16.48 13.43 16.41 13.28 16.26L9.73996 12.72C9.44996 12.43 9.44996 11.95 9.73996 11.66C10.03 11.37 10.51 11.37 10.8 11.66L14.34 15.2C14.63 15.49 14.63 15.97 14.34 16.26C14.19 16.4 14 16.48 13.81 16.48Z" fill="currentColor"/>

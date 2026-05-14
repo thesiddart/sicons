@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SmartHomeBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SmartHomeBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M10.0698 3.01027L3.13979 8.56026C2.35979 9.18026 1.85978 10.4902 2.02978 11.4702L3.35976 19.4303C3.59976 20.8503 4.95977 22.0003 6.39977 22.0003H17.5998C19.0298 22.0003 20.3998 20.8403 20.6398 19.4303L21.9698 11.4702C22.1298 10.4902 21.6298 9.18026 20.8598 8.56026L13.9298 3.02028C12.8598 2.16028 11.1298 2.16027 10.0698 3.01027Z" fill="currentColor"/>

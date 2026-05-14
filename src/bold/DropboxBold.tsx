@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DropboxBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DropboxBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0001 5.99981L6.4401 9.99981L3.1901 7.7998C2.6101 7.4098 2.60011 6.56981 3.17011 6.15981L7.00009 3.3998C7.34009 3.1598 7.80011 3.14981 8.14011 3.37981L12.0001 5.99981Z" fill="currentColor"/>

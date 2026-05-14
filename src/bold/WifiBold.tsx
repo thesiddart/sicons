@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WifiBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WifiBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.0901 12.5899C18.9301 12.5899 18.7701 12.5399 18.6301 12.4299C14.6001 9.3199 9.39005 9.3199 5.36005 12.4299C5.03005 12.6799 4.56005 12.6199 4.31005 12.2999C4.06005 11.9699 4.12005 11.4999 4.44005 11.2499C9.03005 7.6999 14.9601 7.6999 19.5401 11.2499C19.8701 11.4999 19.9301 11.9699 19.6701 12.2999C19.5401 12.4899 19.3201 12.5899 19.0901 12.5899Z" fill="currentColor"/>

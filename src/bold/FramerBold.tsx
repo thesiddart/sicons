@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FramerBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FramerBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M4.5 10.4901V16.4301C4.5 16.7401 4.64 17.0401 4.87 17.2401L10.23 21.83C10.93 22.43 12 21.9301 12 21.0201V16.9201H16.91C17.86 16.9201 18.34 15.7701 17.67 15.0901L12 9.42008H5.57001C4.98001 9.41008 4.5 9.89005 4.5 10.4901Z" fill="currentColor"/>

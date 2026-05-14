@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const KyberNetworkkncBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const KyberNetworkkncBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.6" d="M19 7.16003V15.97C19 16.4 18.86 16.81 18.62 17.15L18.16 16.91L10 12L18.54 7.26003L18.99 7.03003C19 7.07003 19 7.12003 19 7.16003Z" fill="currentColor"/>

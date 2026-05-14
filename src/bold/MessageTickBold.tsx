@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MessageTickBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MessageTickBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5 13.5C2.79 13.5 1 15.29 1 17.5C1 18.25 1.21 18.96 1.58 19.56C2.27 20.72 3.54 21.5 5 21.5C6.46 21.5 7.73 20.72 8.42 19.56C8.79 18.96 9 18.25 9 17.5C9 15.29 7.21 13.5 5 13.5ZM6.97 17.17L4.84 19.14C4.7 19.27 4.51 19.34 4.33 19.34C4.14 19.34 3.95 19.27 3.8 19.12L2.81 18.13C2.52 17.84 2.52 17.36 2.81 17.07C3.1 16.78 3.58 16.78 3.87 17.07L4.35 17.55L5.95 16.07C6.25 15.79 6.73 15.81 7.01 16.11C7.29 16.41 7.27 16.89 6.97 17.17Z" fill="currentColor"/>

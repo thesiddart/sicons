@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BagTick2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BagTick2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.96 8.9599C19.29 8.2199 18.28 7.7899 16.88 7.6399V6.8799C16.88 5.5099 16.3 4.1899 15.28 3.2699C14.25 2.3299 12.91 1.8899 11.52 2.0199C9.13 2.2499 7.12 4.5599 7.12 7.0599V7.6399C5.72 7.7899 4.71 8.2199 4.04 8.9599C3.07 10.0399 3.1 11.4799 3.21 12.4799L3.91 18.0499C4.12 19.9999 4.91 21.9999 9.21 21.9999H14.79C19.09 21.9999 19.88 19.9999 20.09 18.0599L20.79 12.4699C20.9 11.4799 20.93 10.0399 19.96 8.9599ZM11.66 3.4099C12.66 3.3199 13.61 3.6299 14.35 4.2999C15.08 4.9599 15.49 5.8999 15.49 6.8799V7.5799H8.51V7.0599C8.51 5.2799 9.98 3.5699 11.66 3.4099ZM12 18.5799C9.91 18.5799 8.21 16.8799 8.21 14.7899C8.21 12.6999 9.91 10.9999 12 10.9999C14.09 10.9999 15.79 12.6999 15.79 14.7899C15.79 16.8799 14.09 18.5799 12 18.5799Z" fill="currentColor"/>

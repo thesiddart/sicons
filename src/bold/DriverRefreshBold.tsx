@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DriverRefreshBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DriverRefreshBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.93 12.75H3C2.45 12.75 2 13.2 2 13.75V16.19C2 19.4 4.6 22 7.81 22H9.51C10.28 22 10.75 21.18 10.38 20.5C9.59 19.03 9.28 17.26 9.67 15.4C9.81 14.72 10.05 14.08 10.37 13.48C10.54 13.15 10.31 12.75 9.93 12.75ZM6.75 18C6.75 18.41 6.41 18.75 6 18.75C5.59 18.75 5.25 18.41 5.25 18V16C5.25 15.59 5.59 15.25 6 15.25C6.41 15.25 6.75 15.59 6.75 16V18Z" fill="currentColor"/>

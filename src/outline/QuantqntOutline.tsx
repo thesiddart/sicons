@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const QuantqntOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const QuantqntOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 22.75C11.87 22.75 11.75 22.72 11.64 22.66L2.64001 17.66C2.40001 17.53 2.25 17.28 2.25 17V7C2.25 6.73 2.40001 6.47999 2.64001 6.33999L11.64 1.33999C11.87 1.20999 12.14 1.20999 12.37 1.33999L21.37 6.33999C21.61 6.46999 21.76 6.72 21.76 7V12C21.76 12.25 21.64 12.48 21.44 12.62L18.43 14.71L21.38 16.35C21.62 16.48 21.77 16.73 21.77 17.01V22.01C21.77 22.28 21.62 22.53 21.38 22.67C21.14 22.8 20.85 22.8 20.62 22.65L16.98 20.37L12.36 22.68C12.23 22.72 12.12 22.75 12 22.75ZM3.75 16.56L12.02 21.15L16.67 18.83C16.9 18.71 17.18 18.73 17.4 18.86L20.25 20.64V17.43L16.64 15.42C16.41 15.29 16.27 15.06 16.26 14.8C16.25 14.54 16.37 14.29 16.58 14.15L20.26 11.6V7.42999L12.01 2.85L3.76001 7.42999V16.56H3.75Z" fill="currentColor"/>

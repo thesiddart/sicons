@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BitcoinConvertOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BitcoinConvertOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.0002 23.72C15.7302 23.72 15.4802 23.57 15.3502 23.34C15.2202 23.11 15.2202 22.82 15.3602 22.59L16.4102 20.84C16.6202 20.48 17.0802 20.37 17.4402 20.58C17.8002 20.79 17.9102 21.25 17.7002 21.61L17.4302 22.06C20.1902 21.41 22.2602 18.93 22.2602 15.97C22.2602 15.56 22.6002 15.22 23.0102 15.22C23.4202 15.22 23.7602 15.56 23.7602 15.97C23.7502 20.24 20.2702 23.72 16.0002 23.72Z" fill="currentColor"/>

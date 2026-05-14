@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartSlashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartSlashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6.10999 18.25C5.92999 18.25 5.73998 18.18 5.59998 18.05C3.61998 16.19 1.25 13.06 1.25 8.69C1.25 5.19 4.08 2.34998 7.56 2.34998C9.25 2.34998 10.83 3.01 12 4.19C13.17 3.01 14.75 2.34998 16.44 2.34998C17.7 2.34998 18.92 2.72999 19.97 3.42999C20.31 3.65999 20.4 4.12997 20.17 4.46997C19.94 4.80997 19.47 4.89998 19.13 4.66998C18.34 4.12998 17.41 3.84003 16.45 3.84003C14.93 3.84003 13.52 4.55003 12.61 5.78003C12.33 6.16003 11.69 6.16003 11.41 5.78003C10.49 4.55003 9.09001 3.84003 7.57001 3.84003C4.92001 3.84003 2.76001 6.00999 2.76001 8.67999C2.76001 12.52 4.87001 15.29 6.64001 16.95C6.94001 17.23 6.95999 17.71 6.67999 18.01C6.50999 18.17 6.30999 18.25 6.10999 18.25Z" fill="currentColor"/>

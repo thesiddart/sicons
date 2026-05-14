@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BucketCircleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BucketCircleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.61 17.31C10.02 17.31 9.43005 17.0399 8.88005 16.4899L6.49004 14.0999C5.39004 12.9999 5.39004 11.74 6.49004 10.65L10.4801 6.65991C10.6201 6.51991 10.8101 6.43994 11.0101 6.43994C11.2101 6.43994 11.4001 6.51991 11.5401 6.65991L15.93 11.0499C16.18 11.2999 16.31 11.6299 16.31 11.9799C16.31 12.3299 16.1701 12.66 15.9201 12.91L12.33 16.4999C11.79 17.0299 11.2 17.31 10.61 17.31ZM11.0101 8.23993L7.55004 11.7C7.38004 11.87 7.17006 12.1299 7.17006 12.3699C7.17006 12.6099 7.38004 12.86 7.55004 13.04L9.94005 15.43C10.1101 15.6 10.37 15.81 10.61 15.81C10.85 15.81 11.1 15.6 11.28 15.43L14.74 11.9699L11.0101 8.23993Z" fill="currentColor"/>

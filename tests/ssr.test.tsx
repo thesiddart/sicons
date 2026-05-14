@@ -16,6 +16,7 @@ describe('SSR (react-dom/server)', () => {
     assert.match(html, /height="32"/);
     assert.match(html, /viewBox="0 0 24 24"/);
     assert.match(html, /data-testid="add"/);
+    assert.match(html, /color:\s*#111/);
   });
 
   it('renders subpath imports identically to barrel for the same icon', () => {

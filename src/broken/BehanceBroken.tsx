@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BehanceBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BehanceBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.25004 17.1875H2.75004C1.87004 17.1875 1.14587 16.4633 1.14587 15.5833V6.41667C1.14587 5.53667 1.87004 4.8125 2.75004 4.8125H7.33337C9.23087 4.8125 10.7709 6.3525 10.7709 8.25C10.7709 9.19417 10.3858 10.0467 9.77168 10.67C10.9083 11.2292 11.6875 12.4025 11.6875 13.75C11.6875 15.6475 10.1475 17.1875 8.25004 17.1875ZM2.52087 11.6875V15.5833C2.52087 15.7117 2.62171 15.8125 2.75004 15.8125H8.25004C9.38671 15.8125 10.3125 14.8867 10.3125 13.75C10.3125 12.6133 9.38671 11.6875 8.25004 11.6875H2.52087ZM2.52087 10.3125H7.33337C8.47004 10.3125 9.39587 9.38667 9.39587 8.25C9.39587 7.11333 8.47004 6.1875 7.33337 6.1875H2.75004C2.62171 6.1875 2.52087 6.28833 2.52087 6.41667V10.3125Z" fill="currentColor"/>

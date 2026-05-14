@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShareBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShareBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.36 12.7301C19.99 12.7301 19.68 12.4501 19.64 12.0801C19.4 9.88007 18.22 7.90007 16.4 6.64007C16.07 6.41007 15.99 5.96007 16.22 5.63007C16.45 5.30007 16.9 5.22007 17.23 5.45007C19.4 6.96007 20.8 9.32007 21.09 11.9301C21.13 12.3301 20.84 12.6901 20.44 12.7301C20.41 12.7301 20.39 12.7301 20.36 12.7301Z" fill="currentColor"/>

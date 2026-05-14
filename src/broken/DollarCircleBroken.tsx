@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DollarCircleBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DollarCircleBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.66992 14.3301C8.66992 15.6201 9.65992 16.6601 10.8899 16.6601H13.3999C14.4699 16.6601 15.3399 15.7501 15.3399 14.6301C15.3399 13.4101 14.8099 12.9801 14.0199 12.7001L9.98992 11.3001C9.19992 11.0201 8.66992 10.5901 8.66992 9.37009C8.66992 8.25009 9.53992 7.34009 10.6099 7.34009H13.1199C14.3499 7.34009 15.3399 8.38009 15.3399 9.67009" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

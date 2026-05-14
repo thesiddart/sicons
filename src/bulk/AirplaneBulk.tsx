@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AirplaneBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AirplaneBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.96006 14.0401V12.9301C9.96006 12.5001 9.64006 12.2901 9.25006 12.4601L4.24006 14.6201C3.45006 14.9601 2.81006 14.5401 2.81006 13.6901V12.3701C2.81006 11.6901 3.32006 10.9001 3.95006 10.6401L9.65006 8.19006C9.81006 8.11006 9.95006 7.90006 9.95006 7.72006V4.66006C9.95006 3.70006 10.6601 2.55006 11.5101 2.11006C11.8101 1.96006 12.1701 1.96006 12.4701 2.11006C13.3301 2.55006 14.0401 3.69006 14.0401 4.65006V7.71006C14.0401 7.89006 14.1801 8.10006 14.3401 8.18006L15.3801 8.62006L9.96006 14.0401Z" fill="currentColor"/>

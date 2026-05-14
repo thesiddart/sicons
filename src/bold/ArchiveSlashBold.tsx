@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ArchiveSlashBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ArchiveSlashBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.1199 3.88L3.38995 20.61C3.33995 20.41 3.31995 20.19 3.31995 19.95V5.86C3.31995 3.74 5.04995 2 7.17995 2H16.8199C18.2199 2 19.4499 2.75 20.1199 3.88Z" fill="currentColor"/>

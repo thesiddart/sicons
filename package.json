@@ -1,6 +1,6 @@
 {
   "name": "sicons",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "React icon components in Bold, Outline, Bulk, and Broken styles (3,853 icons)",
   "type": "module",
   "main": "./dist/cjs/index.cjs",
@@ -70,7 +70,8 @@
     "build:components": "node scripts/generate-components.js",
     "build:lib": "rimraf dist && rollup -c && tsc -p tsconfig.emitTypes.json",
     "pretest": "npm run build",
-    "test": "vitest run && node scripts/verify-packaging.mjs",
+    "test": "vitest run && node scripts/verify-packaging.mjs && npm run test:bundle",
+    "test:bundle": "rollup -c fixtures/bundle-smoke/rollup.config.mjs && node scripts/assert-bundle-size.mjs",
     "dev": "rollup -c -w",
     "prepare": "npm run build"
   },
@@ -84,7 +85,7 @@
     "outline-icons",
     "bold-icons",
     "bulk-icons",
-    "broken-icons",
+    "broken-style-icons",
     "iconsax",
     "vuesax"
   ],

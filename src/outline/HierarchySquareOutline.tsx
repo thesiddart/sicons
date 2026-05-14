@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HierarchySquareOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HierarchySquareOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.4498 15.15C16.0398 15.15 15.6998 14.81 15.6998 14.4V8.5C15.6998 8.36 15.5898 8.25 15.4498 8.25H12.5498C12.1398 8.25 11.7998 7.91 11.7998 7.5C11.7998 7.09 12.1398 6.75 12.5498 6.75H15.4498C16.4098 6.75 17.1998 7.54 17.1998 8.5V14.4C17.1998 14.81 16.8598 15.15 16.4498 15.15Z" fill="currentColor"/>

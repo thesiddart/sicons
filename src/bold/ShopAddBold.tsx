@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShopAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShopAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M7.79999 22.1502C5.14999 22.1502 2.98999 20.0002 2.98999 17.3402V14.5002C2.98999 13.8302 3.64999 13.3802 4.27999 13.6002C4.53999 13.6902 4.79999 13.7502 5.06999 13.7902C5.18999 13.8102 5.30999 13.8302 5.42999 13.8302C5.57999 13.8502 5.73999 13.8602 5.88999 13.8602C6.99999 13.8602 8.09999 13.4502 8.96999 12.7402C9.79999 13.4502 10.87 13.8602 12.01 13.8602C13.15 13.8602 14.21 13.4702 15.04 12.7502C15.9 13.4502 16.98 13.8602 18.08 13.8602C18.25 13.8602 18.43 13.8502 18.59 13.8302C18.71 13.8202 18.81 13.8102 18.92 13.7902C19.22 13.7502 19.49 13.6702 19.76 13.5802C20.38 13.3702 21.03 13.8302 21.03 14.4802V17.3402C21.03 19.9902 18.88 22.1502 16.22 22.1502H7.79999Z" fill="currentColor"/>

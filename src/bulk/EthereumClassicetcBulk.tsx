@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const EthereumClassicetcBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const EthereumClassicetcBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M6.89995 9.10012L11.6699 6.98012C11.8799 6.89012 12.1199 6.89012 12.3199 6.98012L17.0999 9.10012C17.5199 9.29012 17.9099 8.78012 17.6199 8.42012L12.6199 2.31012C12.2799 1.89012 11.7199 1.89012 11.3799 2.31012L6.37995 8.42012C6.08995 8.78012 6.47995 9.29012 6.89995 9.10012Z" fill="currentColor"/>

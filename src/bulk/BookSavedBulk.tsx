@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BookSavedBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BookSavedBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M12 5.30019V21.3302C12.17 21.3302 12.35 21.3002 12.49 21.2202L12.53 21.2002C14.45 20.1502 17.8 19.0502 19.97 18.7602L20.26 18.7202C21.22 18.6002 22 17.7002 22 16.7402V4.66018C22 3.47018 21.03 2.57019 19.84 2.67019C17.74 2.84019 14.56 3.90022 12.78 5.01022L12.53 5.16018C12.38 5.25018 12.19 5.30019 12 5.30019Z" fill="currentColor"/>

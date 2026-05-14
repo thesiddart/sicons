@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.3] - 2026-05-14
+
+### Added
+
+- **CI** — GitHub Actions runs `npm test` (full build, Vitest, smoke import, Rollup bundle-size guard).
+- **`fixtures/bundle-smoke`** — Rolls up 10 subpath-only icon imports; `scripts/assert-bundle-size.mjs` fails if output exceeds a threshold (mega-barrel regression guard).
+
+### Changed
+
+- **Icons + `IconWrapper`:** `color` prop is applied on the root `<svg>` via resolved CSS `color` (with clear precedence vs `style.color`); default remains **`currentColor`** when neither is set.
+- **npm keyword:** `broken-icons` → `broken-style-icons` (avoids “broken product” misread).
+- **README:** tarball / future lite note, Next.js + TypeScript + RSC notes, props wording.
+
 ## [0.4.2] - 2026-05-14
 
 ### Added

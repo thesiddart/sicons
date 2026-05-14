@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BrifecaseTimerBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BrifecaseTimerBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.1298 15.8799C10.8798 15.8799 10.6298 15.7499 10.4898 15.5199C10.2798 15.1699 10.3898 14.6999 10.7498 14.4899L11.6398 13.9599V12.8799C11.6398 12.4699 11.9798 12.1299 12.3898 12.1299C12.7998 12.1299 13.1398 12.4699 13.1398 12.8799V14.3799C13.1398 14.6399 12.9998 14.8899 12.7798 15.0199L11.5298 15.7699C11.3898 15.8399 11.2598 15.8799 11.1298 15.8799Z" fill="currentColor"/>

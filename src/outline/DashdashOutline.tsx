@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DashdashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DashdashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.5003 21.25H3.94032C3.71032 21.25 3.49032 21.14 3.35032 20.96C3.21032 20.78 3.16032 20.54 3.21032 20.32L4.27032 16.07C4.35032 15.74 4.65032 15.5 5.00032 15.5H12.4403C15.3403 15.5 17.0003 13.84 17.0003 10.94V10.75C17.0003 9.15 16.3503 8.5 14.7503 8.5H6.06032C5.83032 8.5 5.61032 8.39001 5.47032 8.21001C5.33032 8.03001 5.28032 7.79001 5.33032 7.57001L6.39032 3.32001C6.47032 2.99001 6.77032 2.75 7.12032 2.75H16.0003C20.1603 2.75 22.7503 5.34 22.7503 9.5V12C22.7503 17.71 19.2103 21.25 13.5003 21.25ZM4.90032 19.75H13.5003C18.3503 19.75 21.2503 16.85 21.2503 12V9.5C21.2503 6.16 19.3403 4.25 16.0003 4.25H7.71032L7.02032 7H14.7503C17.1703 7 18.5003 8.33 18.5003 10.75V10.94C18.5003 14.68 16.1803 17 12.4403 17H5.59032L4.90032 19.75Z" fill="currentColor"/>

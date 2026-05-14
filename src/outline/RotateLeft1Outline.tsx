@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RotateLeft1Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RotateLeft1Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.75 22.75H7.25C3.1 22.75 1.25 20.9 1.25 16.75V12.25C1.25 8.1 3.1 6.25 7.25 6.25H11.75C15.9 6.25 17.75 8.1 17.75 12.25V16.75C17.75 20.9 15.9 22.75 11.75 22.75ZM7.25 7.75C3.93 7.75 2.75 8.93 2.75 12.25V16.75C2.75 20.07 3.93 21.25 7.25 21.25H11.75C15.07 21.25 16.25 20.07 16.25 16.75V12.25C16.25 8.93 15.07 7.75 11.75 7.75H7.25Z" fill="currentColor"/>

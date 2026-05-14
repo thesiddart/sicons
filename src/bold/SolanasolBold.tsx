@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SolanasolBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SolanasolBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.0002 3.5H5.50017C5.19017 3.5 4.89018 3.65 4.70018 3.9L3.20018 5.9C2.71018 6.56 3.18017 7.5 4.00017 7.5H18.5002C18.8102 7.5 19.1102 7.35 19.3002 7.1L20.8002 5.1C21.2902 4.44 20.8202 3.5 20.0002 3.5Z" fill="currentColor"/>

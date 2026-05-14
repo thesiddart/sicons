@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BlurBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BlurBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.47 7.41012L15.93 6.20012C16.23 6.05012 16.31 5.66012 16.08 5.42012C15.19 4.44012 14.29 3.62012 13.57 3.00012C13.24 2.72012 12.75 2.95012 12.75 3.38012V6.96012C12.75 7.33012 13.14 7.57012 13.47 7.41012Z" fill="currentColor"/>

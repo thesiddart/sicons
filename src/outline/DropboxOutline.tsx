@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DropboxOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DropboxOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6.44 9.75C6.29 9.75 6.14999 9.71 6.01999 9.62L1.57999 6.62C1.37999 6.48 1.25 6.25001 1.25 6.01001C1.25 5.76001 1.36 5.53002 1.56 5.39002L7.12 1.39002C7.38 1.21002 7.72001 1.20001 7.98001 1.38001L12.42 4.38001C12.62 4.52001 12.75 4.74999 12.75 4.98999C12.75 5.23999 12.64 5.46999 12.44 5.60999L6.88 9.60999C6.75 9.69999 6.6 9.75 6.44 9.75ZM3.31 5.98001L6.42999 8.09L10.69 5.01999L7.57001 2.91001L3.31 5.98001Z" fill="currentColor"/>

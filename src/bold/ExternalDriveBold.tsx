@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ExternalDriveBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ExternalDriveBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 2H8C5.79 2 4 3.79 4 6V13.25C4 13.8 4.45 14.25 5 14.25H20C20.55 14.25 21 13.8 21 13.25V6C21 3.79 19.21 2 17 2ZM8 12.75H7C6.59 12.75 6.25 12.41 6.25 12C6.25 11.59 6.59 11.25 7 11.25H8C8.41 11.25 8.75 11.59 8.75 12C8.75 12.41 8.41 12.75 8 12.75ZM8 10.25H7C6.59 10.25 6.25 9.91 6.25 9.5C6.25 9.09 6.59 8.75 7 8.75H8C8.41 8.75 8.75 9.09 8.75 9.5C8.75 9.91 8.41 10.25 8 10.25ZM8 7.75H7C6.59 7.75 6.25 7.41 6.25 7C6.25 6.59 6.59 6.25 7 6.25H8C8.41 6.25 8.75 6.59 8.75 7C8.75 7.41 8.41 7.75 8 7.75Z" fill="currentColor"/>

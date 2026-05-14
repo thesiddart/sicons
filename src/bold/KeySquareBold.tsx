@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const KeySquareBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const KeySquareBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.25 12C13.9404 12 14.5 11.4404 14.5 10.75C14.5 10.0596 13.9404 9.5 13.25 9.5C12.5596 9.5 12 10.0596 12 10.75C12 11.4404 12.5596 12 13.25 12Z" fill="currentColor"/>

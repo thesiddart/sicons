@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const JudgeBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const JudgeBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.54 19.0398C20.39 19.1898 20.2 19.2598 20.01 19.2598C19.82 19.2598 19.63 19.1898 19.48 19.0398L14.53 14.0898L15.06 13.5598L15.59 13.0298L20.54 17.9798C20.83 18.2698 20.83 18.7498 20.54 19.0398Z" fill="currentColor"/>

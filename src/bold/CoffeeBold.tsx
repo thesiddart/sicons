@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CoffeeBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CoffeeBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6 5.12012C5.59 5.12012 5.25 4.78012 5.25 4.37012V2.62012C5.25 2.21012 5.59 1.87012 6 1.87012C6.41 1.87012 6.75 2.21012 6.75 2.62012V4.37012C6.75 4.79012 6.41 5.12012 6 5.12012Z" fill="currentColor"/>

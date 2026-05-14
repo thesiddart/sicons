@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TeacherBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TeacherBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.83 15.6402C17.5 15.2002 18.38 15.6802 18.38 16.4802V17.7702C18.38 19.0402 17.39 20.4002 16.2 20.8002L13.01 21.8602C12.45 22.0502 11.54 22.0502 10.99 21.8602L7.8 20.8002C6.6 20.4002 5.62 19.0402 5.62 17.7702V16.4702C5.62 15.6802 6.5 15.2002 7.16 15.6302L9.22 16.9702C10.01 17.5002 11.01 17.7602 12.01 17.7602C13.01 17.7602 14.01 17.5002 14.8 16.9702L16.83 15.6402Z" fill="currentColor"/>

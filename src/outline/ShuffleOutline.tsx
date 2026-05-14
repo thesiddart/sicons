@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShuffleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShuffleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5.56024 18.74C5.56024 18.74 5.55025 18.74 5.54025 18.74L2.99023 18.73C2.58023 18.73 2.24023 18.39 2.24023 17.98C2.24023 17.57 2.58023 17.23 2.99023 17.23L5.54025 17.24H5.55023C6.20023 17.24 6.81026 16.92 7.17026 16.37L13.5602 6.78998C14.2002 5.82998 15.2702 5.25 16.4302 5.25C16.4302 5.25 16.4403 5.25 16.4503 5.25L21.0002 5.27002C21.4102 5.27002 21.7502 5.61002 21.7502 6.02002C21.7502 6.43002 21.4102 6.77002 21.0002 6.77002L16.4503 6.75H16.4402C15.7902 6.75 15.1803 7.07 14.8203 7.62L8.43024 17.2C7.79024 18.17 6.72024 18.74 5.56024 18.74Z" fill="currentColor"/>

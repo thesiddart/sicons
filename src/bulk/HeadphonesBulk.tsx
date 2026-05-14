@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeadphonesBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeadphonesBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M8.5 12.75C8.09 12.75 7.75 12.41 7.75 12V6C7.75 5.59 8.09 5.25 8.5 5.25C8.91 5.25 9.25 5.59 9.25 6V12C9.25 12.41 8.91 12.75 8.5 12.75Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SignpostOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SignpostOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.2195 9.75H8.95953C8.39953 9.75 7.83954 9.56001 7.39954 9.20001L5.20953 7.45001C4.60953 6.97001 4.26953 6.26 4.26953 5.5C4.26953 4.74 4.60953 4.01999 5.20953 3.54999L7.39954 1.79999C7.83954 1.44999 8.39953 1.25 8.95953 1.25H17.2195C18.5995 1.25 19.7195 2.37 19.7195 3.75V7.25C19.7195 8.63 18.5995 9.75 17.2195 9.75ZM8.95953 2.75C8.72953 2.75 8.50954 2.83 8.33954 2.97L6.14954 4.72C5.90954 4.91 5.76953 5.2 5.76953 5.5C5.76953 5.8 5.90954 6.09 6.14954 6.28L8.33954 8.03C8.51954 8.17 8.73953 8.25 8.95953 8.25H17.2195C17.7695 8.25 18.2195 7.8 18.2195 7.25V3.75C18.2195 3.2 17.7695 2.75 17.2195 2.75H8.95953Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CardEditBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CardEditBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.5 4.6099V7.5399C13.5 8.2099 12.96 8.7499 12.29 8.7499H3.21C2.53 8.7499 2 8.1899 2 7.5199C2.01 6.3899 2.46 5.3599 3.21 4.6099C3.96 3.8599 5 3.3999 6.14 3.3999H12.29C12.96 3.3999 13.5 3.9399 13.5 4.6099Z" fill="currentColor"/>

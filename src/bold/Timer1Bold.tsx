@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Timer1Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Timer1Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 4.6499C7.21996 4.6499 3.32996 8.5399 3.32996 13.3199C3.32996 18.0999 7.21996 21.9999 12 21.9999C16.78 21.9999 20.67 18.1099 20.67 13.3299C20.67 8.5499 16.78 4.6499 12 4.6499ZM12.75 12.9999C12.75 13.4099 12.41 13.7499 12 13.7499C11.59 13.7499 11.25 13.4099 11.25 12.9999V7.9999C11.25 7.5899 11.59 7.2499 12 7.2499C12.41 7.2499 12.75 7.5899 12.75 7.9999V12.9999Z" fill="currentColor"/>

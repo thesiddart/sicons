@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VolumeSlashBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VolumeSlashBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18 16.7498C17.84 16.7498 17.69 16.6998 17.55 16.5998C17.22 16.3498 17.15 15.8798 17.4 15.5498C18.66 13.8698 18.93 11.6398 18.12 9.70983C17.96 9.32983 18.14 8.88983 18.52 8.72983C18.9 8.56983 19.34 8.74983 19.5 9.12983C20.52 11.5498 20.17 14.3598 18.6 16.4598C18.45 16.6498 18.23 16.7498 18 16.7498Z" fill="currentColor"/>

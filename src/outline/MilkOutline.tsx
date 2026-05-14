@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MilkOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MilkOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15 22.75H9C6.93 22.75 5.25 21.07 5.25 19V13.98C5.25 13.78 5.32997 13.59 5.46997 13.45C5.60997 13.31 5.8 13.23 6 13.23L9.89001 13.25C10.73 13.25 11.57 13.45 12.33 13.83C12.89 14.11 13.49 14.25 14.12 14.25H18C18.41 14.25 18.75 14.59 18.75 15V19C18.75 21.07 17.07 22.75 15 22.75ZM6.75 14.73V19C6.75 20.24 7.76 21.25 9 21.25H15C16.24 21.25 17.25 20.24 17.25 19V15.75H14.12C13.26 15.75 12.43 15.56 11.66 15.17C11.1 14.89 10.5 14.75 9.89001 14.75L6.75 14.73Z" fill="currentColor"/>

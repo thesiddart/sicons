@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const UserCirlceAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const UserCirlceAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.97 2.33C21.25 1.51 20.18 1 19 1C17.88 1 16.86 1.46 16.13 2.21C15.71 2.64 15.39 3.16 15.2 3.74C15.07 4.14 15 4.56 15 5C15 5.75 15.21 6.46 15.58 7.06C15.78 7.4 16.04 7.71 16.34 7.97C17.04 8.61 17.97 9 19 9C19.44 9 19.86 8.93 20.25 8.79C21.17 8.5 21.94 7.87 22.42 7.06C22.63 6.72 22.79 6.33 22.88 5.93C22.96 5.63 23 5.32 23 5C23 3.98 22.61 3.04 21.97 2.33ZM20.49 5.73H19.75V6.51C19.75 6.92 19.41 7.26 19 7.26C18.59 7.26 18.25 6.92 18.25 6.51V5.73H17.51C17.1 5.73 16.76 5.39 16.76 4.98C16.76 4.57 17.1 4.23 17.51 4.23H18.25V3.52C18.25 3.11 18.59 2.77 19 2.77C19.41 2.77 19.75 3.11 19.75 3.52V4.23H20.49C20.9 4.23 21.24 4.57 21.24 4.98C21.24 5.39 20.91 5.73 20.49 5.73Z" fill="currentColor"/>

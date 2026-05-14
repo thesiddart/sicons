@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RadarBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RadarBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0001 14.3801C13.3146 14.3801 14.3801 13.3146 14.3801 12.0001C14.3801 10.6857 13.3146 9.62012 12.0001 9.62012C10.6857 9.62012 9.62012 10.6857 9.62012 12.0001C9.62012 13.3146 10.6857 14.3801 12.0001 14.3801Z" fill="currentColor"/>

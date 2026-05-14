@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VolumeHighBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VolumeHighBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18 16.7498C17.84 16.7498 17.69 16.6998 17.55 16.5998C17.22 16.3498 17.15 15.8798 17.4 15.5498C18.97 13.4598 18.97 10.5398 17.4 8.44978C17.15 8.11978 17.22 7.64978 17.55 7.39978C17.88 7.14978 18.35 7.21978 18.6 7.54978C20.56 10.1698 20.56 13.8298 18.6 16.4498C18.45 16.6498 18.23 16.7498 18 16.7498Z" fill="currentColor"/>

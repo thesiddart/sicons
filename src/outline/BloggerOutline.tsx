@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BloggerOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BloggerOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15 18.75H9C6.58 18.75 5.25 17.42 5.25 15V9C5.25 6.58 6.58 5.25 9 5.25H13C15.42 5.25 16.75 6.58 16.75 9V10C16.75 10.14 16.86 10.25 17 10.25C17.96 10.25 18.75 11.04 18.75 12V15C18.75 17.42 17.42 18.75 15 18.75ZM9 6.75C7.42 6.75 6.75 7.42 6.75 9V15C6.75 16.58 7.42 17.25 9 17.25H15C16.58 17.25 17.25 16.58 17.25 15V12C17.25 11.86 17.14 11.75 17 11.75C16.04 11.75 15.25 10.96 15.25 10V9C15.25 7.42 14.58 6.75 13 6.75H9Z" fill="currentColor"/>

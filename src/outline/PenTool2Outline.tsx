@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PenTool2Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PenTool2Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.2698 23.25H10.7498C10.0498 23.25 9.41979 22.9499 8.99979 22.4399C8.62979 21.9799 8.48978 21.39 8.61978 20.83L9.02979 19.02C9.10979 18.68 9.40978 18.4399 9.75978 18.4399H14.2598C14.6098 18.4399 14.9098 18.68 14.9898 19.02L15.3998 20.83C15.5298 21.43 15.4098 22.01 15.0398 22.47C14.6298 22.96 13.9898 23.25 13.2698 23.25ZM10.3598 19.92L10.0798 21.15C10.0498 21.3 10.1098 21.42 10.1698 21.49C10.2998 21.65 10.5098 21.74 10.7498 21.74H13.2698C13.5298 21.74 13.7498 21.66 13.8698 21.51C13.9498 21.41 13.9698 21.29 13.9398 21.14L13.6598 19.91H10.3598V19.92Z" fill="currentColor"/>

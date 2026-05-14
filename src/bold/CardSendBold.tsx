@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CardSendBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CardSendBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.97 1.75H17.03C15.76 1.75 15 2.51 15 3.78V6.72C15 7.99 15.76 8.75 17.03 8.75H19.97C21.24 8.75 22 7.99 22 6.72V3.78C22 2.51 21.24 1.75 19.97 1.75ZM20.19 5.06C20.07 5.18 19.91 5.24 19.75 5.24C19.59 5.24 19.43 5.18 19.31 5.06L19.13 4.88V7.12C19.13 7.47 18.85 7.75 18.5 7.75C18.15 7.75 17.87 7.47 17.87 7.12V4.88L17.69 5.06C17.45 5.3 17.05 5.3 16.81 5.06C16.57 4.82 16.57 4.42 16.81 4.18L18.06 2.93C18.11 2.88 18.18 2.84 18.25 2.81C18.27 2.8 18.29 2.8 18.31 2.79C18.36 2.77 18.41 2.76 18.47 2.76C18.49 2.76 18.51 2.76 18.53 2.76C18.6 2.76 18.66 2.77 18.73 2.8C18.74 2.8 18.74 2.8 18.75 2.8C18.82 2.83 18.88 2.87 18.93 2.92C18.94 2.93 18.94 2.93 18.95 2.93L20.2 4.18C20.44 4.42 20.44 4.82 20.19 5.06Z" fill="currentColor"/>

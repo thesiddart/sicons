@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShuffleBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShuffleBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.75 17.9799C21.75 17.9599 21.74 17.9399 21.74 17.9199C21.73 17.8399 21.72 17.7599 21.69 17.6899C21.65 17.5999 21.6 17.5299 21.54 17.4599C21.54 17.4599 21.54 17.4499 21.53 17.4499C21.46 17.3799 21.38 17.3299 21.29 17.2899C21.2 17.2499 21.1 17.2299 21 17.2299L16.33 17.2499C16.33 17.2499 16.33 17.2499 16.32 17.2499C15.72 17.2499 15.14 16.9699 14.78 16.4899L13.56 14.9199C13.31 14.5899 12.84 14.5299 12.51 14.7899C12.18 15.0499 12.12 15.5099 12.38 15.8399L13.6 17.4099C14.25 18.2499 15.27 18.7499 16.33 18.7499H16.34L19.19 18.7399L18.48 19.4499C18.19 19.7399 18.19 20.2199 18.48 20.5099C18.63 20.6599 18.82 20.7299 19.01 20.7299C19.2 20.7299 19.39 20.6599 19.54 20.5099L21.54 18.5099C21.61 18.4399 21.66 18.3599 21.7 18.2699C21.73 18.1699 21.75 18.0699 21.75 17.9799Z" fill="currentColor"/>

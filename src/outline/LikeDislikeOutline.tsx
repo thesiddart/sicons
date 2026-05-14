@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LikeDislikeOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LikeDislikeOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.9493 22.75H7.7793C7.3893 22.75 6.6093 22.6299 6.1593 22.1899L4.4593 20.88L5.3793 19.6899L7.1493 21.06C7.2793 21.17 7.5493 21.25 7.7793 21.25H9.9493C10.3193 21.25 10.7393 20.94 10.8193 20.62L12.2093 16.39C12.2493 16.29 12.2793 16.14 12.2093 16.03C12.1493 15.94 12.0093 15.89 11.8393 15.89H9.5493C9.1593 15.89 8.7993 15.72 8.5393 15.43C8.2793 15.13 8.1693 14.7499 8.2293 14.3399L8.51929 12.5C8.55929 12.33 8.4393 12.1199 8.2793 12.0699C8.1493 12.0199 7.9293 12.11 7.8793 12.18L5.5293 15.67L4.2793 14.8299L6.6193 11.3399C7.0593 10.6799 8.0193 10.38 8.7593 10.66C9.6093 10.94 10.1693 11.9 9.9693 12.78L9.7193 14.38H11.8093C12.4793 14.38 13.0593 14.66 13.4093 15.16C13.7493 15.64 13.8193 16.27 13.5993 16.87L12.2293 21.03C12.0293 21.97 11.0093 22.75 9.9493 22.75Z" fill="currentColor"/>

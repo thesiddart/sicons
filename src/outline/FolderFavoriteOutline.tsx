@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FolderFavoriteOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FolderFavoriteOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 17.88C11.75 17.88 11.49 17.79 11.29 17.61L8.70995 15.35C7.73995 14.5 7.60995 13.04 8.41995 12.03C9.23995 11.01 10.7 10.82 11.75 11.61L12 11.8L12.26 11.6C13.31 10.81 14.77 11 15.59 12.02C16.4 13.03 16.27 14.49 15.3 15.34L12.72 17.6C12.51 17.79 12.25 17.88 12 17.88ZM9.68995 14.22L12 16.24L14.31 14.22C14.68 13.9 14.73 13.35 14.42 12.97C14.11 12.58 13.56 12.51 13.16 12.81L12.45 13.34C12.18 13.54 11.82 13.54 11.55 13.34L10.84 12.81C10.45 12.51 9.88995 12.58 9.57995 12.97C9.27995 13.35 9.32995 13.9 9.68995 14.22Z" fill="currentColor"/>

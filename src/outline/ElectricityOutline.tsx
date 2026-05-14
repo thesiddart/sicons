@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ElectricityOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ElectricityOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.5 16.75H10.5C7.75 16.75 5.75 14.75 5.75 12V6.92C5.75 5.45 6.95001 4.25 8.42001 4.25H15.59C17.06 4.25 18.26 5.45 18.26 6.92V12C18.25 14.75 16.25 16.75 13.5 16.75ZM8.42001 5.75C7.78001 5.75 7.25 6.27 7.25 6.92V12C7.25 13.62 8.25 15.25 10.5 15.25H13.5C15.75 15.25 16.75 13.62 16.75 12V6.92C16.75 6.28 16.23 5.75 15.58 5.75H8.42001Z" fill="currentColor"/>

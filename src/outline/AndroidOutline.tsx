@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AndroidOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AndroidOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10 22.75C9.04 22.75 8.25 21.96 8.25 21V18C8.25 17.59 8.59 17.25 9 17.25H11C11.41 17.25 11.75 17.59 11.75 18V21C11.75 21.96 10.96 22.75 10 22.75ZM9.75 18.75V21C9.75 21.27 10.25 21.27 10.25 21V18.75H9.75Z" fill="currentColor"/>

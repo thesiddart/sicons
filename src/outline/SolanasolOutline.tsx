@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SolanasolOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SolanasolOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.5 8.25H3.99996C3.32996 8.25 2.72996 7.88 2.43996 7.28C2.13996 6.68 2.19993 5.98 2.59993 5.45L4.09993 3.45C4.42993 3.01 4.94996 2.75 5.49996 2.75H20C20.67 2.75 21.27 3.12 21.56 3.72C21.86 4.32 21.8 5.02 21.4 5.55L19.9 7.55C19.57 7.99 19.05 8.25 18.5 8.25ZM5.49996 4.25C5.41996 4.25 5.34994 4.29 5.29994 4.35L3.79994 6.35C3.71994 6.46 3.74999 6.56 3.77999 6.61C3.80999 6.66 3.86996 6.75 3.99996 6.75H18.5C18.58 6.75 18.65 6.71 18.7 6.65L20.2 4.65C20.28 4.54 20.2499 4.44 20.2199 4.39C20.1899 4.34 20.13 4.25 20 4.25H5.49996Z" fill="currentColor"/>

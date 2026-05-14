@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MicrophoneSlash1Bulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MicrophoneSlash1Bulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M17.6199 5.72L7.00988 16.33C6.27988 15.34 5.87988 14.13 5.87988 12.82V8.11C5.87988 6.27 6.69988 4.62 7.99988 3.5V7.64C7.99988 8.03 8.31988 8.35 8.69988 8.35C9.08988 8.35 9.40988 8.03 9.40988 7.64V2.57C9.86988 2.34 10.3599 2.18 10.8699 2.09V5.75C10.8699 6.15 11.1899 6.46 11.5799 6.46C11.9699 6.46 12.2899 6.15 12.2899 5.75V2C14.6799 2.11 16.7399 3.61 17.6199 5.72Z" fill="currentColor"/>

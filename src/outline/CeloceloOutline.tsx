@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CeloceloOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CeloceloOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15 16.75C10.73 16.75 7.25 13.27 7.25 9C7.25 4.73 10.73 1.25 15 1.25C19.27 1.25 22.75 4.73 22.75 9C22.75 13.27 19.27 16.75 15 16.75ZM15 2.75C11.55 2.75 8.75 5.55 8.75 9C8.75 12.45 11.55 15.25 15 15.25C18.45 15.25 21.25 12.45 21.25 9C21.25 5.55 18.45 2.75 15 2.75Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Icon3dcubeOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Icon3dcubeOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 12.25C11.56 12.25 11.12 12.14 10.72 11.93L4.21 8.41998C3.62 8.09998 3.25 7.46998 3.25 6.76998C3.25 6.06998 3.62 5.43998 4.21 5.11998L10.72 1.60998C11.52 1.17998 12.48 1.17998 13.27 1.60998L19.78 5.11998C20.37 5.43998 20.74 6.06998 20.74 6.76998C20.74 7.46998 20.37 8.09998 19.78 8.41998L13.27 11.93C12.88 12.15 12.44 12.25 12 12.25ZM12 2.77998C11.81 2.77998 11.61 2.82998 11.43 2.92998L4.93 6.42998C4.76 6.51998 4.75 6.70998 4.75 6.76998C4.75 6.82998 4.76 7.01998 4.93 7.09998L11.44 10.61C11.8 10.8 12.21 10.8 12.57 10.61L19.08 7.09998C19.24 7.00998 19.26 6.81998 19.26 6.76998C19.26 6.70998 19.25 6.51998 19.08 6.43998L12.57 2.92998C12.39 2.82998 12.19 2.77998 12 2.77998Z" fill="currentColor"/>

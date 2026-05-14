@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ChromeBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ChromeBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M22 12C22 17.47 17.61 21.91 12.16 22H12C11.39 22 10.79 21.94 10.21 21.84C5.54 20.99 2 16.91 2 12C2 10.29 2.43 8.68 3.19 7.27C3.5 6.7 3.86 6.15 4.27 5.65C6.11 3.42 8.89 2 12 2C15.56 2 18.68 3.86 20.45 6.66C20.8 7.21 21.1 7.8 21.34 8.42C21.77 9.53 22 10.74 22 12Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MonitorMobbileBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MonitorMobbileBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M16.8 2H6.21001C3.89001 2 2.01001 3.88 2.01001 6.19V12.37V12.56C2.01001 14.88 3.89001 16.75 6.20001 16.75H9.80001C10.35 16.75 10.8 17.2 10.8 17.75V18.57C10.8 19.12 10.35 19.57 9.80001 19.57H7.55001C7.16001 19.57 6.84001 19.89 6.84001 20.28C6.84001 20.67 7.16001 20.99 7.55001 20.99H15.48C15.87 20.99 16.19 20.67 16.19 20.28C16.19 19.89 15.87 19.57 15.48 19.57H13.23C12.68 19.57 12.23 19.12 12.23 18.57V17.75C12.23 17.2 12.68 16.75 13.23 16.75H16.8C19.12 16.75 20.99 14.87 20.99 12.56V12.37V6.19C20.99 3.88 19.11 2 16.8 2Z" fill="currentColor"/>

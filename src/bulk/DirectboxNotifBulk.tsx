@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DirectboxNotifBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DirectboxNotifBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.6902 11.53C18.1202 11.38 17.4502 11.3 16.6502 11.3C15.5402 11.3 15.1302 11.57 14.5602 12C14.5302 12.02 14.5002 12.05 14.4702 12.08L13.5202 13.09C12.7202 13.93 11.2802 13.94 10.4802 13.08L9.53018 12.08C9.50018 12.05 9.47018 12.02 9.44018 12C8.87018 11.57 8.46018 11.3 7.35018 11.3C6.55018 11.3 5.88018 11.38 5.31018 11.53C2.93018 12.17 2.93018 14.06 2.93018 15.72V16.65C2.93018 19.16 2.93018 22 8.28018 22H15.7202C19.2702 22 21.0702 20.2 21.0702 16.65V15.72C21.0702 14.06 21.0702 12.17 18.6902 11.53ZM14.3302 18.4H9.67018C9.29018 18.4 8.98018 18.09 8.98018 17.7C8.98018 17.31 9.29018 17 9.67018 17H14.3302C14.7102 17 15.0202 17.31 15.0202 17.7C15.0202 18.09 14.7102 18.4 14.3302 18.4Z" fill="currentColor"/>

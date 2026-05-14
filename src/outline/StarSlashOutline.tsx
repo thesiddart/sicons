@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StarSlashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StarSlashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5.28012 19.4C5.22012 19.4 5.17012 19.39 5.11012 19.38C4.71012 19.29 4.45012 18.88 4.55012 18.48L5.12012 16.02C5.20012 15.7 5.04012 15.15 4.80012 14.91L2.32012 12.43C1.08012 11.19 1.18012 10.13 1.35012 9.60996C1.52012 9.08996 2.06012 8.16996 3.78012 7.87996L6.97012 7.34996C7.27012 7.28996 7.70012 6.96996 7.83012 6.69996L9.60012 3.16996C10.4001 1.55996 11.4501 1.32996 12.0001 1.32996C12.5501 1.32996 13.6001 1.56996 14.4001 3.16996L16.1601 6.68996C16.2201 6.80996 16.3501 6.94996 16.5001 7.06996C16.8301 7.31996 16.8901 7.79996 16.6301 8.11996C16.3801 8.44996 15.9101 8.50996 15.5801 8.24996C15.3401 8.06996 15.0201 7.75996 14.8201 7.35996L13.0601 3.83996C12.7501 3.20996 12.3501 2.82996 12.0001 2.82996C11.6501 2.82996 11.2501 3.20996 10.9401 3.84996L9.17012 7.36996C8.82012 8.06996 7.98012 8.68996 7.21012 8.81996L4.03012 9.34996C3.35012 9.45996 2.89012 9.72996 2.78012 10.06C2.67012 10.39 2.90012 10.88 3.39012 11.36L5.87012 13.84C6.47012 14.44 6.78012 15.52 6.59012 16.35L6.02012 18.81C5.93012 19.16 5.63012 19.4 5.28012 19.4Z" fill="currentColor"/>

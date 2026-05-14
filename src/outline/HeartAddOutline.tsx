@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartAddOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartAddOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.2004 22.75C14.1404 22.75 11.6504 20.26 11.6504 17.2C11.6504 14.14 14.1404 11.65 17.2004 11.65C20.2604 11.65 22.7504 14.14 22.7504 17.2C22.7504 20.26 20.2604 22.75 17.2004 22.75ZM17.2004 13.15C14.9704 13.15 13.1504 14.97 13.1504 17.2C13.1504 19.43 14.9704 21.25 17.2004 21.25C19.4304 21.25 21.2504 19.43 21.2504 17.2C21.2504 14.97 19.4304 13.15 17.2004 13.15Z" fill="currentColor"/>

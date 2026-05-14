@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SmileysOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SmileysOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10 14.75H6.2C2.78 14.75 1.25 13.22 1.25 9.80005V6.19995C1.25 2.77995 2.78 1.25 6.2 1.25H9.8C13.22 1.25 14.75 2.77995 14.75 6.19995V10C14.75 10.41 14.42 10.74 14.01 10.75C11.61 10.79 10.79 11.62 10.75 14.01C10.74 14.42 10.41 14.75 10 14.75ZM6.2 2.75C3.62 2.75 2.75 3.61995 2.75 6.19995V9.80005C2.75 12.38 3.62 13.25 6.2 13.25H9.29C9.53 10.81 10.81 9.54004 13.25 9.29004V6.19995C13.25 3.61995 12.38 2.75 9.8 2.75H6.2Z" fill="currentColor"/>

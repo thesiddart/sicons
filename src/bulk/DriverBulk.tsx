@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DriverBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DriverBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M19.3198 9.99977H4.68977C3.20977 9.99977 2.00977 8.78977 2.00977 7.31977V4.68977C2.00977 3.20977 3.21977 2.00977 4.68977 2.00977H19.3198C20.7998 2.00977 21.9998 3.21977 21.9998 4.68977V7.31977C21.9998 8.78977 20.7898 9.99977 19.3198 9.99977Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WalletAdd1Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WalletAdd1Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.5 16.19H9.5C9.09 16.19 8.75 15.85 8.75 15.44C8.75 15.03 9.09 14.69 9.5 14.69H14.5C14.91 14.69 15.25 15.03 15.25 15.44C15.25 15.85 14.91 16.19 14.5 16.19Z" fill="currentColor"/>

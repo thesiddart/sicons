@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MusicSquareAddBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MusicSquareAddBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.21 15.0098C18.12 14.9398 17 15.3398 16.17 16.1698C14.61 17.7298 14.61 20.2598 16.17 21.8298C16.7 22.3598 17.35 22.7098 18.04 22.8798C18.42 22.9798 18.82 23.0098 19.22 22.9898C20.17 22.9498 21.1 22.5698 21.83 21.8398C22.86 20.8098 23.21 19.3598 22.88 18.0498C22.72 17.3598 22.36 16.7098 21.83 16.1798C21.11 15.4498 20.17 15.0598 19.21 15.0098ZM21.24 18.9798C21.24 19.1898 21.16 19.3698 21.02 19.5098C20.88 19.6498 20.7 19.7298 20.49 19.7298H19.75V20.5098C19.75 20.7198 19.67 20.8998 19.53 21.0398C19.39 21.1798 19.21 21.2598 19 21.2598C18.59 21.2598 18.25 20.9198 18.25 20.5098V19.7298H17.5C17.09 19.7298 16.75 19.3898 16.75 18.9798C16.75 18.5698 17.09 18.2298 17.5 18.2298H18.25V17.5198C18.25 17.1098 18.59 16.7698 19 16.7698C19.41 16.7698 19.75 17.1098 19.75 17.5198V18.2298H20.49C20.91 18.2298 21.24 18.5698 21.24 18.9798Z" fill="currentColor"/>

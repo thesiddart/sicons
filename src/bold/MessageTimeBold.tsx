@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MessageTimeBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MessageTimeBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5 13.5C4.06 13.5 3.19 13.83 2.5 14.38C1.58 15.11 1 16.24 1 17.5C1 19.71 2.79 21.5 5 21.5C6.01 21.5 6.93 21.12 7.64 20.5C8.47 19.77 9 18.7 9 17.5C9 15.29 7.21 13.5 5 13.5ZM6 17.75C6 18.01 5.86 18.26 5.64 18.39L4.39 19.14C4.27 19.22 4.13 19.25 4 19.25C3.75 19.25 3.5 19.12 3.36 18.89C3.15 18.53 3.26 18.07 3.62 17.86L4.51 17.33V16.25C4.51 15.84 4.85 15.5 5.26 15.5C5.67 15.5 6 15.84 6 16.25V17.75Z" fill="currentColor"/>

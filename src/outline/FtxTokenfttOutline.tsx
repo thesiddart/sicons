@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FtxTokenfttOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FtxTokenfttOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21 7.75H9C8.04 7.75 7.25 6.96 7.25 6V3C7.25 2.04 8.04 1.25 9 1.25H21C21.96 1.25 22.75 2.04 22.75 3V6C22.75 6.96 21.96 7.75 21 7.75ZM9 2.75C8.86 2.75 8.75 2.86 8.75 3V6C8.75 6.14 8.86 6.25 9 6.25H21C21.14 6.25 21.25 6.14 21.25 6V3C21.25 2.86 21.14 2.75 21 2.75H9Z" fill="currentColor"/>

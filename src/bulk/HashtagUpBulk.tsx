@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HashtagUpBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HashtagUpBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.97 16H18.03C16.76 16 16 16.76 16 18.03V20.97C16 22.24 16.76 23 18.03 23H20.97C22.24 23 23 22.24 23 20.97V18.03C23 16.76 22.24 16 20.97 16ZM21.19 19.31C21.07 19.43 20.91 19.49 20.75 19.49C20.59 19.49 20.43 19.43 20.31 19.31L20.13 19.13V21.37C20.13 21.72 19.85 22 19.5 22C19.15 22 18.87 21.72 18.87 21.37V19.13L18.69 19.31C18.45 19.55 18.05 19.55 17.81 19.31C17.57 19.07 17.57 18.67 17.81 18.43L19.06 17.18C19.11 17.13 19.18 17.09 19.25 17.06C19.27 17.05 19.29 17.05 19.31 17.04C19.36 17.02 19.41 17.01 19.47 17.01C19.49 17.01 19.51 17.01 19.53 17.01C19.6 17.01 19.66 17.02 19.73 17.05C19.74 17.05 19.74 17.05 19.75 17.05C19.82 17.08 19.88 17.12 19.93 17.17C19.94 17.18 19.94 17.18 19.95 17.18L21.2 18.43C21.44 18.67 21.44 19.07 21.19 19.31Z" fill="currentColor"/>

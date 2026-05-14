@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LifebuoyBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LifebuoyBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M7.5 12C7.5 11.3369 7.64791 10.7071 7.91078 10.1372C8.11429 9.69593 8.07926 9.15924 7.73566 8.81564L5.15859 6.23857C4.74853 5.82851 4.07241 5.85004 3.74142 6.32622C2.62098 7.93817 1.97 9.89396 1.97 12C1.97 14.1044 2.61997 16.0587 3.73277 17.67C4.06278 18.1478 4.73993 18.1709 5.15107 17.7608L7.73414 15.1843C8.07851 14.8408 8.11393 14.3035 7.91032 13.8618C7.64774 13.2921 7.5 12.6627 7.5 12Z" fill="currentColor"/>

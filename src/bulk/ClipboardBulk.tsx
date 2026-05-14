@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ClipboardBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ClipboardBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M13.89 2.88014L9.19999 2.14014C5.28999 1.53014 3.47999 2.85014 2.85999 6.76014L2.11999 11.4501C1.71999 14.0101 2.13999 15.6701 3.58999 16.6801C4.34999 17.2201 5.38999 17.5801 6.73999 17.7901L11.43 18.5301C15.34 19.1401 17.15 17.8201 17.77 13.9101L18.5 9.22014C18.62 8.45014 18.67 7.76014 18.63 7.15014C18.5 4.65014 17.03 3.37014 13.89 2.88014ZM8.23999 9.35014C7.06999 9.35014 6.11999 8.40014 6.11999 7.24014C6.11999 6.07014 7.06999 5.12014 8.23999 5.12014C9.39999 5.12014 10.35 6.07014 10.35 7.24014C10.35 8.40014 9.39999 9.35014 8.23999 9.35014Z" fill="currentColor"/>

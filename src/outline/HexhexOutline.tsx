@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HexhexOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HexhexOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.4299 21.41H6.55988L1.12988 12L6.55988 2.59H17.4299L22.8599 12L17.4299 21.41ZM7.42987 19.91H16.5599L21.1299 12L16.5599 4.09H7.42987L2.86987 12L7.42987 19.91Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Mouse1Broken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Mouse1Broken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.1497 12.8299L14.4197 13.4099C13.9397 13.5699 13.5697 13.9399 13.4097 14.4199L12.8297 16.1499C12.3397 17.6399 10.2397 17.6099 9.7797 16.1199L7.8297 9.83988C7.4497 8.58988 8.5997 7.43989 9.8297 7.81989L16.1197 9.76987C17.6097 10.2399 17.6297 12.3399 16.1497 12.8299Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FavoriteChartBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FavoriteChartBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.1199 14.9399L19.4399 15.5899C19.5999 15.9099 20.0099 16.2099 20.3499 16.2699L20.7799 16.3399C22.0899 16.5599 22.3899 17.5199 21.4599 18.4599L21.0599 18.8599C20.7899 19.1299 20.6499 19.6499 20.7299 20.0299L20.7799 20.2699C21.1399 21.8499 20.2999 22.4599 18.9299 21.6299L18.6399 21.4499C18.2899 21.2399 17.7099 21.2399 17.3599 21.4499L17.0699 21.6299C15.6899 22.4599 14.8599 21.8499 15.2199 20.2699L15.2699 20.0299C15.3499 19.6599 15.2099 19.1299 14.9399 18.8599L14.5399 18.4599C13.6099 17.5099 13.9099 16.5599 15.2199 16.3399L15.6499 16.2699C15.9999 16.2099 16.3999 15.9099 16.5599 15.5899L16.8799 14.9399C17.4999 13.6899 18.4999 13.6899 19.1199 14.9399Z" fill="currentColor"/>

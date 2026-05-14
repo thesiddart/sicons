@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SidebarRightOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SidebarRightOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.9697 22.75H8.96973C3.53973 22.75 1.21973 20.43 1.21973 15V9C1.21973 3.57 3.53973 1.25 8.96973 1.25H14.9697C20.3997 1.25 22.7197 3.57 22.7197 9V15C22.7197 20.43 20.4097 22.75 14.9697 22.75ZM8.96973 2.75C4.35973 2.75 2.71973 4.39 2.71973 9V15C2.71973 19.61 4.35973 21.25 8.96973 21.25H14.9697C19.5797 21.25 21.2197 19.61 21.2197 15V9C21.2197 4.39 19.5797 2.75 14.9697 2.75H8.96973Z" fill="currentColor"/>

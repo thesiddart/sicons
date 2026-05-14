@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Icon3dcubeBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Icon3dcubeBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.43 7.76009C20.19 7.35009 20.19 6.18009 19.43 5.77009L12.92 2.26009C12.34 1.95009 11.66 1.95009 11.08 2.26009L4.57 5.77009C3.81 6.18009 3.81 7.35009 4.57 7.76009L11.08 11.2701C11.66 11.5801 12.34 11.5801 12.92 11.2701L15.26 10.0101" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

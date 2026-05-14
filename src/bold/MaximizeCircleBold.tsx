@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MaximizeCircleBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MaximizeCircleBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.6899 2.71C21.6099 2.53 21.4699 2.38 21.2799 2.3C21.1899 2.27 21.0999 2.25 20.9999 2.25H16.9999C16.5899 2.25 16.2499 2.59 16.2499 3C16.2499 3.41 16.5899 3.75 16.9999 3.75H19.1899L14.4699 8.47C14.1799 8.76 14.1799 9.24 14.4699 9.53C14.6199 9.68 14.8099 9.75 14.9999 9.75C15.1899 9.75 15.3799 9.68 15.5299 9.53L20.2499 4.81V7C20.2499 7.41 20.5899 7.75 20.9999 7.75C21.4099 7.75 21.7499 7.41 21.7499 7V3C21.7499 2.9 21.7299 2.81 21.6899 2.71Z" fill="currentColor"/>

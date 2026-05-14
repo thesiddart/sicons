@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BinanceCoinbnbBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BinanceCoinbnbBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.65 2.35002L6.35996 7.64002C6.15996 7.84002 6.15996 8.15002 6.35996 8.35002L7.64995 9.64002C7.84995 9.84002 8.15996 9.84002 8.35996 9.64002L11.65 6.35002C11.85 6.15002 12.16 6.15002 12.36 6.35002L15.65 9.64002C15.85 9.84002 16.16 9.84002 16.36 9.64002L17.65 8.35002C17.85 8.15002 17.85 7.84002 17.65 7.64002L12.36 2.35002C12.16 2.16002 11.84 2.16002 11.65 2.35002Z" fill="currentColor"/>

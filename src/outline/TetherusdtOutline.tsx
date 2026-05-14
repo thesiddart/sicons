@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TetherusdtOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TetherusdtOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9997 21.4C11.0597 21.4 10.1197 21.08 9.40973 20.43L2.47972 14.14C1.26972 13.04 0.889723 11.03 1.61972 9.56999L4.01973 4.74999C4.61973 3.54999 6.12973 2.60999 7.46973 2.60999H16.5297C17.8697 2.60999 19.3797 3.54999 19.9797 4.74999L22.3797 9.56999C23.1097 11.03 22.7297 13.04 21.5197 14.14L14.5897 20.43C13.8797 21.07 12.9397 21.4 11.9997 21.4ZM7.46973 4.09999C6.68973 4.09999 5.70973 4.70999 5.35973 5.40999L2.95973 10.23C2.53973 11.08 2.77973 12.38 3.48973 13.02L10.4197 19.31C11.2797 20.09 12.7297 20.09 13.5797 19.31L20.5097 13.02C21.2097 12.38 21.4597 11.08 21.0397 10.23L18.6397 5.40999C18.2897 4.71999 17.3097 4.10999 16.5297 4.10999H7.46973V4.09999Z" fill="currentColor"/>

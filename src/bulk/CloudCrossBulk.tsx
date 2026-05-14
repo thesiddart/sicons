@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudCrossBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudCrossBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.47 14.3901H10.53C9.26 14.3901 8.5 15.1501 8.5 16.4201V19.3601C8.5 20.6301 9.26 21.3901 10.53 21.3901H13.47C14.74 21.3901 15.5 20.6301 15.5 19.3601V16.4201C15.5 15.1501 14.74 14.3901 13.47 14.3901ZM13.97 18.9401C14.22 19.1901 14.22 19.6001 13.97 19.8501C13.84 19.9701 13.68 20.0301 13.51 20.0301C13.35 20.0301 13.19 19.9701 13.06 19.8501L12 18.7901L10.95 19.8501C10.82 19.9701 10.66 20.0301 10.49 20.0301C10.33 20.0301 10.17 19.9701 10.04 19.8501C9.79 19.6001 9.79 19.1901 10.04 18.9401L11.1 17.8801L10.04 16.8301C9.79 16.5801 9.79 16.1701 10.04 15.9201C10.29 15.6701 10.7 15.6701 10.95 15.9201L12 16.9801L13.06 15.9201C13.31 15.6701 13.72 15.6701 13.97 15.9201C14.22 16.1701 14.22 16.5801 13.97 16.8301L12.91 17.8801L13.97 18.9401Z" fill="currentColor"/>

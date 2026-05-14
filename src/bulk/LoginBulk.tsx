@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LoginBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LoginBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M10.7599 2C10.2799 2 9.8999 2.38 9.8999 2.86V21.15C9.8999 21.62 10.2799 22.01 10.7599 22.01C16.6499 22.01 20.7599 17.9 20.7599 12.01C20.7599 6.12 16.6399 2 10.7599 2Z" fill="currentColor"/>

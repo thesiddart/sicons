@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SmileysBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SmileysBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10 1H4C2.34 1 1 2.34 1 4V10C1 11.66 2.34 13 4 13H8.5C8.5 10.52 10.52 8.5 13 8.5V4C13 2.34 11.66 1 10 1ZM3.77 4.27C4.54 3.72 5.59 3.71 6.38 4.25C6.72 4.48 6.81 4.95 6.58 5.29C6.35 5.63 5.88 5.72 5.54 5.49C5.27 5.3 4.9 5.3 4.63 5.5C4.5 5.59 4.35 5.63 4.2 5.63C3.97 5.63 3.73 5.52 3.59 5.32C3.35 4.98 3.43 4.51 3.77 4.27ZM9.27 8.24C9.01 8.57 8.54 8.62 8.22 8.36C7.87 8.08 7.45 7.93 7 7.93C6 7.93 5.17 8.69 5.06 9.67H7.16C7.57 9.67 7.91 10.01 7.91 10.42C7.91 10.83 7.57 11.17 7.16 11.17H4.84C4.13 11.17 3.55 10.59 3.55 9.88C3.55 7.98 5.1 6.43 7 6.43C7.78 6.43 8.55 6.7 9.16 7.19C9.48 7.45 9.53 7.92 9.27 8.24ZM10.58 5.29C10.35 5.63 9.88 5.72 9.54 5.49C9.27 5.3 8.9 5.3 8.63 5.5C8.5 5.59 8.35 5.63 8.2 5.63C7.97 5.63 7.73 5.52 7.59 5.32C7.35 4.98 7.43 4.51 7.77 4.27C8.54 3.72 9.59 3.71 10.38 4.25C10.72 4.48 10.81 4.95 10.58 5.29Z" fill="currentColor"/>

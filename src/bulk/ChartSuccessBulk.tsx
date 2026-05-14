@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ChartSuccessBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ChartSuccessBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.97 16H18.03C16.76 16 16 16.76 16 18.03V20.97C16 22.24 16.76 23 18.03 23H20.97C22.24 23 23 22.24 23 20.97V18.03C23 16.76 22.24 16 20.97 16ZM21.63 18.45L19.26 21.22C19.17 21.33 19.03 21.4 18.89 21.4C18.88 21.4 18.88 21.4 18.87 21.4C18.73 21.4 18.6 21.35 18.5 21.25L17.41 20.17C17.21 19.97 17.21 19.64 17.41 19.44C17.61 19.24 17.94 19.23 18.14 19.44L18.84 20.13L20.84 17.79C21.03 17.57 21.35 17.55 21.57 17.73C21.79 17.91 21.81 18.24 21.63 18.45Z" fill="currentColor"/>

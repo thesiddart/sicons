@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MicroscopeBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MicroscopeBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.84 10.9001L20.5 7.11008C21.07 6.73008 21.22 5.95008 20.84 5.39008L19.02 2.68008C18.64 2.11008 17.86 1.96008 17.3 2.34008L11.64 6.13008L14.84 10.9001Z" fill="currentColor"/>

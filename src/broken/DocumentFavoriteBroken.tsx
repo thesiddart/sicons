@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DocumentFavoriteBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DocumentFavoriteBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.41978 18.2001C8.91978 18.2001 7.14978 17.3701 6.61978 15.7201C6.28978 14.6901 6.67978 13.4201 7.74978 13.0701C8.31978 12.8901 9.01978 13.0401 9.40978 13.5901C9.77978 13.0201 10.5098 12.8901 11.0698 13.0701C12.1498 13.4201 12.5298 14.6901 12.2098 15.7201" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

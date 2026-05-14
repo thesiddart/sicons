@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FingerCricleBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FingerCricleBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 7.9502C10.21 7.9502 8.75 9.4102 8.75 11.2002V12.8002C8.75 14.5902 10.21 16.0502 12 16.0502C13.79 16.0502 15.25 14.5902 15.25 12.8002V11.2002C15.25 9.4102 13.79 7.9502 12 7.9502ZM12.9 13.2402C12.9 13.7402 12.5 14.1402 12 14.1402C11.5 14.1402 11.1 13.7402 11.1 13.2402V10.7702C11.1 10.2802 11.5 9.8702 12 9.8702C12.5 9.8702 12.9 10.2702 12.9 10.7702V13.2402Z" fill="currentColor"/>

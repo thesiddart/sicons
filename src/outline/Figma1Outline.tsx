@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Figma1Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Figma1Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.75 10.75H10C8.48 10.75 7.25 9.52 7.25 8C7.25 6.48 8.48 5.25 10 5.25H12.75V10.75ZM10 6.75C9.31 6.75 8.75 7.31 8.75 8C8.75 8.69 9.31 9.25 10 9.25H11.25V6.75H10Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MoneroxmrBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MoneroxmrBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M3.17996 15.03C2.82996 15.03 2.57996 15.38 2.70996 15.7C4.17996 19.4 7.78996 22 12 22C16.22 22 19.83 19.38 21.3 15.67C21.43 15.35 21.17 15 20.83 15H17.5C17.22 15 17 14.78 17 14.5V11.76C17 10.84 15.85 10.41 15.25 11.11L12.38 14.54C12.18 14.78 11.81 14.78 11.61 14.54L8.73996 11.11C8.14996 10.41 6.99996 10.84 6.99996 11.76V14.5C6.99996 14.78 6.77996 15 6.49996 15L3.17996 15.03Z" fill="currentColor"/>

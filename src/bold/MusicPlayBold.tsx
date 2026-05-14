@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MusicPlayBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MusicPlayBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.18 11.8601C12.78 11.8601 12.42 11.6401 12.25 11.2801L10.8 8.3901L10.38 9.1701C10.15 9.6001 9.68997 9.8701 9.19997 9.8701H8.46997C8.05997 9.8701 7.71997 9.5301 7.71997 9.1201C7.71997 8.7101 8.05997 8.3701 8.46997 8.3701H9.10997L9.89997 6.9101C10.09 6.5701 10.47 6.3401 10.83 6.3601C11.22 6.3601 11.57 6.5901 11.75 6.9301L13.18 9.7901L13.52 9.1001C13.75 8.6401 14.2 8.3601 14.72 8.3601H15.53C15.94 8.3601 16.28 8.7001 16.28 9.1101C16.28 9.5201 15.94 9.8601 15.53 9.8601H14.82L14.11 11.2701C13.93 11.6401 13.58 11.8601 13.18 11.8601Z" fill="currentColor"/>

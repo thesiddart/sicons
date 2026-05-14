@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ZoomOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ZoomOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.76999 15.99C7.83999 15.99 6.96001 15.63 6.29001 14.97C5.62001 14.3 5.25 13.42 5.25 12.47V9.67001C5.25 8.75001 6.00001 8 6.92001 8H10.61C12.55 8 14.13 9.57999 14.13 11.52V14.29C14.13 15.21 13.38 15.96 12.47 15.96L8.79001 15.99C8.79001 15.99 8.77999 15.99 8.76999 15.99ZM6.92001 9.51001C6.82001 9.51001 6.75 9.58999 6.75 9.67999V12.48C6.75 13.02 6.96001 13.53 7.35001 13.91C7.73001 14.29 8.25001 14.53 8.79001 14.5L12.47 14.47C12.56 14.47 12.64 14.39 12.64 14.3V11.53C12.64 10.42 11.73 9.51001 10.62 9.51001H6.92001Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MirroringScreenOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MirroringScreenOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 21.75H16C15.59 21.75 15.25 21.41 15.25 21C15.25 20.59 15.59 20.25 16 20.25H17C19.58 20.25 21.25 18.58 21.25 16V8C21.25 5.42 19.58 3.75 17 3.75H7C4.42 3.75 2.75 5.42 2.75 8V9C2.75 9.41 2.41 9.75 2 9.75C1.59 9.75 1.25 9.41 1.25 9V8C1.25 4.56 3.56 2.25 7 2.25H17C20.44 2.25 22.75 4.56 22.75 8V16C22.75 19.44 20.44 21.75 17 21.75Z" fill="currentColor"/>

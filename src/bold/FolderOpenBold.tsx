@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FolderOpenBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FolderOpenBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.06 11.8201L20.9 11.6001C20.62 11.2601 20.29 10.9901 19.91 10.7901C19.4 10.5001 18.82 10.3501 18.22 10.3501H5.76995C5.16995 10.3501 4.59995 10.5001 4.07995 10.7901C3.68995 11.0001 3.33995 11.2901 3.04995 11.6501C2.47995 12.3801 2.20995 13.2801 2.29995 14.1801L2.66995 18.8501C2.79995 20.2601 2.96995 22.0001 6.13995 22.0001H17.86C21.03 22.0001 21.19 20.2601 21.33 18.8401L21.7 14.1901C21.79 13.3501 21.57 12.5101 21.06 11.8201ZM14.39 17.3401H9.59995C9.20995 17.3401 8.89995 17.0201 8.89995 16.6401C8.89995 16.2601 9.20995 15.9401 9.59995 15.9401H14.39C14.78 15.9401 15.09 16.2601 15.09 16.6401C15.09 17.0301 14.78 17.3401 14.39 17.3401Z" fill="currentColor"/>

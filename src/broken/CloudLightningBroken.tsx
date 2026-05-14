@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudLightningBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudLightningBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.2291 19.1601H10.2291V21.4901C10.2291 21.8301 10.6591 22.0001 10.8791 21.7401L13.3291 18.9501C13.6291 18.6101 13.4991 18.3301 13.0491 18.3301H12.0491V16.0001C12.0491 15.6601 11.6191 15.4901 11.3991 15.7501L8.9491 18.5401C8.6491 18.8801 8.7791 19.1601 9.2291 19.1601Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>

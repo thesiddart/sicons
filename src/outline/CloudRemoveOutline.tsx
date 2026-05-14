@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudRemoveOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudRemoveOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.9698 18.3599C12.7798 18.3599 12.5898 18.2899 12.4398 18.1399L10.3298 16.0299C10.0398 15.7399 10.0398 15.2599 10.3298 14.9699C10.6198 14.6799 11.0998 14.6799 11.3898 14.9699L13.4998 17.0799C13.7898 17.3699 13.7898 17.8499 13.4998 18.1399C13.3598 18.2899 13.1598 18.3599 12.9698 18.3599Z" fill="currentColor"/>

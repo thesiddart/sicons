@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WifiSquareOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WifiSquareOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.0005 10.7099C17.8405 10.7099 17.6805 10.6599 17.5405 10.5499C14.1705 7.94992 9.82051 7.94992 6.46051 10.5499C6.13051 10.7999 5.66052 10.7399 5.41052 10.4199C5.16052 10.0899 5.22052 9.61991 5.54052 9.36991C9.46052 6.33991 14.5305 6.33991 18.4605 9.36991C18.7905 9.61991 18.8505 10.0899 18.5905 10.4199C18.4505 10.6099 18.2205 10.7099 18.0005 10.7099Z" fill="currentColor"/>

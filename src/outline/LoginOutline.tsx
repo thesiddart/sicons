@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LoginOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LoginOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.2395 22.27H15.1095C10.6695 22.27 8.52953 20.52 8.15953 16.6C8.11953 16.19 8.41953 15.82 8.83953 15.78C9.24953 15.74 9.61953 16.05 9.65953 16.46C9.94953 19.6 11.4295 20.77 15.1195 20.77H15.2495C19.3195 20.77 20.7595 19.33 20.7595 15.26V8.73998C20.7595 4.66998 19.3195 3.22998 15.2495 3.22998H15.1195C11.4095 3.22998 9.92953 4.41998 9.65953 7.61998C9.60953 8.02998 9.26953 8.33998 8.83953 8.29998C8.41953 8.26998 8.11953 7.89998 8.14953 7.48998C8.48953 3.50998 10.6395 1.72998 15.1095 1.72998H15.2395C20.1495 1.72998 22.2495 3.82998 22.2495 8.73998V15.26C22.2495 20.17 20.1495 22.27 15.2395 22.27Z" fill="currentColor"/>

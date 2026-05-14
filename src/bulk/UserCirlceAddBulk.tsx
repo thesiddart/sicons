@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const UserCirlceAddBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const UserCirlceAddBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.65 20.1998V20.4897C15.17 21.4397 13.4 21.9998 11.5 21.9998C9.57002 21.9998 7.77002 21.4197 6.27002 20.4297V20.1998C6.27002 17.8698 8.60002 15.9697 11.46 15.9697C14.33 15.9697 16.65 17.8698 16.65 20.1998Z" fill="currentColor"/>

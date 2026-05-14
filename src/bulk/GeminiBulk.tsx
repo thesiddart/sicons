@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GeminiBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GeminiBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.2301 4.18004L19.3601 3.94005C19.5101 3.67005 19.4701 3.33008 19.2701 3.09008C19.0701 2.85008 18.7401 2.77006 18.4401 2.88006C14.2901 4.40006 9.71007 4.40006 5.56007 2.88006C5.27007 2.77006 4.94007 2.86008 4.73007 3.09008C4.53007 3.33008 4.49007 3.66005 4.64007 3.94005L4.77007 4.17003C7.39007 9.16003 7.36007 15.09 4.67007 20.05C4.52007 20.32 4.56007 20.6601 4.76007 20.9001C4.96007 21.1401 5.29007 21.22 5.58007 21.11C9.71007 19.6 14.2701 19.6 18.4101 21.11C18.4901 21.14 18.5801 21.16 18.6701 21.16C18.8801 21.16 19.0901 21.0701 19.2401 20.9001C19.4401 20.6601 19.4801 20.33 19.3301 20.05C16.6501 15.09 16.6101 9.16004 19.2301 4.18004Z" fill="currentColor"/>

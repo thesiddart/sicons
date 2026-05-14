@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Hierarchy2Bulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Hierarchy2Bulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.75 22C20.5449 22 22 20.5449 22 18.75C22 16.9551 20.5449 15.5 18.75 15.5C16.9551 15.5 15.5 16.9551 15.5 18.75C15.5 20.5449 16.9551 22 18.75 22Z" fill="currentColor"/>

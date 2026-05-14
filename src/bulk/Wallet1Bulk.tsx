@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Wallet1Bulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Wallet1Bulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.8" d="M12.9002 2.52009L12.8702 2.59009L9.9702 9.32009H7.1202C6.4402 9.32009 5.8002 9.45009 5.2002 9.71009L6.9502 5.53009L6.9902 5.44009L7.0502 5.28009C7.0802 5.21009 7.1002 5.15009 7.1302 5.10009C8.4402 2.07009 9.9202 1.38009 12.9002 2.52009Z" fill="currentColor"/>

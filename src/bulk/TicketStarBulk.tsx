@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TicketStarBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TicketStarBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M22 9.20986V14.7899C22 18.8899 20.75 20.1399 16.65 20.1399H9.90996V17.1199C9.90996 16.7399 9.58996 16.4199 9.20996 16.4199V7.57986C9.58996 7.57986 9.90996 7.25986 9.90996 6.87986V3.85986H16.65C20.75 3.85986 22 5.10986 22 9.20986Z" fill="currentColor"/>

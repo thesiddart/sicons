@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CardanoadaBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CardanoadaBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.1499 10C17.7022 10 18.1499 9.55228 18.1499 9C18.1499 8.44772 17.7022 8 17.1499 8C16.5976 8 16.1499 8.44772 16.1499 9C16.1499 9.55228 16.5976 10 17.1499 10Z" fill="currentColor"/>

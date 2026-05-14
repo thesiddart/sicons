@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CameraSlashBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CameraSlashBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.77 2.22988C21.47 1.92988 20.98 1.92988 20.68 2.22988L2.23 20.6899C1.93 20.9899 1.93 21.4799 2.23 21.7799C2.38 21.9199 2.57 21.9999 2.77 21.9999C2.97 21.9999 3.16 21.9199 3.31 21.7699L21.77 3.30988C22.08 3.00988 22.08 2.52988 21.77 2.22988Z" fill="currentColor"/>

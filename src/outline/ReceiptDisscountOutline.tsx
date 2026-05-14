@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ReceiptDisscountOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ReceiptDisscountOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 22.75C11.21 22.75 10.46 22.35 9.94 21.64L8.93 20.29C8.72 20.01 8.44 19.85 8.14 19.83C7.84 19.81 7.54 19.95 7.3 20.2L6.73 19.7L7.28 20.21C5.83 21.75 4.73 21.63 4.2 21.42C3.66 21.21 2.75 20.52 2.75 18.3V7.04C2.75 2.6 4.03 1.25 8.22 1.25H15.77C19.96 1.25 21.24 2.6 21.24 7.04V18.3C21.24 20.51 20.33 21.2 19.79 21.42C19.26 21.63 18.16 21.75 16.71 20.21C16.47 19.95 16.16 19.82 15.86 19.84C15.56 19.86 15.27 20.02 15.06 20.3L14.05 21.65C13.54 22.35 12.79 22.75 12 22.75ZM8.08 18.33C8.12 18.33 8.17 18.33 8.21 18.33C8.95 18.37 9.65 18.76 10.12 19.39L11.14 20.74C11.63 21.39 12.38 21.39 12.87 20.74L13.88 19.39C14.35 18.76 15.05 18.37 15.8 18.33C16.55 18.29 17.28 18.6 17.82 19.18C18.58 19.99 19.07 20.09 19.25 20.02C19.49 19.92 19.75 19.34 19.75 18.3V7.04C19.75 3.43 19.12 2.75 15.78 2.75H8.22C4.88 2.75 4.25 3.43 4.25 7.04V18.3C4.25 19.35 4.51 19.93 4.75 20.02C4.93 20.09 5.42 19.99 6.18 19.18C6.7 18.63 7.38 18.33 8.08 18.33Z" fill="currentColor"/>

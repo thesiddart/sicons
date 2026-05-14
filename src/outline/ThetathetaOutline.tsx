@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ThetathetaOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ThetathetaOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.15 18.75H8.84998C7.41998 18.75 6.25 17.58 6.25 16.15V7.85C6.25 6.42 7.41998 5.25 8.84998 5.25H15.15C16.58 5.25 17.75 6.42 17.75 7.85V16.15C17.75 17.58 16.58 18.75 15.15 18.75ZM8.84998 6.75C8.23998 6.75 7.75 7.24 7.75 7.85V16.15C7.75 16.76 8.23998 17.25 8.84998 17.25H15.15C15.76 17.25 16.25 16.76 16.25 16.15V7.85C16.25 7.24 15.76 6.75 15.15 6.75H8.84998Z" fill="currentColor"/>

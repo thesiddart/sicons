@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SmsStarBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SmsStarBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.48 2.82022L19.76 3.39022C19.9 3.67022 20.25 3.93022 20.56 3.99022L20.94 4.05022C22.08 4.24022 22.35 5.08022 21.53 5.91022L21.18 6.26022C20.95 6.50022 20.82 6.96022 20.89 7.28022L20.94 7.49022C21.25 8.87022 20.52 9.40022 19.32 8.68022L19.06 8.53022C18.75 8.35022 18.25 8.35022 17.94 8.53022L17.68 8.68022C16.47 9.41022 15.74 8.87022 16.06 7.49022L16.11 7.28022C16.18 6.96022 16.05 6.50022 15.82 6.26022L15.47 5.90022C14.65 5.07022 14.92 4.23022 16.06 4.04022L16.44 3.98022C16.74 3.93022 17.1 3.66022 17.24 3.38022L17.52 2.81022C18.06 1.73022 18.94 1.73022 19.48 2.82022Z" fill="currentColor"/>

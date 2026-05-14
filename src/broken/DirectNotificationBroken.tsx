@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DirectNotificationBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DirectNotificationBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M1.98047 13.0002H5.77047C6.53047 13.0002 7.22047 13.4302 7.56047 14.1102L8.45047 15.9002C9.00047 17.0002 10.0005 17.0002 10.2405 17.0002H13.7705C14.5305 17.0002 15.2205 16.5702 15.5605 15.8902L16.4505 14.1002C16.7905 13.4202 17.4805 12.9902 18.2405 12.9902H21.9805" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

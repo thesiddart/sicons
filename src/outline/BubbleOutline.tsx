@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BubbleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BubbleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.59 13.01C12.35 13.01 9.70996 10.37 9.70996 7.13C9.70996 3.89 12.35 1.25 15.59 1.25C18.83 1.25 21.47 3.89 21.47 7.13C21.47 10.37 18.83 13.01 15.59 13.01ZM15.59 2.75C13.18 2.75 11.21 4.71 11.21 7.13C11.21 9.55 13.17 11.51 15.59 11.51C18.01 11.51 19.97 9.55 19.97 7.13C19.97 4.71 18 2.75 15.59 2.75Z" fill="currentColor"/>

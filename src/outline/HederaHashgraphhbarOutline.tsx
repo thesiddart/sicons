@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HederaHashgraphhbarOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HederaHashgraphhbarOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.25 17.25C7.84 17.25 7.5 16.91 7.5 16.5V7.5C7.5 7.09 7.84 6.75 8.25 6.75C8.66 6.75 9 7.09 9 7.5V16.5C9 16.91 8.66 17.25 8.25 17.25Z" fill="currentColor"/>

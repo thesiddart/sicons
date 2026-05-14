@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ArchiveTickBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ArchiveTickBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M16.8198 1.91016H7.17982C5.05982 1.91016 3.31982 3.65016 3.31982 5.77016V19.8602C3.31982 21.6602 4.60982 22.4202 6.18982 21.5502L11.0698 18.8402C11.5898 18.5502 12.4298 18.5502 12.9398 18.8402L17.8198 21.5502C19.3998 22.4302 20.6898 21.6702 20.6898 19.8602V5.77016C20.6798 3.65016 18.9498 1.91016 16.8198 1.91016Z" fill="currentColor"/>

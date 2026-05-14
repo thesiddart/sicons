@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GlobalRefreshBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GlobalRefreshBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22.65 18.13C22.55 17.73 22.15 17.4799 21.75 17.5799C21.35 17.6799 21.1 18.08 21.19 18.48C21.23 18.65 21.25 18.8199 21.25 18.9999C21.25 20.2399 20.24 21.2499 19 21.2499C17.76 21.2499 16.75 20.2399 16.75 18.9999C16.75 17.8999 17.54 16.99 18.59 16.79C18.49 17.02 18.5 17.2999 18.66 17.5199C18.81 17.7199 19.04 17.8299 19.27 17.8299C19.42 17.8299 19.58 17.7799 19.71 17.6899L20.88 16.8399C20.89 16.8299 20.89 16.82 20.9 16.82C20.91 16.81 20.92 16.8099 20.93 16.7999C20.96 16.7699 20.98 16.74 21 16.7C21.03 16.66 21.07 16.6299 21.09 16.5799C21.11 16.5399 21.12 16.49 21.14 16.45C21.15 16.4 21.17 16.3599 21.18 16.3099C21.19 16.2599 21.18 16.22 21.17 16.17C21.17 16.12 21.17 16.0699 21.15 16.0199C21.14 15.9699 21.11 15.93 21.09 15.89C21.07 15.85 21.06 15.8099 21.04 15.7799C21.03 15.7699 21.02 15.77 21.01 15.76C21 15.75 21 15.74 20.99 15.73L19.99 14.5799C19.72 14.2699 19.24 14.23 18.93 14.51C18.71 14.71 18.63 14.9999 18.71 15.2699C16.78 15.4199 15.25 17.0199 15.25 18.9899C15.25 21.0599 16.93 22.7399 19 22.7399C21.07 22.7399 22.75 21.0599 22.75 18.9899C22.75 18.7099 22.72 18.41 22.65 18.13Z" fill="currentColor"/>

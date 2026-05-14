@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SlackOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SlackOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.5397 11.37C13.0997 11.37 11.9297 10.2 11.9297 8.76001V4.12C11.9297 2.68 13.0997 1.51001 14.5397 1.51001C15.9797 1.51001 17.1497 2.68 17.1497 4.12V8.76001C17.1497 10.2 15.9797 11.37 14.5397 11.37ZM14.5397 3.01001C13.9297 3.01001 13.4297 3.51 13.4297 4.12V8.76001C13.4297 9.37001 13.9297 9.87 14.5397 9.87C15.1497 9.87 15.6497 9.37001 15.6497 8.76001V4.12C15.6497 3.51 15.1497 3.01001 14.5397 3.01001Z" fill="currentColor"/>

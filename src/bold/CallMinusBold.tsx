@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CallMinusBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CallMinusBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.5 6.75H15.5C15.09 6.75 14.75 6.41 14.75 6C14.75 5.59 15.09 5.25 15.5 5.25H20.5C20.91 5.25 21.25 5.59 21.25 6C21.25 6.41 20.91 6.75 20.5 6.75Z" fill="currentColor"/>

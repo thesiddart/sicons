@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Ticket2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Ticket2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.19 4.96C17.19 4.97 17.19 4.97 17.19 4.98C16.94 4.97 16.69 4.96 16.42 4.96H8.71997L9.78997 3.9C10.77 2.91 11.85 2 13.1 2C14.36 2 15.44 2.91 16.42 3.9L16.98 4.46C17.12 4.59 17.19 4.77 17.19 4.96Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PaypalOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PaypalOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M7.12954 20.75H5.17953C4.65953 20.75 4.17954 20.53 3.83954 20.13C3.50954 19.74 3.35955 19.22 3.44955 18.72L5.83954 4.39001C6.13954 2.57001 7.69955 1.25 9.53955 1.25H13.9995C17.1695 1.25 19.7495 3.83 19.7495 7C19.7495 7.21 19.7395 7.40999 19.7095 7.60999C19.5795 9.16999 18.8896 10.66 17.7596 11.78C16.4995 13.05 14.7995 13.76 12.9895 13.76H9.85953C9.73953 13.76 9.62953 13.85 9.60953 13.98L8.84955 19.26C8.74955 19.93 8.27953 20.48 7.64953 20.67C7.44953 20.74 7.25954 20.75 7.12954 20.75ZM9.53955 2.75C8.42955 2.75 7.49955 3.54 7.31955 4.63L4.92953 18.96C4.90953 19.06 4.95953 19.13 4.98953 19.16C5.01953 19.19 5.07953 19.25 5.17953 19.25H7.12954C7.29955 19.2 7.35954 19.12 7.37954 19.03L8.13955 13.76C8.25955 12.9 9.00953 12.26 9.86953 12.26H12.9995C14.4095 12.26 15.7195 11.71 16.7095 10.72C17.5895 9.85 18.1196 8.7 18.2296 7.47C18.2496 7.3 18.2596 7.16001 18.2596 7.01001C18.2596 4.67001 16.3496 2.76001 14.0096 2.76001H9.53955V2.75Z" fill="currentColor"/>

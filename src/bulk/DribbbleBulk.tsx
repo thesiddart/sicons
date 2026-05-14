@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DribbbleBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DribbbleBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path fillRule="evenodd" clipRule="evenodd" d="M15.88 20.9198C15.91 21.0798 15.82 21.2498 15.67 21.3098C14.53 21.7598 13.3 21.9998 12.01 21.9998C9.80998 21.9998 7.75998 21.2898 6.10998 20.0698C5.96998 19.9698 5.92998 19.7698 6.01998 19.6198C6.56998 18.6398 8.71998 15.4898 13.47 13.7298C13.65 13.6598 13.85 13.7498 13.91 13.9298C15.11 17.1198 15.67 19.8198 15.88 20.9198Z" fill="currentColor"/>

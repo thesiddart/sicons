@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WindowsBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WindowsBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path fillRule="evenodd" clipRule="evenodd" d="M20.8 2.23998L12.8 3.83998C12.33 3.92998 12 4.33999 12 4.81999V9.99999C12 10.55 12.45 11 13 11H21C21.55 11 22 10.55 22 9.99999V3.21999C22 2.58999 21.42 2.11998 20.8 2.23998Z" fill="currentColor"/>

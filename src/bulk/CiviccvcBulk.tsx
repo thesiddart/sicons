@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CiviccvcBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CiviccvcBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.3001 10.1301C14.5801 11.2301 14.0901 12.2501 13.2501 12.7701V14.7501C13.2501 15.4401 12.6901 16.0001 12.0001 16.0001C11.3101 16.0001 10.7501 15.4401 10.7501 14.7501V12.7701C10.0701 12.3501 9.62012 11.6001 9.62012 10.7501C9.62012 9.23006 11.0601 8.05006 12.6401 8.47006C13.4401 8.68006 14.0901 9.33006 14.3001 10.1301Z" fill="currentColor"/>

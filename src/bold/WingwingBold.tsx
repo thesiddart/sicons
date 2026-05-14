@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WingwingBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WingwingBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.8599 5H19.2099C19.3899 5 19.5499 5.1 19.6399 5.25L22.0499 9.45C22.1399 9.6 22.1399 9.79 22.0499 9.94L17.4099 18.24C17.2199 18.58 16.7399 18.58 16.5399 18.25L15.2799 16.14C15.1899 15.98 15.1899 15.79 15.2799 15.64L18.5399 9.94C18.6299 9.79 18.6299 9.6 18.5399 9.44L16.4099 5.74001C16.2399 5.42001 16.4799 5 16.8599 5Z" fill="currentColor"/>

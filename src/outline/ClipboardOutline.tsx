@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ClipboardOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ClipboardOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.0505 19.42C12.5105 19.42 11.9405 19.37 11.3205 19.27L6.63048 18.53C5.15048 18.3 4.01048 17.89 3.16048 17.29C0.970475 15.77 1.10048 13.16 1.38048 11.33L2.12048 6.63999C2.80048 2.33999 5.02048 0.72999 9.32048 1.39999L14.0105 2.13999C16.2205 2.48999 19.1905 3.37999 19.3805 7.10999C19.4205 7.74999 19.3805 8.47999 19.2405 9.33999L18.5105 14.03C17.9305 17.7 16.2205 19.42 13.0505 19.42ZM7.53048 2.74999C5.15048 2.74999 4.07048 3.95999 3.60048 6.87999L2.86048 11.57C2.40048 14.52 3.24048 15.52 4.02048 16.07C4.68048 16.54 5.61048 16.86 6.86048 17.05L11.5505 17.79C15.0405 18.34 16.4805 17.29 17.0305 13.79L17.7605 9.09999C17.8805 8.34999 17.9205 7.71999 17.8805 7.18999V7.17999C17.7705 5.07999 16.5805 4.04999 13.7705 3.60999L9.09048 2.87999C8.51048 2.78999 8.00048 2.74999 7.53048 2.74999Z" fill="currentColor"/>

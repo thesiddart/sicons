@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PolyswarmnctBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PolyswarmnctBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.5 18H3.5C3.09 18 2.75 17.66 2.75 17.25C2.75 16.84 3.09 16.5 3.5 16.5H14.5C17.95 16.5 20.75 13.7 20.75 10.25C20.75 6.8 17.95 4 14.5 4H9.5C9.09 4 8.75 3.66 8.75 3.25C8.75 2.84 9.09 2.5 9.5 2.5H14.5C18.77 2.5 22.25 5.98 22.25 10.25C22.25 14.52 18.77 18 14.5 18Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LikeShapesBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LikeShapesBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M10.7499 2.44982C11.4399 1.85982 12.5699 1.85982 13.2699 2.44982L14.8499 3.80981C15.1499 4.06981 15.7099 4.27984 16.1099 4.27984H17.8099C18.8699 4.27984 19.7399 5.14983 19.7399 6.20983V7.90979C19.7399 8.29979 19.9499 8.8698 20.2099 9.1698L21.5699 10.7498C22.1599 11.4398 22.1599 12.5698 21.5699 13.2698L20.2099 14.8498C19.9499 15.1498 19.7399 15.7098 19.7399 16.1098V17.8098C19.7399 18.8698 18.8699 19.7398 17.8099 19.7398H16.1099C15.7199 19.7398 15.1499 19.9498 14.8499 20.2098L13.2699 21.5698C12.5799 22.1598 11.4499 22.1598 10.7499 21.5698L9.16989 20.2098C8.86989 19.9498 8.30988 19.7398 7.90988 19.7398H6.17987C5.11987 19.7398 4.24988 18.8698 4.24988 17.8098V16.0998C4.24988 15.7098 4.03989 15.1498 3.78989 14.8498L2.43988 13.2598C1.85988 12.5698 1.85988 11.4498 2.43988 10.7598L3.78989 9.1698C4.03989 8.8698 4.24988 8.3098 4.24988 7.9198V6.20983C4.24988 5.14983 5.11987 4.27984 6.17987 4.27984H7.90988C8.29988 4.27984 8.86989 4.06981 9.16989 3.80981L10.7499 2.44982Z" fill="currentColor"/>

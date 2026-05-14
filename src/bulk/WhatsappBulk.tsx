@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WhatsappBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WhatsappBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M6.94006 20.63C8.43006 21.5 10.1601 22 12.0001 22C17.6301 22 22.31 17.03 21.98 11.41C21.64 5.60997 16.37 1.13996 10.3 2.13996C6.12004 2.82996 2.77005 6.21996 2.12005 10.4C1.74005 12.82 2.24007 15.11 3.33007 17L2.44006 20.31C2.24006 21.06 2.93004 21.74 3.67004 21.53L6.94006 20.63Z" fill="currentColor"/>

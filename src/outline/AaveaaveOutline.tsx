@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AaveaaveOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AaveaaveOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.9998 16.75C15.7098 16.75 15.4398 16.58 15.3098 16.3L11.9998 8.84998L8.68984 16.31C8.51984 16.69 8.06985 16.86 7.69985 16.69C7.31985 16.52 7.14985 16.08 7.31985 15.7L11.3198 6.69998C11.5598 6.15998 12.4498 6.15998 12.6898 6.69998L16.6898 15.7C16.8598 16.08 16.6898 16.52 16.3098 16.69C16.2098 16.73 16.0998 16.75 15.9998 16.75Z" fill="currentColor"/>

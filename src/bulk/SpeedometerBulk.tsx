@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SpeedometerBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SpeedometerBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M19.1002 20.3002C18.9002 20.3002 18.7002 20.2002 18.6002 20.1002C18.3002 19.8002 18.3002 19.3002 18.6002 19.0002C20.3002 17.3002 21.2002 15.0002 21.2002 12.5002C21.2002 7.4002 17.1002 3.3002 12.0002 3.3002C6.9002 3.3002 2.8002 7.4002 2.8002 12.5002C2.8002 14.9002 3.7002 17.2002 5.4002 19.0002C5.7002 19.3002 5.7002 19.8002 5.4002 20.1002C5.1002 20.4002 4.6002 20.4002 4.3002 20.1002C2.3002 18.1002 1.2002 15.4002 1.2002 12.6002C1.2002 6.6002 6.1002 1.7002 12.0002 1.7002C17.9002 1.7002 22.8002 6.5002 22.8002 12.5002C22.8002 15.3002 21.7002 18.0002 19.7002 20.0002C19.5002 20.2002 19.3002 20.3002 19.1002 20.3002Z" fill="currentColor"/>

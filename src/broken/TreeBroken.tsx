@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TreeBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TreeBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.1694 10.0601H7.82933C6.64933 10.0601 6.23934 9.27006 6.92934 8.31006L11.0994 2.47007C11.5894 1.77007 12.4094 1.77007 12.8894 2.47007L17.0593 8.31006C17.7593 9.27006 17.3494 10.0601 16.1694 10.0601Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

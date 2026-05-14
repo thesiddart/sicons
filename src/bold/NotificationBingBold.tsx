@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const NotificationBingBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const NotificationBingBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.19 14.0598L19.06 12.1798C18.81 11.7698 18.59 10.9798 18.59 10.4998V8.6298C18.59 4.9998 15.64 2.0498 12.02 2.0498C8.38996 2.0598 5.43996 4.9998 5.43996 8.6298V10.4898C5.43996 10.9698 5.21996 11.7598 4.97996 12.1698L3.84996 14.0498C3.41996 14.7798 3.31996 15.6098 3.58996 16.3298C3.85996 17.0598 4.46996 17.6398 5.26996 17.8998C6.34996 18.2598 7.43996 18.5198 8.54996 18.7098C8.65996 18.7298 8.76996 18.7398 8.87996 18.7598C9.01996 18.7798 9.16996 18.7998 9.31996 18.8198C9.57996 18.8598 9.83996 18.8898 10.11 18.9098C10.74 18.9698 11.38 18.9998 12.02 18.9998C12.65 18.9998 13.28 18.9698 13.9 18.9098C14.13 18.8898 14.36 18.8698 14.58 18.8398C14.76 18.8198 14.94 18.7998 15.12 18.7698C15.23 18.7598 15.34 18.7398 15.45 18.7198C16.57 18.5398 17.68 18.2598 18.76 17.8998C19.53 17.6398 20.12 17.0598 20.4 16.3198C20.68 15.5698 20.6 14.7498 20.19 14.0598ZM12.75 9.9998C12.75 10.4198 12.41 10.7598 11.99 10.7598C11.57 10.7598 11.23 10.4198 11.23 9.9998V6.89981C11.23 6.4798 11.57 6.1398 11.99 6.1398C12.41 6.1398 12.75 6.4798 12.75 6.89981V9.9998Z" fill="currentColor"/>

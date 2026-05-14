@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TrendUpOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TrendUpOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M7.50043 15.25C7.31043 15.25 7.12043 15.18 6.97043 15.03C6.68043 14.74 6.68043 14.26 6.97043 13.97L10.1704 10.77C10.3304 10.61 10.5404 10.53 10.7704 10.55C10.9904 10.57 11.1904 10.69 11.3204 10.88L12.4104 12.52L15.9604 8.97C16.2504 8.68 16.7304 8.68 17.0204 8.97C17.3104 9.26 17.3104 9.74 17.0204 10.03L12.8204 14.23C12.6604 14.39 12.4504 14.47 12.2204 14.45C12.0004 14.43 11.8004 14.31 11.6704 14.12L10.5804 12.48L8.03043 15.03C7.88043 15.18 7.69043 15.25 7.50043 15.25Z" fill="currentColor"/>

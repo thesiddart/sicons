@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BatteryChargingBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BatteryChargingBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.42 8.99998C20.28 8.98998 20.1 8.97998 19.9 8.97998C19.51 8.97998 19.2 9.28998 19.2 9.67998V14.33C19.2 14.72 19.51 15.03 19.9 15.03C20.1 15.03 20.27 15.02 20.44 15.01C22 14.83 22 13.73 22 12.93V11.07C22 10.27 22 9.16998 20.42 8.99998Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MusicLibrary2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MusicLibrary2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 4.75H16V3.26C16 2.43 15.32 1.75 14.49 1.75H9.51C8.68 1.75 8 2.43 8 3.26V4.75H7C5.9 4.75 5 5.65 5 6.75V6.88C5.32 6.79 5.65 6.75 6 6.75H18C18.35 6.75 18.68 6.79 19 6.88V6.75C19 5.65 18.1 4.75 17 4.75Z" fill="currentColor"/>

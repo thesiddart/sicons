@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StarSlashBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StarSlashBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M18.7002 14.4602C18.3502 14.8102 18.1502 15.5202 18.2602 16.0002L18.9502 19.0102C19.2402 20.2602 19.0602 21.2002 18.4402 21.6502C18.1902 21.8302 17.8902 21.9202 17.5402 21.9202C17.0302 21.9202 16.4302 21.7302 15.7702 21.3402L12.8402 19.6002C12.3902 19.3302 11.6102 19.3302 11.1602 19.6002L8.2302 21.3402C7.1202 21.9902 6.1702 22.1002 5.5602 21.6502C5.5202 21.6202 5.4802 21.5902 5.4502 21.5502L18.8002 8.2002L19.9702 8.4002C21.0302 8.5802 21.7402 9.0602 21.9702 9.7602C22.1902 10.4602 21.8902 11.2702 21.1302 12.0302L18.7002 14.4602Z" fill="currentColor"/>

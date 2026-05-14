@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TruckTimeBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TruckTimeBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5 1C4.06 1 3.19 1.33 2.5 1.88C1.58 2.61 1 3.74 1 5C1 7.21 2.79 9 5 9C6.01 9 6.93001 8.62 7.64001 8C8.47001 7.27 9 6.2 9 5C9 2.79 7.21 1 5 1ZM6 5.25C6 5.51 5.86001 5.76001 5.64001 5.89001L4.39001 6.64001C4.27001 6.71001 4.14001 6.75 4.01001 6.75C3.76001 6.75 3.51 6.62001 3.37 6.39001C3.16 6.03001 3.27 5.56999 3.63 5.35999L4.52002 4.83002V3.75C4.52002 3.34 4.86002 3 5.27002 3C5.68002 3 6.02002 3.34 6.02002 3.75V5.25H6Z" fill="currentColor"/>

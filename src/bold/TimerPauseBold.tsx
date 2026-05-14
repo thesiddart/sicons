@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TimerPauseBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TimerPauseBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.89 3.45H9.11001C8.71001 3.45 8.39001 3.13 8.39001 2.73C8.39001 2.33 8.71001 2 9.11001 2H14.89C15.29 2 15.61 2.32 15.61 2.72C15.61 3.12 15.29 3.45 14.89 3.45Z" fill="currentColor"/>

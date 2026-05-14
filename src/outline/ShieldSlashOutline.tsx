@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShieldSlashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShieldSlashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0001 22.76C10.9101 22.76 9.83012 22.44 8.98012 21.81L7.39012 20.62C7.06012 20.37 6.99012 19.9 7.24012 19.57C7.49012 19.24 7.96012 19.17 8.29012 19.42L9.88012 20.61C11.0301 21.47 12.9801 21.47 14.1301 20.61L18.4301 17.4C19.1901 16.83 19.8501 15.5 19.8501 14.56V7.12C19.8501 6.71 20.1901 6.37 20.6001 6.37C21.0101 6.37 21.3501 6.71 21.3501 7.12V14.55C21.3501 15.97 20.4601 17.74 19.3201 18.59L15.0201 21.8C14.1701 22.44 13.0901 22.76 12.0001 22.76Z" fill="currentColor"/>

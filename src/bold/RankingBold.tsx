@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RankingBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RankingBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.3 8.10983L14.62 10.7498C14.8 11.1098 15.28 11.4698 15.68 11.5298L18.07 11.9298C19.6 12.1898 19.96 13.2898 18.86 14.3898L17 16.2598C16.69 16.5698 16.51 17.1798 16.61 17.6198L17.14 19.9298C17.56 21.7498 16.59 22.4598 14.98 21.5098L12.74 20.1798C12.33 19.9398 11.67 19.9398 11.26 20.1798L9.00997 21.4998C7.39997 22.4498 6.42997 21.7398 6.84997 19.9198L7.37997 17.6098C7.47997 17.1798 7.29997 16.5698 6.98997 16.2498L5.13997 14.3998C4.03997 13.2998 4.39997 12.1898 5.92997 11.9398L8.31997 11.5398C8.71997 11.4698 9.19997 11.1198 9.37997 10.7598L10.7 8.11983C11.41 6.67983 12.59 6.67983 13.3 8.10983Z" fill="currentColor"/>

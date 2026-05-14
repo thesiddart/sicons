@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TrontrontrxBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TrontrontrxBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.3996 10.5303C19.9196 10.4303 20.2796 11.0203 19.9596 11.4403L13.0096 20.2903C12.6596 20.7403 11.9396 20.4503 11.9996 19.8903L12.6996 12.2903C12.7196 12.0403 12.9096 11.8303 13.1596 11.7803L19.3996 10.5303Z" fill="currentColor"/>

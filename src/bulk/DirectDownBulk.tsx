@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DirectDownBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DirectDownBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.0202 2.7202L13.5402 4.4602C12.5702 4.9402 11.4402 4.9402 10.4702 4.4602L6.98022 2.7102C4.00022 1.2202 0.850218 4.4402 2.41022 7.3902L3.23022 8.9302C3.34022 9.1402 3.52022 9.3102 3.74022 9.4102L16.3902 15.1002C16.9102 15.3302 17.5202 15.1202 17.7802 14.6202L21.5902 7.3802C23.1402 4.4402 20.0002 1.2202 17.0202 2.7202Z" fill="currentColor"/>

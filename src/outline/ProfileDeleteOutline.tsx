@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ProfileDeleteOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ProfileDeleteOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.5898 21.66C15.3998 21.66 15.2098 21.59 15.0598 21.44C14.7698 21.15 14.7698 20.67 15.0598 20.38L17.8798 17.56C18.1698 17.27 18.6498 17.27 18.9398 17.56C19.2298 17.85 19.2298 18.33 18.9398 18.62L16.1198 21.44C15.9698 21.59 15.7798 21.66 15.5898 21.66Z" fill="currentColor"/>

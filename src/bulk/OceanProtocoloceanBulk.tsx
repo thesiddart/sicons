@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const OceanProtocoloceanBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const OceanProtocoloceanBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 4.74985C11.9 4.74985 11.8 4.73985 11.71 4.71985C11.61 4.69985 11.52 4.66985 11.43 4.63985C11.34 4.59985 11.25 4.54985 11.17 4.49985C11.09 4.43985 11.01 4.37985 10.94 4.30985C10.66 4.02985 10.5 3.64985 10.5 3.24985C10.5 2.84985 10.66 2.46985 10.94 2.18985C11.01 2.11985 11.09 2.05985 11.17 1.99985C11.25 1.94985 11.34 1.89985 11.43 1.86985C11.52 1.82985 11.61 1.79985 11.71 1.77985C12.19 1.67985 12.71 1.83985 13.06 2.18985C13.34 2.46985 13.5 2.84985 13.5 3.24985C13.5 3.64985 13.34 4.02985 13.06 4.30985C12.78 4.58985 12.39 4.74985 12 4.74985Z" fill="currentColor"/>

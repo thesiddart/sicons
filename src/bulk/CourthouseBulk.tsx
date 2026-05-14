@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CourthouseBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CourthouseBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M17.42 1.3802C17.21 1.2402 16.95 1.21018 16.72 1.30018C15.29 1.87018 13.71 1.87018 12.28 1.30018C12.05 1.21018 11.79 1.2402 11.58 1.3802C11.37 1.5202 11.25 1.7502 11.25 2.0002V5.0002V8.0002C11.25 8.4102 11.59 8.7502 12 8.7502C12.41 8.7502 12.75 8.4102 12.75 8.0002V6.02021C13.33 6.16021 13.91 6.24019 14.5 6.24019C15.44 6.24019 16.38 6.06021 17.28 5.70021C17.56 5.59021 17.75 5.3102 17.75 5.0002V2.0002C17.75 1.7502 17.63 1.5202 17.42 1.3802Z" fill="currentColor"/>

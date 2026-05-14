@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BlendBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BlendBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.9702 12C21.9702 15.31 19.2802 18 15.9702 18C14.4302 18 13.0302 17.42 11.9702 16.46C13.2002 15.37 13.9702 13.77 13.9702 12C13.9702 10.23 13.2002 8.63 11.9702 7.54C13.0302 6.58 14.4302 6 15.9702 6C19.2802 6 21.9702 8.69 21.9702 12Z" fill="currentColor"/>

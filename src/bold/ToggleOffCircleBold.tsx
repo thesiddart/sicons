@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ToggleOffCircleBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ToggleOffCircleBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.86 3.85986H10.14C5.65 3.85986 2 7.50986 2 11.9999C2 16.4899 5.65 20.1399 10.14 20.1399H13.86C18.35 20.1399 22 16.4899 22 11.9999C22 7.50986 18.35 3.85986 13.86 3.85986ZM10.14 16.4199C7.7 16.4199 5.72 14.4399 5.72 11.9999C5.72 9.55986 7.7 7.57986 10.14 7.57986C12.58 7.57986 14.56 9.55986 14.56 11.9999C14.56 14.4399 12.58 16.4199 10.14 16.4199Z" fill="currentColor"/>

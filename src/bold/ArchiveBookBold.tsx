@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ArchiveBookBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ArchiveBookBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.9299 2.5V8.4C14.9299 8.84 14.4099 9.06 14.0899 8.77L12.3399 7.16C12.1499 6.98 11.8499 6.98 11.6599 7.16L9.90995 8.76C9.58995 9.06 9.06995 8.83 9.06995 8.4V2.5C9.06995 2.22 9.28995 2 9.56995 2H14.4299C14.7099 2 14.9299 2.22 14.9299 2.5Z" fill="currentColor"/>

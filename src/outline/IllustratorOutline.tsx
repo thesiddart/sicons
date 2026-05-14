@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const IllustratorOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const IllustratorOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.8202 16.72C12.5102 16.72 12.2102 16.52 12.1102 16.21L10.0802 10.11L7.34024 16.28C7.17024 16.66 6.73024 16.83 6.35024 16.66C5.97024 16.49 5.80024 16.05 5.97024 15.67L9.50024 7.73999C9.63024 7.45999 9.90024 7.26999 10.2202 7.29999C10.5302 7.30999 10.8002 7.52 10.9002 7.81L13.5402 15.74C13.6702 16.13 13.4602 16.56 13.0702 16.69C12.9802 16.7 12.9002 16.72 12.8202 16.72Z" fill="currentColor"/>

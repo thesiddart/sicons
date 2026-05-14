@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BuyCryptoBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BuyCryptoBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22 8.5C22 11.76 19.6 14.45 16.48 14.92V14.86C16.17 10.98 13.02 7.83 9.11 7.52H9.08C9.55 4.4 12.24 2 15.5 2C19.09 2 22 4.91 22 8.5Z" fill="currentColor"/>

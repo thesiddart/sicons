@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudConnectionBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudConnectionBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.2 14.7802C18.34 15.5702 17.2 16.0102 16.03 16.0002H6.36997C2.29997 15.7102 2.28997 9.80016 6.36997 9.51016H6.40997C3.61997 1.75016 15.41 -1.33984 16.76 6.80016C20.53 7.28016 22.06 12.2902 19.2 14.7802Z" fill="currentColor"/>

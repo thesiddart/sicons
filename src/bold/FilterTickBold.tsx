@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FilterTickBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FilterTickBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.92 10.12C17.59 10.04 17.24 10 16.88 10C14.26 10 12.13 12.13 12.13 14.75C12.13 15.64 12.38 16.48 12.82 17.2C13.19 17.82 13.7 18.35 14.32 18.73C15.06 19.22 15.94 19.5 16.88 19.5C18.62 19.5 20.13 18.57 20.95 17.2C21.39 16.48 21.63 15.64 21.63 14.75C21.63 12.49 20.05 10.59 17.92 10.12ZM19.25 14.13L16.71 16.47C16.57 16.6 16.38 16.67 16.2 16.67C16.01 16.67 15.82 16.6 15.67 16.45L14.5 15.28C14.21 14.99 14.21 14.51 14.5 14.22C14.79 13.93 15.27 13.93 15.56 14.22L16.22 14.88L18.23 13.03C18.54 12.75 19.01 12.77 19.29 13.07C19.57 13.38 19.55 13.85 19.25 14.13Z" fill="currentColor"/>

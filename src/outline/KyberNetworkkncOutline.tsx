@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const KyberNetworkkncOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const KyberNetworkkncOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 22.29C11.44 22.29 10.88 22.12 10.4 21.78L5.40002 18.21C4.68002 17.7 4.25 16.86 4.25 15.97V7.15999C4.25 6.17999 4.78001 5.25999 5.64001 4.76999L10.64 1.90999C11.48 1.42999 12.53 1.42999 13.37 1.90999L18.37 4.76999C19.22 5.25999 19.76 6.16999 19.76 7.15999V15.97C19.76 16.86 19.33 17.69 18.61 18.21L13.61 21.78C13.12 22.12 12.56 22.29 12 22.29ZM11.38 3.21999L6.38 6.07999C5.99 6.29999 5.75 6.71999 5.75 7.15999V15.97C5.75 16.37 5.95002 16.75 6.27002 16.99L11.27 20.56C11.71 20.87 12.29 20.87 12.72 20.56L17.72 16.99C18.05 16.76 18.24 16.38 18.24 15.97V7.15999C18.24 6.70999 18 6.29999 17.61 6.07999L12.61 3.21999C12.24 2.99999 11.76 2.99999 11.38 3.21999Z" fill="currentColor"/>

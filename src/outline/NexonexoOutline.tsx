@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const NexonexoOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const NexonexoOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 21.75C16.87 21.75 16.73 21.71 16.61 21.64L6.61 15.64C6.38 15.5 6.25 15.26 6.25 15V9.00002C6.25 8.73002 6.4 8.48003 6.63 8.35003C6.87 8.22003 7.15 8.22002 7.39 8.36002L16.25 13.68V9.43001L11.61 6.65001C11.38 6.51001 11.25 6.27001 11.25 6.01001C11.25 5.75001 11.39 5.50001 11.61 5.37001L16.61 2.37001C16.85 2.23001 17.14 2.23001 17.38 2.37001L22.38 5.37001C22.61 5.51001 22.74 5.75001 22.74 6.01001V18.01C22.74 18.27 22.6 18.52 22.38 18.65L17.38 21.65C17.27 21.71 17.13 21.75 17 21.75ZM7.75 14.58L17 20.13L21.25 17.58V6.43001L17 3.88002L13.46 6.01001L17.39 8.37001C17.62 8.51001 17.75 8.75001 17.75 9.01001V15.01C17.75 15.28 17.6 15.53 17.37 15.66C17.14 15.79 16.85 15.79 16.61 15.65L7.75 10.33V14.58Z" fill="currentColor"/>

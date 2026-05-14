@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RadioOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RadioOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 22.75H7C3.56 22.75 1.25 20.44 1.25 17V10C1.25 6.56 3.56 4.25 7 4.25H17C20.44 4.25 22.75 6.56 22.75 10V17C22.75 20.44 20.44 22.75 17 22.75ZM7 5.75C4.42 5.75 2.75 7.42 2.75 10V17C2.75 19.58 4.42 21.25 7 21.25H17C19.58 21.25 21.25 19.58 21.25 17V10C21.25 7.42 19.58 5.75 17 5.75H7Z" fill="currentColor"/>

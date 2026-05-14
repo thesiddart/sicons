@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const RepeatCircleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const RepeatCircleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.5 12.47C16.09 12.47 15.75 12.13 15.75 11.72V9.95001C15.75 9.48001 15.37 9.09998 14.9 9.09998H7.5C7.09 9.09998 6.75 8.75998 6.75 8.34998C6.75 7.93998 7.09 7.59998 7.5 7.59998H14.9C16.2 7.59998 17.25 8.66001 17.25 9.95001V11.72C17.25 12.13 16.91 12.47 16.5 12.47Z" fill="currentColor"/>

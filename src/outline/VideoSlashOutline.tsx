@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VideoSlashOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VideoSlashOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M4.3 19.92C4.13 19.92 3.96 19.86 3.82 19.75C2.81 18.92 2.25 17.59 2.25 16V8C2.25 4.58 3.58 3.25 7 3.25H13C15.04 3.25 17.18 3.63 17.64 6.48C17.71 6.89 17.43 7.27 17.02 7.34C16.61 7.41 16.23 7.13 16.16 6.72C15.95 5.42 15.4 4.75 13 4.75H7C4.42 4.75 3.75 5.42 3.75 8V16C3.75 16.65 3.88 17.86 4.77 18.59C5.09 18.85 5.14 19.33 4.87 19.65C4.73 19.83 4.51 19.92 4.3 19.92Z" fill="currentColor"/>

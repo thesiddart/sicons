@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LinkCircleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LinkCircleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M7.93974 15.26C7.84974 15.26 7.76973 15.25 7.67973 15.21C6.86973 14.91 6.18973 14.32 5.75973 13.55C4.75973 11.75 5.37974 9.39998 7.12974 8.30998L9.46974 6.85997C10.3297 6.32997 11.3397 6.17 12.2997 6.42C13.2597 6.67 14.0697 7.29998 14.5597 8.17998C15.5597 9.97998 14.9397 12.33 13.1897 13.42L12.9297 13.61C12.5897 13.85 12.1197 13.77 11.8797 13.44C11.6397 13.1 11.7197 12.63 12.0497 12.39L12.3597 12.17C13.4797 11.47 13.8597 10.02 13.2497 8.90999C12.9597 8.38999 12.4897 8.01998 11.9297 7.86998C11.3697 7.71998 10.7797 7.81999 10.2697 8.12999L7.92973 9.57997C6.84973 10.25 6.46974 11.7 7.07974 12.82C7.32974 13.27 7.72974 13.62 8.20974 13.8C8.59974 13.94 8.79973 14.37 8.64973 14.76C8.53973 15.07 8.24974 15.26 7.93974 15.26Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MouseCircleBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MouseCircleBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.9602 17.84L19.3302 18.39C18.8802 18.54 18.5202 18.89 18.3702 19.35L17.8202 20.98C17.3502 22.39 15.3702 22.36 14.9302 20.95L13.0802 15C12.7202 13.82 13.8102 12.72 14.9802 13.09L20.9402 14.94C22.3402 15.38 22.3602 17.37 20.9602 17.84Z" fill="currentColor"/>

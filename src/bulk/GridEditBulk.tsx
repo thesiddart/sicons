@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GridEditBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GridEditBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.3299 14.67C20.2799 13.62 19.4499 13.96 18.7299 14.67L14.5799 18.82C14.4199 18.98 14.2699 19.29 14.2299 19.51L13.9999 21.0999C13.9199 21.6699 14.3199 22.08 14.8899 21.99L16.4799 21.76C16.6999 21.73 17.0099 21.5699 17.1699 21.4099L21.3199 17.26C22.0499 16.55 22.3799 15.72 21.3299 14.67Z" fill="currentColor"/>

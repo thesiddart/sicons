@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AvalancheavaxBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AvalancheavaxBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M6.06009 15.58L11.6701 5.96995C11.8301 5.68995 12.2301 5.66995 12.4201 5.92995L13.9801 8.01995C14.4301 8.61995 14.4601 9.42995 14.0701 10.07L10.7301 15.42C10.4001 15.95 9.82009 16.27 9.19009 16.27H6.4501C6.1001 16.26 5.88009 15.88 6.06009 15.58Z" fill="currentColor"/>

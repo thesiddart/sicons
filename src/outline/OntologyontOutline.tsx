@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const OntologyontOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const OntologyontOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.7005 22.75C11.6005 22.75 11.5105 22.75 11.4105 22.75C5.93046 22.6 1.48047 17.88 1.48047 12.24V5.21003C1.48047 4.70003 1.78046 4.25002 2.25046 4.06002C2.72046 3.87002 3.25044 3.97002 3.61044 4.33002L18.4405 19.16C18.5905 19.31 18.6705 19.51 18.6605 19.72C18.6505 19.93 18.5605 20.12 18.4005 20.26C16.5405 21.87 14.1705 22.75 11.7005 22.75ZM2.98047 5.81002V12.24C2.98047 17.08 6.78047 21.12 11.4505 21.25C13.3805 21.29 15.2505 20.73 16.7805 19.62L2.98047 5.81002Z" fill="currentColor"/>

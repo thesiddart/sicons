@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShieldCrossBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShieldCrossBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M10.9598 2.06008L5.4598 4.12008C4.4098 4.52008 3.5498 5.76008 3.5498 6.89008V14.9901C3.5498 15.8001 4.0798 16.8701 4.7298 17.3501L10.2298 21.4601C11.1998 22.1901 12.7898 22.1901 13.7598 21.4601L19.2598 17.3501C19.9098 16.8601 20.4398 15.8001 20.4398 14.9901V6.89008C20.4398 5.77008 19.5798 4.52008 18.5298 4.13008L13.0298 2.07008C12.4698 1.85008 11.5298 1.85008 10.9598 2.06008Z" fill="currentColor"/>

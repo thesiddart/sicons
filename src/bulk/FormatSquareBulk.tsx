@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FormatSquareBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FormatSquareBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M16.31 20.15C16.27 19.93 16.25 19.72 16.25 19.5C16.25 19.41 16.25 19.33 16.26 19.25H7.74C7.75 19.33 7.75 19.41 7.75 19.5C7.75 19.72 7.73 19.93 7.69 20.14C7.65 20.35 7.58 20.56 7.5 20.75H16.5C16.41 20.56 16.35 20.36 16.31 20.15ZM3.86 7.69C3.65 7.65 3.44 7.58 3.25 7.5V16.5C3.44 16.41 3.64 16.35 3.85 16.31C4.07 16.27 4.28 16.25 4.5 16.25C4.59 16.25 4.67 16.25 4.75 16.26V7.74C4.67 7.75 4.59 7.75 4.5 7.75C4.28 7.75 4.07 7.73 3.86 7.69ZM20.15 7.69C19.93 7.73 19.72 7.75 19.5 7.75C19.41 7.75 19.33 7.75 19.25 7.74V16.26C19.33 16.25 19.41 16.25 19.5 16.25C19.72 16.25 19.93 16.27 20.14 16.31C20.35 16.35 20.56 16.42 20.75 16.5V7.5C20.56 7.59 20.36 7.65 20.15 7.69ZM16.5 3.25H7.5C7.59 3.44 7.65 3.64 7.69 3.85C7.73 4.07 7.75 4.28 7.75 4.5C7.75 4.59 7.75 4.67 7.74 4.75H16.26C16.25 4.67 16.25 4.59 16.25 4.5C16.25 4.28 16.27 4.07 16.31 3.86C16.35 3.65 16.42 3.44 16.5 3.25Z" fill="currentColor"/>

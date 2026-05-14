@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WingwingOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WingwingOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.9996 19.75C16.7396 19.75 16.4896 19.61 16.3596 19.38L14.5096 16.28C14.3696 16.05 14.3696 15.76 14.4996 15.52L17.8396 9.68999L15.3496 5.35999C15.2196 5.12999 15.2196 4.83999 15.3496 4.60999C15.4796 4.37999 15.7296 4.23999 15.9996 4.23999H19.4996C19.7696 4.23999 20.0196 4.37998 20.1496 4.61998L22.8496 9.31999C22.9796 9.54999 22.9796 9.82998 22.8496 10.06L17.6496 19.36C17.5196 19.59 17.2696 19.74 17.0096 19.74C17.0096 19.75 16.9996 19.75 16.9996 19.75ZM16.0196 15.89L16.9796 17.5L21.3396 9.69998L19.0696 5.73999H17.2996L19.3496 9.31999C19.4796 9.54999 19.4796 9.83999 19.3496 10.07L16.0196 15.89Z" fill="currentColor"/>

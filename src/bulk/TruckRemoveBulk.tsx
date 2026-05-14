@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TruckRemoveBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TruckRemoveBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M5 1C4.06 1 3.19 1.33 2.5 1.88C1.58 2.61 1 3.74 1 5C1 5.75 1.21002 6.46 1.58002 7.06C2.27002 8.22 3.54 9 5 9C6.01 9 6.93 8.63 7.63 8C7.94 7.74 8.20998 7.42 8.41998 7.06C8.78998 6.46 9 5.75 9 5C9 2.79 7.21 1 5 1ZM6.59998 6.58002C6.44998 6.73002 6.26001 6.79999 6.07001 6.79999C5.88001 6.79999 5.68998 6.73002 5.53998 6.58002L5.01001 6.04999L4.46002 6.59998C4.31002 6.74998 4.11999 6.82001 3.92999 6.82001C3.73999 6.82001 3.55002 6.74998 3.40002 6.59998C3.11002 6.30998 3.11002 5.82998 3.40002 5.53998L3.95001 4.98999L3.41998 4.46002C3.12998 4.17002 3.12998 3.69002 3.41998 3.40002C3.70998 3.11002 4.18998 3.11002 4.47998 3.40002L5.01001 3.92999L5.51001 3.42999C5.80001 3.13999 6.28001 3.13999 6.57001 3.42999C6.86001 3.71999 6.86001 4.19999 6.57001 4.48999L6.07001 4.98999L6.59998 5.52002C6.88998 5.81002 6.88998 6.28002 6.59998 6.58002Z" fill="currentColor"/>

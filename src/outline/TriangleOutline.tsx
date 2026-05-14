@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TriangleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TriangleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.8999 22.75C10.6999 22.75 10.5098 22.67 10.3698 22.53L0.369844 12.53C0.0798438 12.24 0.0798438 11.76 0.369844 11.47L10.3698 1.46999C10.5798 1.25999 10.9099 1.18999 11.1899 1.30999C11.4699 1.42999 11.6499 1.69999 11.6499 1.99999V5.99999C11.6499 6.19999 11.5698 6.38999 11.4298 6.52999L5.95987 12L11.4298 17.47C11.5698 17.61 11.6499 17.8 11.6499 18V22C11.6499 22.3 11.4699 22.58 11.1899 22.69C11.0899 22.73 10.9999 22.75 10.8999 22.75ZM1.95987 12L10.1499 20.19V18.31L4.36984 12.53C4.07984 12.24 4.07984 11.76 4.36984 11.47L10.1499 5.68999V3.80999L1.95987 12Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudNotifOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudNotifOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.6698 20.83C16.6498 20.83 16.6398 20.83 16.6298 20.83H5.53979C2.59979 20.62 1.27979 18.35 1.27979 16.34C1.27979 14.54 2.32979 12.54 4.60979 11.99C3.97979 9.47001 4.52979 7.11001 6.18979 5.40001C8.06979 3.46001 11.0598 2.71001 13.6098 3.54001C13.9998 3.67001 14.2198 4.09001 14.0898 4.48001C13.9598 4.87001 13.5398 5.09001 13.1498 4.96001C11.1198 4.31001 8.74979 4.90001 7.25979 6.45001C5.80979 7.95001 5.46979 10.04 6.29979 12.35C6.37979 12.58 6.34979 12.84 6.20979 13.03C6.06979 13.22 5.83978 13.35 5.59978 13.35C3.65978 13.49 2.78979 14.95 2.78979 16.34C2.78979 17.73 3.65978 19.19 5.59978 19.34H16.6398C17.7798 19.35 18.9198 18.92 19.7698 18.14C20.9198 17.13 21.4198 15.66 21.1698 14.1C21.0998 13.69 21.3798 13.31 21.7898 13.24C22.1998 13.17 22.5798 13.45 22.6498 13.86C22.9898 15.92 22.2798 17.94 20.7798 19.26C19.6598 20.26 18.1998 20.83 16.6698 20.83Z" fill="currentColor"/>

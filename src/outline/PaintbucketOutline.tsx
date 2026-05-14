@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PaintbucketOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PaintbucketOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.0595 21.58C9.05952 21.58 8.04952 20.9 6.69952 19.56L3.23952 16.1C0.299518 13.16 0.599518 12.03 3.23952 9.38001L8.80952 3.80001C10.7795 1.83001 12.4095 0.680013 15.5295 3.80001L18.9895 7.26001C21.7995 10.07 21.1195 11.85 18.9895 13.98L13.4195 19.55C12.0695 20.9 11.0695 21.58 10.0595 21.58ZM4.29952 15.03L7.75952 18.49C9.87952 20.61 10.2295 20.62 12.3595 18.49L17.9295 12.92C19.5995 11.25 20.0295 10.42 17.9295 8.32001L14.4695 4.86001C12.2795 2.67001 11.6195 3.12001 9.86952 4.86001L4.29952 10.43C2.17952 12.56 1.99952 12.73 4.29952 15.03Z" fill="currentColor"/>

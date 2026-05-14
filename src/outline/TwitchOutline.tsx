@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TwitchOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TwitchOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.5 22.75H6.5C6.09 22.75 5.75 22.41 5.75 22V19.75H2.5C2.09 19.75 1.75 19.41 1.75 19V5C1.75 4.85 1.79 4.70999 1.88 4.57999L3.88 1.57999C4.02 1.36999 4.25 1.25 4.5 1.25H21.5C21.91 1.25 22.25 1.59 22.25 2V14C22.25 14.2 22.17 14.39 22.03 14.53L17.03 19.53C16.89 19.67 16.7 19.75 16.5 19.75H11.9L10.12 22.42C9.97999 22.62 9.75 22.75 9.5 22.75ZM7.25 21.25H9.10001L10.88 18.58C11.02 18.37 11.25 18.25 11.5 18.25H16.19L20.75 13.69V2.75H4.89999L3.25 5.23001V18.25H6.5C6.91 18.25 7.25 18.59 7.25 19V21.25Z" fill="currentColor"/>

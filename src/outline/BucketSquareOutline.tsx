@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BucketSquareOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BucketSquareOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.3506 18.39C9.67062 18.39 9.02061 18.0799 8.40061 17.4599L5.57063 14.63C4.33062 13.39 4.33062 11.97 5.57063 10.74L10.2906 6.01999C10.5806 5.72999 11.0606 5.72999 11.3506 6.01999L16.5406 11.21C16.8106 11.48 16.9506 11.8299 16.9506 12.2099C16.9506 12.5899 16.8006 12.9499 16.5406 13.2099L12.2906 17.4599C11.6906 18.0799 11.0306 18.39 10.3506 18.39ZM10.8306 7.59995L6.64063 11.7899C6.32063 12.1099 6.15061 12.41 6.15061 12.68C6.15061 12.94 6.31063 13.2399 6.64063 13.5699L9.47062 16.4C10.1206 17.05 10.5906 17.05 11.2406 16.4L15.4306 12.2099L10.8306 7.59995Z" fill="currentColor"/>

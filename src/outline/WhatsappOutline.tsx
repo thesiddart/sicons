@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WhatsappOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WhatsappOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M2.00014 22.75C1.80014 22.75 1.61011 22.67 1.47011 22.53C1.28011 22.34 1.20016 22.06 1.27016 21.8L2.53017 17.09C1.69017 15.53 1.25014 13.77 1.25014 11.99C1.25014 6.05999 6.07014 1.23999 12.0001 1.23999C17.9301 1.23999 22.7501 6.05999 22.7501 11.99C22.7501 17.92 17.9301 22.74 12.0001 22.74C10.1901 22.74 8.42017 22.29 6.84017 21.43L2.20015 22.72C2.13015 22.74 2.07014 22.75 2.00014 22.75ZM6.94014 19.88C7.07014 19.88 7.20015 19.92 7.32015 19.98C8.73015 20.81 10.3501 21.25 12.0001 21.25C17.1001 21.25 21.2501 17.1 21.2501 12C21.2501 6.9 17.1001 2.75 12.0001 2.75C6.90014 2.75 2.75014 6.9 2.75014 12C2.75014 13.63 3.18013 15.22 3.99013 16.62C4.09013 16.79 4.12015 17 4.07015 17.19L3.07015 20.93L6.75014 19.91C6.81014 19.89 6.88014 19.88 6.94014 19.88Z" fill="currentColor"/>

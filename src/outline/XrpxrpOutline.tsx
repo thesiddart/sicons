@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const XrpxrpOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const XrpxrpOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9998 11.49C10.6798 11.49 9.43986 10.98 8.50986 10.04L2.77988 4.30999C2.25988 3.78999 2.10986 3.01999 2.38986 2.34999C2.66986 1.67999 3.31983 1.23999 4.04983 1.23999H5.45987C6.49987 1.23999 7.47987 1.64999 8.20987 2.37999L11.7898 5.95999C11.9398 6.10999 12.0599 6.10999 12.2099 5.95999L15.7898 2.37999C16.5298 1.63999 17.4998 1.23999 18.5398 1.23999H19.9499C20.6799 1.23999 21.3298 1.67999 21.6098 2.34999C21.8898 3.01999 21.7398 3.78999 21.2198 4.30999L15.4898 10.04C14.5598 10.98 13.3198 11.49 11.9998 11.49ZM4.04983 2.74999C3.87983 2.74999 3.79987 2.86999 3.76987 2.92999C3.73987 2.98999 3.70986 3.12999 3.82986 3.24999L9.55984 8.97999C10.8598 10.28 13.1298 10.28 14.4298 8.97999L20.1598 3.24999C20.2798 3.12999 20.2498 2.98999 20.2198 2.92999C20.1898 2.86999 20.1199 2.74999 19.9398 2.74999H18.5299C17.8899 2.74999 17.2899 2.99999 16.8399 3.44999L13.2599 7.02999C12.5599 7.72999 11.4198 7.72999 10.7198 7.02999L7.13986 3.44999C6.68986 2.99999 6.08986 2.74999 5.44986 2.74999H4.04983Z" fill="currentColor"/>

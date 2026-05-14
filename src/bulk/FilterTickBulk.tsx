@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FilterTickBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FilterTickBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.9199 10.12C17.5899 10.04 17.2399 10 16.8799 10C14.2599 10 12.1299 12.13 12.1299 14.75C12.1299 15.64 12.3799 16.48 12.8199 17.2C13.1899 17.82 13.6999 18.35 14.3199 18.73C15.0599 19.22 15.9399 19.5 16.8799 19.5C18.6199 19.5 20.1299 18.57 20.9499 17.2C21.3899 16.48 21.6299 15.64 21.6299 14.75C21.6299 12.49 20.0499 10.59 17.9199 10.12ZM19.2499 14.13L16.7099 16.47C16.5699 16.6 16.3799 16.67 16.1999 16.67C16.0099 16.67 15.8199 16.6 15.6699 16.45L14.4999 15.28C14.2099 14.99 14.2099 14.51 14.4999 14.22C14.7899 13.93 15.2699 13.93 15.5599 14.22L16.2198 14.88L18.2299 13.03C18.5399 12.75 19.0099 12.77 19.2899 13.07C19.5699 13.38 19.5499 13.85 19.2499 14.13Z" fill="currentColor"/>

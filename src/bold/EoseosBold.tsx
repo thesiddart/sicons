@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const EoseosBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const EoseosBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.28012 20.3099C9.45012 20.7899 8.93011 21.2299 8.49011 20.9699L5.34012 19.1799C4.77012 18.8499 4.42013 18.0599 4.54013 17.4199L5.48013 12.7499C5.59013 12.1999 6.35013 12.1499 6.54013 12.6699L9.28012 20.3099Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TagUserBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TagUserBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.07 8.9498C12.03 8.9498 11.97 8.9498 11.92 8.9498C10.87 8.9098 10.04 8.0598 10.04 6.9998C10.04 5.9198 10.91 5.0498 11.99 5.0498C13.07 5.0498 13.94 5.9298 13.94 6.9998C13.95 8.0598 13.12 8.9198 12.07 8.9498Z" fill="currentColor"/>

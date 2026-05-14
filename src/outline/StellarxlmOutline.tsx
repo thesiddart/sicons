@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StellarxlmOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StellarxlmOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M4.03998 14.94C3.70998 14.94 3.41001 14.72 3.32001 14.39C3.11001 13.61 3 12.81 3 12C3 7.04 7.04 3 12 3C13.69 3 15.33 3.47 16.75 4.36C17.1 4.58 17.21 5.04 16.99 5.39C16.77 5.74 16.31 5.85 15.96 5.63C14.77 4.89 13.4 4.5 12 4.5C7.86 4.5 4.5 7.86 4.5 12C4.5 12.68 4.59002 13.35 4.77002 13.99C4.88002 14.39 4.63999 14.8 4.23999 14.91C4.17999 14.93 4.10998 14.94 4.03998 14.94Z" fill="currentColor"/>

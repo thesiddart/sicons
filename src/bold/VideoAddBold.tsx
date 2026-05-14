@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VideoAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VideoAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.73 5.86V2.5C14.73 2.22 14.51 2 14.23 2H9.77002C9.49002 2 9.27002 2.22 9.27002 2.5V5.86C9.27002 6.14 9.49002 6.36 9.77002 6.36H14.23C14.51 6.36 14.73 6.14 14.73 5.86Z" fill="currentColor"/>

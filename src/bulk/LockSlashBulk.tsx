@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LockSlashBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LockSlashBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.6298 15.72C13.6298 16.62 12.8998 17.35 11.9998 17.35C11.3598 17.35 10.8098 16.98 10.5498 16.45L12.7298 14.27C13.2598 14.53 13.6298 15.08 13.6298 15.72Z" fill="currentColor"/>

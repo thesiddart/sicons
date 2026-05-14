@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AudioSquareBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AudioSquareBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.66997 13.9199C8.92997 13.9199 8.33997 14.5199 8.33997 15.2599C8.33997 15.9999 8.93997 16.5899 9.66997 16.5899C10.41 16.5899 11.01 15.9899 11.01 15.2599C11.01 14.5199 10.41 13.9199 9.66997 13.9199Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const WalletRemoveOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const WalletRemoveOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17 22.75H7.63C7.31 22.75 7.02998 22.55 6.91998 22.26C6.80998 21.97 6.90001 21.63 7.14001 21.43C7.38001 21.23 7.60001 20.97 7.76001 20.69C8.08001 20.18 8.23999 19.6 8.23999 19.01C8.23999 17.22 6.77999 15.76 4.98999 15.76C4.05999 15.76 3.16999 16.16 2.54999 16.87C2.33999 17.1 2.00997 17.19 1.71997 17.08C1.42997 16.97 1.22998 16.69 1.22998 16.38V12C1.22998 8.92 3.13002 6.69001 6.08002 6.32001C6.35002 6.28001 6.65998 6.25 6.97998 6.25H16.98C17.22 6.25 17.53 6.26 17.85 6.31C20.8 6.65 22.73 8.89 22.73 12V17C22.75 20.44 20.44 22.75 17 22.75ZM9.17999 21.25H17C19.58 21.25 21.25 19.58 21.25 17V12C21.25 9.66 19.88 8.04998 17.66 7.78998C17.42 7.74998 17.21 7.75 17 7.75H7C6.76 7.75 6.52999 7.76999 6.29999 7.79999C4.09999 8.07999 2.75 9.68 2.75 12V14.82C3.43 14.45 4.21 14.25 5 14.25C7.62 14.25 9.75 16.38 9.75 19C9.75 19.79 9.54999 20.57 9.17999 21.25Z" fill="currentColor"/>

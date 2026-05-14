@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartSlashBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartSlashBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22 8.69008C22 9.88008 21.81 10.9801 21.48 12.0001C19.9 17.0001 15.03 19.9901 12.62 20.8101C12.28 20.9301 11.72 20.9301 11.38 20.8101C10.74 20.5901 9.93 20.2201 9.06 19.7001C8.5 19.3701 8.41 18.5901 8.87 18.1301L20.15 6.85008C20.69 6.31008 21.64 6.54008 21.83 7.28008C21.94 7.73008 22 8.20008 22 8.69008Z" fill="currentColor"/>

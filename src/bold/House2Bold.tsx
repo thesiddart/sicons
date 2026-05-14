@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const House2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const House2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10 15.5C9.59 15.5 9.25 15.84 9.25 16.25V17.75C9.25 18.16 9.59 18.5 10 18.5C10.41 18.5 10.75 18.16 10.75 17.75V16.25C10.75 15.84 10.41 15.5 10 15.5Z" fill="currentColor"/>

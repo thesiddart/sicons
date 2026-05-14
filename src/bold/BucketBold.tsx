@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BucketBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BucketBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.04 10.6401L9.69 3.29014L8.82 2.42014C8.53 2.13014 8.05 2.13014 7.76 2.42014C7.47 2.71014 7.47 3.19014 7.76 3.48014L8.63 4.35014L3 9.98014C2.36 10.6201 2.02 11.2701 2 11.9201C1.98 12.6101 2.32 13.3001 3 13.9901L7.01 18.0001C8.35 19.3301 9.69 19.3301 11.02 18.0001L17.04 11.9801C17.24 11.7801 17.33 11.5101 17.31 11.2501C17.3 11.0301 17.2 10.8001 17.04 10.6401Z" fill="currentColor"/>

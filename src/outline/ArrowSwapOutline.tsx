@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ArrowSwapOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ArrowSwapOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.01043 21.25C8.82043 21.25 8.63043 21.18 8.48043 21.03L3.47043 16.02C3.18043 15.73 3.18043 15.25 3.47043 14.96C3.76043 14.67 4.24043 14.67 4.53043 14.96L9.54043 19.97C9.83043 20.26 9.83043 20.74 9.54043 21.03C9.39043 21.17 9.20043 21.25 9.01043 21.25Z" fill="currentColor"/>

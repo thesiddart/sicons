@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TrontrontrxOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TrontrontrxOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.2302 21.88C10.1602 21.88 10.0903 21.88 10.0203 21.86C9.43026 21.78 8.93022 21.34 8.66022 20.66L1.94025 3.86001C1.67025 3.19001 1.73027 2.54001 2.09027 2.07001C2.46027 1.60001 3.07022 1.38001 3.79022 1.48001L16.7603 3.21001C17.1103 3.26001 17.5203 3.46001 17.7703 3.71001L20.9003 6.84001C21.5103 7.46001 21.5802 8.47001 21.0402 9.16001L11.6602 21.1C11.2602 21.61 10.7502 21.88 10.2302 21.88ZM3.46027 2.96001C3.34027 2.96001 3.28026 2.99001 3.27026 3.00001C3.27026 3.01001 3.25026 3.12001 3.33026 3.31001L10.0502 20.11C10.1302 20.31 10.2202 20.38 10.2302 20.38C10.2402 20.38 10.3402 20.34 10.4702 20.17L19.8502 8.23001C19.9202 8.15001 19.9103 7.97001 19.8303 7.90001L16.7003 4.77001C16.6803 4.75001 16.5902 4.71001 16.5502 4.70001L3.60022 2.97001C3.55022 2.96001 3.50027 2.96001 3.46027 2.96001Z" fill="currentColor"/>

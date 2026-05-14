@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MagicStarBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MagicStarBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.29 4.14004L17.22 7.93004C17.21 8.45004 17.54 9.14004 17.96 9.45004L20.44 11.33C22.03 12.53 21.77 14 19.87 14.6L16.64 15.61C16.1 15.78 15.53 16.37 15.39 16.92L14.62 19.86C14.01 22.18 12.49 22.41 11.23 20.37L9.47003 17.52C9.15003 17 8.39003 16.61 7.79003 16.64L4.45003 16.81C2.06003 16.93 1.38003 15.55 2.94003 13.73L4.92003 11.43C5.29003 11 5.46003 10.2 5.29003 9.66004L4.27003 6.42004C3.68003 4.52004 4.74003 3.47004 6.63003 4.09004L9.58003 5.06004C10.08 5.22004 10.83 5.11004 11.25 4.80004L14.33 2.58004C16 1.39004 17.33 2.09004 17.29 4.14004Z" fill="currentColor"/>

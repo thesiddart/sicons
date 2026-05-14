@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const XiaomiOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const XiaomiOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.5 15.75C13.09 15.75 12.75 15.41 12.75 15V11C12.75 10.31 12.19 9.75 11.5 9.75H8.25V15C8.25 15.41 7.91 15.75 7.5 15.75C7.09 15.75 6.75 15.41 6.75 15V9C6.75 8.59 7.09 8.25 7.5 8.25H11.5C13.02 8.25 14.25 9.48 14.25 11V15C14.25 15.41 13.91 15.75 13.5 15.75Z" fill="currentColor"/>

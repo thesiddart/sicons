@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartSearchOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartSearchOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 21.65C11.78 21.65 11.45 21.63 11.14 21.52C7.32 20.21 1.25 15.57 1.25 8.69C1.25 5.19 4.08 2.34998 7.56 2.34998C9.25 2.34998 10.83 3.01 12 4.19C13.17 3.01 14.75 2.34998 16.44 2.34998C19.92 2.34998 22.75 5.19 22.75 8.69C22.75 9.9 22.57 11.09 22.21 12.23C22.09 12.62 21.66 12.85 21.27 12.72C20.87 12.6 20.66 12.17 20.78 11.78C21.09 10.79 21.25 9.75001 21.25 8.70001C21.25 6.03001 19.09 3.85999 16.44 3.85999C14.92 3.85999 13.51 4.56998 12.6 5.78998C12.32 6.16998 11.68 6.16998 11.4 5.78998C10.48 4.55998 9.08 3.85999 7.56 3.85999C4.91 3.85999 2.75 6.03001 2.75 8.70001C2.75 15.54 9.32 19.33 11.63 20.12C11.69 20.14 11.83 20.17 12 20.17C12.41 20.17 12.75 20.51 12.75 20.92C12.75 21.33 12.41 21.65 12 21.65Z" fill="currentColor"/>

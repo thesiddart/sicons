@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DesigntoolsBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DesigntoolsBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.9998 3.02011C18.6798 2.66011 19.3398 2.35011 19.9598 2.10011C20.5498 1.88011 21.1198 2.04011 21.4798 2.41011C21.8598 2.79011 22.0398 3.36011 21.7998 3.95011C20.2598 7.79011 16.3998 13.0101 13.1698 15.6001L11.1998 17.1801C10.9498 17.3601 10.6998 17.5201 10.4198 17.6301C10.4198 17.4501 10.4098 17.2501 10.3798 17.0601C10.2698 16.2201 9.88977 15.4401 9.21977 14.7701C8.53977 14.0901 7.70977 13.6901 6.85977 13.5801C6.65977 13.5701 6.45977 13.5501 6.25977 13.5701C6.36977 13.2601 6.53977 12.9701 6.74977 12.7301L8.30977 10.7601C9.75977 8.95011 12.0398 6.94011 14.4298 5.25011" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

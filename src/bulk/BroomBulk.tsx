@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BroomBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BroomBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M9.82997 5.57026L6.35997 7.68024L4.77997 5.08027C4.19997 4.13027 4.49998 2.87023 5.45998 2.29023C6.40998 1.71023 7.66997 2.01022 8.24997 2.97022L9.82997 5.57026Z" fill="currentColor"/>

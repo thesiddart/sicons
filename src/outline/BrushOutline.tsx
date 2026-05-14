@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BrushOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BrushOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10 16.75C9.59 16.75 9.25 16.41 9.25 16C9.25 14.33 9.25 12.25 13 12.25H17C19.25 12.25 19.25 11.95 19.25 10V8C19.25 6.05 19.25 5.75 17 5.75H16C15.59 5.75 15.25 5.41 15.25 5C15.25 4.59 15.59 4.25 16 4.25H17C20.5 4.25 20.75 5.67 20.75 8V10C20.75 12.33 20.5 13.75 17 13.75H13C10.75 13.75 10.75 14.36 10.75 16C10.75 16.41 10.41 16.75 10 16.75Z" fill="currentColor"/>

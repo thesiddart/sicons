@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LockCircleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LockCircleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15 11.75C14.59 11.75 14.25 11.41 14.25 11V10C14.25 8.54 13.89 7.75 12 7.75C10.11 7.75 9.75 8.54 9.75 10V11C9.75 11.41 9.41 11.75 9 11.75C8.59 11.75 8.25 11.41 8.25 11V10C8.25 9.07 8.25 6.25 12 6.25C15.75 6.25 15.75 9.07 15.75 10V11C15.75 11.41 15.41 11.75 15 11.75Z" fill="currentColor"/>

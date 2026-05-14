@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BuyCryptoOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BuyCryptoOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.4998 15.75C15.3198 15.75 15.1198 15.74 14.9398 15.73C14.5698 15.71 14.2697 15.41 14.2397 15.04C14.0197 12.25 11.7498 9.98999 8.96976 9.76999C8.59976 9.73999 8.29975 9.44001 8.27975 9.07001C8.26975 8.89001 8.25977 8.69001 8.25977 8.51001C8.25977 4.51001 11.5098 1.26001 15.5098 1.26001C19.5098 1.26001 22.7598 4.51001 22.7598 8.51001C22.7598 12.51 19.4998 15.75 15.4998 15.75ZM9.74976 8.35999C12.7298 8.88999 15.1198 11.27 15.6398 14.25C18.7498 14.17 21.2498 11.63 21.2498 8.5C21.2498 5.33 18.6698 2.75 15.4998 2.75C12.3798 2.75 9.82976 5.24999 9.74976 8.35999Z" fill="currentColor"/>

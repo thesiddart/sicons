@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ProfileTickOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ProfileTickOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.9604 21.32C15.7704 21.32 15.5804 21.25 15.4304 21.1L13.9104 19.58C13.6204 19.29 13.6204 18.81 13.9104 18.52C14.2004 18.23 14.6804 18.23 14.9704 18.52L15.9604 19.51L18.4704 17C18.7604 16.71 19.2404 16.71 19.5304 17C19.8204 17.29 19.8204 17.77 19.5304 18.06L16.4904 21.1C16.3404 21.25 16.1504 21.32 15.9604 21.32Z" fill="currentColor"/>

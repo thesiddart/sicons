@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FilterTickOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FilterTickOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.8799 20.25C15.8199 20.25 14.7899 19.94 13.9099 19.35C13.2199 18.93 12.6199 18.31 12.1799 17.58C11.6599 16.73 11.3799 15.75 11.3799 14.75C11.3799 11.72 13.8499 9.25 16.8799 9.25C17.2999 9.25 17.7099 9.30001 18.0999 9.39001C20.5799 9.94001 22.3799 12.19 22.3799 14.75C22.3799 15.76 22.1099 16.74 21.5899 17.59C20.6099 19.23 18.7999 20.25 16.8799 20.25ZM16.8799 10.75C14.6699 10.75 12.8799 12.54 12.8799 14.75C12.8799 15.48 13.0799 16.19 13.4599 16.81C13.7799 17.34 14.2099 17.78 14.7099 18.09C15.3699 18.53 16.1099 18.75 16.8799 18.75C18.2799 18.75 19.5899 18.01 20.3099 16.81C20.6899 16.19 20.8799 15.48 20.8799 14.75C20.8799 12.89 19.5699 11.25 17.7599 10.85C17.4699 10.78 17.1799 10.75 16.8799 10.75Z" fill="currentColor"/>

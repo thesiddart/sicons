@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CardPosOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CardPosOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M3.93012 16.63C3.74012 16.63 3.55012 16.56 3.40012 16.41C3.11012 16.12 3.11012 15.64 3.40012 15.35L15.3501 3.4C15.6401 3.11 16.1201 3.11 16.4101 3.4C16.7001 3.69 16.7001 4.17 16.4101 4.46L4.46012 16.42C4.32012 16.56 4.12012 16.63 3.93012 16.63Z" fill="currentColor"/>

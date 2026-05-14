@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FilterRemoveBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FilterRemoveBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.88 10C14.26 10 12.13 12.13 12.13 14.75C12.13 15.64 12.38 16.48 12.82 17.2C13.64 18.58 15.15 19.5 16.88 19.5C18.61 19.5 20.12 18.57 20.94 17.2C21.38 16.49 21.63 15.64 21.63 14.75C21.63 12.13 19.51 10 16.88 10ZM18.68 16.52C18.53 16.67 18.34 16.74 18.15 16.74C17.96 16.74 17.77 16.67 17.62 16.52L16.9 15.8L16.15 16.55C16 16.7 15.81 16.77 15.62 16.77C15.43 16.77 15.24 16.7 15.09 16.55C14.8 16.26 14.8 15.78 15.09 15.49L15.84 14.74L15.12 14.01C14.83 13.72 14.83 13.24 15.12 12.95C15.41 12.66 15.89 12.66 16.18 12.95L16.9 13.67L17.6 12.97C17.89 12.68 18.37 12.68 18.66 12.97C18.95 13.26 18.95 13.74 18.66 14.03L17.96 14.73L18.68 15.46C18.98 15.75 18.98 16.23 18.68 16.52Z" fill="currentColor"/>

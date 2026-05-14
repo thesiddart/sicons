@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PenCloseOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PenCloseOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.2502 14.22C18.0602 14.22 17.8602 14.14 17.7202 14L12.0502 8.33001C11.8002 8.08001 11.7602 7.70001 11.9502 7.40001L13.7202 4.59996C14.2002 3.82996 14.9502 3.36 15.8102 3.26C16.7602 3.15 17.7702 3.54 18.5502 4.32L21.7302 7.49999C22.4802 8.24999 22.8502 9.24999 22.7402 10.25C22.6402 11.12 22.1802 11.8699 21.4602 12.3299L18.6602 14.1C18.5302 14.18 18.3902 14.22 18.2502 14.22ZM13.5402 7.7L18.3602 12.52L20.6502 11.07C20.9902 10.86 21.2002 10.51 21.2402 10.09C21.3002 9.56002 21.0802 8.99 20.6602 8.57L17.4802 5.39C17.0202 4.93 16.4702 4.7 15.9702 4.76C15.5702 4.8 15.2302 5.02996 14.9902 5.40996L13.5402 7.7Z" fill="currentColor"/>

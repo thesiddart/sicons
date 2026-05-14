@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LitecoinltcOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LitecoinltcOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.6702 17.89H7.97017C7.73017 17.89 7.51016 17.78 7.37016 17.59C7.23016 17.4 7.18016 17.16 7.25016 16.93L10.3302 6.14999C10.4202 5.82999 10.7202 5.60999 11.0502 5.60999H14.0902C14.3202 5.60999 14.5402 5.71999 14.6902 5.89999C14.8302 6.08999 14.8802 6.32999 14.8202 6.54999L12.9502 13.55H16.2002C16.4202 13.55 16.6302 13.65 16.7802 13.82C16.9202 13.99 16.9802 14.22 16.9402 14.43L16.4302 17.27C16.3402 17.63 16.0302 17.89 15.6702 17.89ZM8.96016 16.39H15.0402L15.2802 15.05H11.9602C11.7302 15.05 11.5101 14.94 11.3601 14.76C11.2201 14.57 11.1702 14.33 11.2302 14.11L13.1002 7.10999H11.6002L8.96016 16.39Z" fill="currentColor"/>

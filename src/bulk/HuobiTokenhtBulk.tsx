@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HuobiTokenhtBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HuobiTokenhtBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M16.16 10C16.16 10 16.01 11 12.91 15C10 18.77 14.21 21.64 14.71 21.97C14.74 21.99 14.77 21.99 14.81 21.97C15.49 21.55 23.06 16.68 16.16 10Z" fill="currentColor"/>

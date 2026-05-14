@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ProgrammingArrowsBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ProgrammingArrowsBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.73 16.1002C19.73 16.0702 19.75 16.0402 19.75 16.0002V6.50018C19.75 4.98018 18.52 3.75018 17 3.75018H13.07L14.48 2.58018C14.8 2.31018 14.84 1.84018 14.58 1.52018C14.31 1.20018 13.84 1.16018 13.52 1.42018L10.52 3.92018C10.35 4.06018 10.25 4.27018 10.25 4.50018C10.25 4.73018 10.35 4.93018 10.52 5.08018L13.52 7.58018C13.66 7.70018 13.83 7.75018 14 7.75018C14.21 7.75018 14.43 7.66018 14.58 7.48018C14.85 7.16018 14.8 6.69018 14.48 6.42018L13.07 5.25018H17C17.69 5.25018 18.25 5.81018 18.25 6.50018V16.0002C18.25 16.0402 18.27 16.0702 18.27 16.1002C16.97 16.4302 16 17.6002 16 19.0002C16 20.6602 17.34 22.0002 19 22.0002C20.66 22.0002 22 20.6602 22 19.0002C22 17.6002 21.03 16.4302 19.73 16.1002Z" fill="currentColor"/>

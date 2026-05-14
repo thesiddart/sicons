@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MonitorRecorderBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MonitorRecorderBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.97 10.37V13.56C20.97 15.88 19.09 17.76 16.77 17.76H13.21C12.66 17.76 12.21 18.2 12.21 18.76V19.58C12.21 20.13 12.66 20.58 13.21 20.58H15.47C15.86 20.58 16.18 20.89 16.18 21.29C16.18 21.68 15.86 22 15.47 22H7.53C7.14 22 6.82 21.68 6.82 21.29C6.82 20.89 7.14 20.58 7.53 20.58H9.79C10.34 20.58 10.79 20.13 10.79 19.58V18.76C10.79 18.2 10.34 17.76 9.79 17.76H6.19C3.88 17.76 2 15.88 2 13.56V7.19C2 4.88 3.88 3 6.19 3H10.5C11.05 3 11.5 3.45 11.5 4V6.15C11.5 8.08 12.79 9.37 14.71 9.37H19.97C20.52 9.37 20.97 9.82 20.97 10.37Z" fill="currentColor"/>

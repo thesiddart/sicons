@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CakeBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CakeBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.89 13V14H20.02C19.28 14 18.68 14.6 18.68 15.35V15.65C18.68 16.4 18.08 17 17.33 17C16.59 17 15.99 16.4 15.99 15.65V15.35C15.99 14.6 15.38 14 14.64 14C13.9 14 13.3 14.6 13.3 15.35V15.65C13.3 16.4 12.69 17 11.95 17C11.21 17 10.6 16.4 10.6 15.65V15.35C10.6 14.6 9.99999 14 9.25999 14C8.51999 14 7.90999 14.6 7.90999 15.35V15.65C7.90999 16.4 7.30999 17 6.56999 17C5.81999 17 5.21999 16.4 5.21999 15.65V15.33C5.21999 14.59 4.62999 13.99 3.89999 13.98H3.10999V13C3.10999 11.62 4.14999 10.45 5.55999 10.11C5.83999 10.04 6.12999 10 6.43999 10H17.56C17.87 10 18.16 10.04 18.44 10.11C19.85 10.45 20.89 11.62 20.89 13Z" fill="currentColor"/>

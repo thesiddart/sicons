@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MessageCircleOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MessageCircleOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 18.31C11.53 18.31 11.08 18.07 10.77 17.66L10.05 16.7H9.89999C7.87999 16.7 6 16.23 6 12.8V10.17C6 7.86004 7.19 6.49002 9.34 6.30002C9.5 6.28002 9.68999 6.27002 9.89999 6.27002H14.1C16.61 6.27002 18 7.65004 18 10.17V12.8C18 13 17.99 13.2 17.97 13.38C17.79 15.5 16.42 16.69 14.11 16.69H13.96L13.24 17.65C12.92 18.08 12.47 18.31 12 18.31ZM9.89999 7.79004C9.75999 7.79004 9.63 7.79003 9.5 7.81003C8.09 7.93003 7.5 8.64003 7.5 10.19V12.82C7.5 14.89 8.06999 15.22 9.89999 15.22H10.16C10.54 15.22 10.95 15.42 11.18 15.72L11.97 16.78L12.82 15.73C13.06 15.41 13.44 15.22 13.84 15.22H14.1C15.65 15.22 16.35 14.63 16.47 13.25C16.49 13.09 16.49 12.96 16.49 12.82V10.19C16.49 8.51003 15.77 7.79004 14.09 7.79004H9.89999Z" fill="currentColor"/>

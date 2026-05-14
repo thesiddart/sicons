@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Blend2Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Blend2Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.96973 16.75C8.57973 16.75 8.23973 16.72 7.91973 16.67C4.11973 16.17 1.21973 12.87 1.21973 9C1.21973 4.73 4.69973 1.25 8.96973 1.25C12.8397 1.25 16.1397 4.14 16.6397 7.97C16.6897 8.27 16.7197 8.61 16.7197 9C16.7197 13.27 13.2497 16.75 8.96973 16.75ZM8.96973 2.75C5.51973 2.75 2.71973 5.55 2.71973 9C2.71973 12.12 5.04973 14.78 8.13973 15.19C8.39973 15.23 8.66973 15.25 8.96973 15.25C12.4197 15.25 15.2197 12.45 15.2197 9C15.2197 8.7 15.1997 8.43 15.1597 8.19C14.7497 5.08 12.0997 2.75 8.96973 2.75Z" fill="currentColor"/>

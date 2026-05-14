@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TruckTickOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TruckTickOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13 14.75H2C1.59 14.75 1.25 14.41 1.25 14V7.62C1.25 7.29999 1.44999 7.01997 1.73999 6.90997C2.03999 6.79997 2.37001 6.89001 2.57001 7.13C3.18001 7.86 4.13001 8.26999 5.07001 8.23999C5.87001 8.21999 6.60998 7.92001 7.16998 7.39001C7.42998 7.17001 7.63999 6.91 7.79999 6.62C8.10999 6.09 8.26 5.50998 8.25 4.91998C8.23 3.99998 7.83002 3.15999 7.15002 2.54999C6.91002 2.33999 6.83 2.00997 6.94 1.71997C7.05 1.42997 7.33001 1.22998 7.64001 1.22998H15C15.41 1.22998 15.75 1.56998 15.75 1.97998V11.98C15.75 13.52 14.52 14.75 13 14.75ZM2.75 13.25H13C13.69 13.25 14.25 12.69 14.25 12V2.75H9.19C9.54 3.4 9.73 4.13001 9.75 4.89001C9.77 5.76001 9.54998 6.62 9.10999 7.37C8.86999 7.79999 8.53999 8.21001 8.17999 8.51001C7.37999 9.27001 6.27999 9.72 5.10999 9.75C4.26999 9.78 3.46001 9.57 2.76001 9.19V13.25H2.75Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShapesBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShapesBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.4298 15H4.39985C2.57985 15 1.41985 13.05 2.29985 11.45L4.62985 7.20994L6.80985 3.23994C7.71985 1.58994 10.0998 1.58994 11.0098 3.23994L13.1998 7.20994L14.2498 9.11995L15.5298 11.45C16.4098 13.05 15.2498 15 13.4298 15Z" fill="currentColor"/>

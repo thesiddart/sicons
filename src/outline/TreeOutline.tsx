@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TreeOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TreeOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.1703 10.81H7.83022C6.97022 10.81 6.31025 10.47 6.01025 9.88997C5.71025 9.29997 5.83022 8.56997 6.33022 7.87997L10.5002 2.03997C11.2402 0.979969 12.7702 0.979971 13.5202 2.04997L17.6902 7.87997C18.1902 8.56997 18.3102 9.29997 18.0102 9.88997C17.6902 10.47 17.0303 10.81 16.1703 10.81ZM12.0002 2.69997C11.9102 2.69997 11.8102 2.77997 11.7202 2.89997L7.55023 8.74997C7.35023 9.01997 7.34024 9.17997 7.35024 9.20997C7.36024 9.22997 7.50023 9.30997 7.84023 9.30997H16.1802C16.5102 9.30997 16.6503 9.21996 16.6703 9.19997C16.6703 9.17997 16.6602 9.01997 16.4702 8.74997L12.3002 2.90997C12.1902 2.76997 12.0902 2.69997 12.0002 2.69997Z" fill="currentColor"/>

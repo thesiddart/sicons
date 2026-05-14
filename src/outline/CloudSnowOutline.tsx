@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudSnowOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudSnowOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.65 20.75C16.64 20.75 16.62 20.75 16.61 20.75C16.2 20.75 15.86 20.41 15.87 19.99C15.87 19.58 16.24 19.21 16.63 19.25C17.73 19.25 18.89 18.83 19.74 18.05C21.29 16.69 21.4 14.75 20.98 13.38C20.56 12.01 19.39 10.46 17.37 10.2C17.04 10.16 16.78 9.91001 16.72 9.58001C16.33 7.19001 15.03 5.54001 13.09 4.94001C11.07 4.32001 8.73998 4.93001 7.27998 6.46001C5.85998 7.95002 5.52998 10.02 6.34998 12.31C6.48998 12.7 6.28998 13.13 5.89998 13.27C5.50998 13.41 5.07998 13.21 4.93998 12.82C3.92998 10.01 4.38998 7.32001 6.19998 5.43001C8.04998 3.50001 10.99 2.73001 13.54 3.52001C15.87 4.24001 17.52 6.16001 18.11 8.82001C20.15 9.28001 21.78 10.82 22.43 12.95C23.14 15.27 22.5 17.65 20.76 19.17C19.61 20.19 18.16 20.75 16.65 20.75Z" fill="currentColor"/>

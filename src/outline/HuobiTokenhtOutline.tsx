@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HuobiTokenhtOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HuobiTokenhtOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.7602 22.72C14.5902 22.72 14.4302 22.68 14.3002 22.6C13.8502 22.31 11.6102 20.76 11.2002 18.4C10.9802 17.09 11.3502 15.79 12.3102 14.55C15.1002 10.94 15.4102 9.88999 15.4202 9.84999C15.4602 9.56999 15.6502 9.36999 15.9202 9.27999C16.1902 9.18999 16.4702 9.27999 16.6802 9.47999C18.9602 11.69 20.0002 13.97 19.7602 16.26C19.3802 19.85 15.9002 22.2 15.2102 22.63C15.0902 22.68 14.9202 22.72 14.7602 22.72ZM16.3802 11.31C15.9202 12.12 15.0802 13.42 13.5002 15.45C12.7902 16.36 12.5302 17.24 12.6802 18.13C12.9202 19.52 14.1402 20.61 14.7702 21.08C15.7602 20.39 18.0002 18.57 18.2602 16.06C18.4302 14.52 17.8002 12.93 16.3802 11.31Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DocumentCloudBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DocumentCloudBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.8001 2.20999C15.3901 1.79999 14.6801 2.07999 14.6801 2.64999V6.13999C14.6801 7.59999 15.9201 8.80999 17.4301 8.80999C18.3801 8.81999 19.7001 8.81999 20.8301 8.81999C21.4001 8.81999 21.7001 8.14999 21.3001 7.74999C19.8601 6.29999 17.2801 3.68999 15.8001 2.20999Z" fill="currentColor"/>

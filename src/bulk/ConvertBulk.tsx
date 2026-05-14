@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ConvertBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ConvertBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M22.0303 12.0303C22.0303 15.0603 20.6803 17.7803 18.5403 19.6203C18.1603 19.9403 17.7603 20.2403 17.3303 20.5103C15.8003 21.4703 13.9803 22.0303 12.0303 22.0303C6.51027 22.0303 2.03027 17.5503 2.03027 12.0303C2.03027 9.00027 3.38027 6.28027 5.52027 4.44027C5.90027 4.12027 6.30027 3.82027 6.73027 3.55027C8.26027 2.59027 10.0803 2.03027 12.0303 2.03027C17.5503 2.03027 22.0303 6.51027 22.0303 12.0303Z" fill="currentColor"/>

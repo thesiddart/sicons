@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const EmptyWalletAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const EmptyWalletAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.25913 21.2448C8.9061 20.5978 9.27777 19.7719 9.37413 18.9184C9.5049 17.7828 9.12635 16.6058 8.25913 15.7386C7.74293 15.2224 7.10972 14.8783 6.4421 14.72C5.1688 14.3965 3.75785 14.7337 2.75297 15.7386C2.05782 16.4338 1.67927 17.3216 1.63109 18.237C1.59668 18.6294 1.63109 19.0354 1.73433 19.4277C1.89264 20.0954 2.23677 20.7286 2.75297 21.2448C4.27405 22.7659 6.73805 22.7659 8.25913 21.2448ZM6.96518 17.7759C7.36438 17.7759 7.69475 18.1063 7.69475 18.5055C7.68787 18.9115 7.36438 19.235 6.9583 19.2419L6.23562 19.235L6.2425 19.9302C6.23562 20.3363 5.91213 20.6597 5.50605 20.6666C5.09997 20.6597 4.77648 20.3363 4.7696 19.9302L4.77648 19.235L4.0538 19.2419C3.64772 19.235 3.32424 18.9115 3.31735 18.5055C3.32424 18.3059 3.40683 18.1269 3.5376 17.9961C3.66837 17.8654 3.84732 17.7828 4.04692 17.7759L4.77648 17.7759L4.77648 17.0188C4.77648 16.8123 4.85908 16.6334 4.98985 16.5026C5.12062 16.3718 5.29957 16.2892 5.50605 16.2892C5.90525 16.2892 6.23562 16.6196 6.23562 17.0188L6.23562 17.7759L6.96518 17.7759Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DropboxBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DropboxBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M12 6.00005L6.43998 10.0001L3.18997 7.80006C2.60998 7.41006 2.59999 6.57006 3.16999 6.16006L6.99997 3.40005C7.33997 3.16005 7.79999 3.15005 8.13999 3.38005L12 6.00005Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VideoRemoveOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VideoRemoveOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15 22.75H9C3.57 22.75 1.25 20.43 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C20.43 1.25 22.75 3.57 22.75 9V15C22.75 15.25 22.75 15.5 22.73 15.74C22.7 16.06 22.48 16.32 22.17 16.4C21.86 16.48 21.54 16.36 21.36 16.09C21.35 16.08 21.29 16.01 21.28 15.99C20.59 15.2 19.58 14.75 18.51 14.75C17.49 14.75 16.53 15.15 15.82 15.88C15.14 16.58 14.76 17.51 14.76 18.5C14.76 19.17 14.95 19.84 15.3 20.43C15.49 20.75 15.73 21.03 16 21.27L16.12 21.38C16.35 21.57 16.46 21.9 16.37 22.19C16.28 22.48 16.04 22.7 15.74 22.73C15.51 22.75 15.25 22.75 15 22.75ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 19.61 4.39 21.25 9 21.25H14.03C14.02 21.24 14.01 21.22 14 21.21C13.5 20.38 13.24 19.45 13.24 18.5C13.24 17.12 13.77 15.82 14.72 14.84C15.7 13.83 17.08 13.25 18.49 13.25C19.48 13.25 20.43 13.52 21.24 14.03V9C21.24 4.39 19.6 2.75 14.99 2.75H9Z" fill="currentColor"/>

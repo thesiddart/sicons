@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VuesaxBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VuesaxBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0001 22.7501C11.7501 22.7501 11.5101 22.6201 11.3701 22.4101L2.33005 8.41011C2.11005 8.06011 2.21005 7.6001 2.55005 7.3701C2.90005 7.1501 3.36006 7.2401 3.59006 7.5901L11.9901 20.6101L20.3601 7.5901C20.5801 7.2401 21.0501 7.14011 21.4001 7.36011C21.7501 7.58011 21.8501 8.0501 21.6301 8.4001L12.6301 22.4001C12.4901 22.6201 12.2601 22.7501 12.0001 22.7501Z" fill="currentColor"/>

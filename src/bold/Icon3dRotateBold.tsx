@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Icon3dRotateBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Icon3dRotateBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15 22.7502C14.73 22.7502 14.48 22.6002 14.35 22.3702C14.22 22.1302 14.22 21.8502 14.36 21.6102L15.41 19.8602C15.62 19.5102 16.08 19.3902 16.44 19.6002C16.8 19.8102 16.91 20.2702 16.7 20.6302L16.43 21.0802C19.19 20.4302 21.26 17.9502 21.26 14.9902C21.26 14.5802 21.6 14.2402 22.01 14.2402C22.42 14.2402 22.76 14.5802 22.76 14.9902C22.75 19.2702 19.27 22.7502 15 22.7502Z" fill="currentColor"/>

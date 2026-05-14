@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LockBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LockBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 17.3498C12.9002 17.3498 13.63 16.6201 13.63 15.7198C13.63 14.8196 12.9002 14.0898 12 14.0898C11.0998 14.0898 10.37 14.8196 10.37 15.7198C10.37 16.6201 11.0998 17.3498 12 17.3498Z" fill="currentColor"/>

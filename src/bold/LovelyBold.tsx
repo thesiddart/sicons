@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LovelyBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LovelyBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.8 9.91016C17.67 9.91016 16.66 10.4602 16.03 11.3002C15.4 10.4602 14.39 9.91016 13.26 9.91016C11.35 9.91016 9.80005 11.4702 9.80005 13.3902C9.80005 14.1302 9.92005 14.8202 10.12 15.4502C11.1 18.5602 14.14 20.4302 15.64 20.9402C15.85 21.0102 16.2 21.0102 16.41 20.9402C17.91 20.4302 20.95 18.5702 21.93 15.4502C22.14 14.8102 22.25 14.1302 22.25 13.3902C22.26 11.4702 20.71 9.91016 18.8 9.91016Z" fill="currentColor"/>

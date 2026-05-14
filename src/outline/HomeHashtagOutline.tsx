@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HomeHashtagOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HomeHashtagOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.79 22.74H6.21C3.47 22.74 1.25 20.51 1.25 17.77V10.36C1.25 9 2.09 7.29 3.17 6.45L8.56 2.25C10.18 0.989999 12.77 0.929999 14.45 2.11L20.63 6.44C21.82 7.27 22.75 9.05 22.75 10.5V17.78C22.75 20.51 20.53 22.74 17.79 22.74ZM9.48 3.43L4.09 7.63C3.38 8.19 2.75 9.46 2.75 10.36V17.77C2.75 19.68 4.3 21.24 6.21 21.24H17.79C19.7 21.24 21.25 19.69 21.25 17.78V10.5C21.25 9.54 20.56 8.21 19.77 7.67L13.59 3.34C12.45 2.54 10.57 2.58 9.48 3.43Z" fill="currentColor"/>

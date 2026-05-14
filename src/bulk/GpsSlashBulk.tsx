@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GpsSlashBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GpsSlashBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M18.9401 8.06006L15.1101 11.8901C15.1201 11.9301 15.1201 11.9601 15.1201 12.0001C15.1201 13.7201 13.7201 15.1201 12.0001 15.1201C11.9601 15.1201 11.9301 15.1201 11.8901 15.1101L8.06006 18.9401C9.22006 19.6201 10.5701 20.0001 12.0001 20.0001C16.4101 20.0001 20.0001 16.4101 20.0001 12.0001C20.0001 10.5701 19.6201 9.22006 18.9401 8.06006Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GoogleDriveOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GoogleDriveOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.41 21.75H4.59005C4.33005 21.75 4.08003 21.61 3.95003 21.39L0.770039 16.1C0.630039 15.87 0.630039 15.57 0.770039 15.34L8.18001 2.63C8.31001 2.4 8.56004 2.26001 8.83004 2.26001H15.18C15.45 2.26001 15.69 2.4 15.83 2.63C18.62 7.41001 22.83 14.62 23.19 15.18C23.29 15.31 23.34 15.46 23.34 15.63C23.34 15.81 23.28 15.97 23.17 16.1C22.91 16.49 21.15 19.52 20.06 21.38C19.93 21.61 19.68 21.75 19.41 21.75ZM5.01003 20.25H18.98C20.47 17.69 21.27 16.33 21.76 15.61C21.19 14.77 20.19 13.07 18.22 9.70001L14.75 3.75H9.26003L2.29 15.7L5.01003 20.25ZM22.37 16.33V16.35V16.33Z" fill="currentColor"/>

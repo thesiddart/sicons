@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ShopRemoveBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ShopRemoveBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M7.92999 16.28C7.82999 16.17 7.71998 16.06 7.59998 15.97C6.89998 15.36 6 15 5 15C4.29 15 3.61998 15.19 3.03998 15.52C2.84998 15.62 2.67 15.74 2.5 15.88C1.58 16.61 1 17.74 1 19C1 19.75 1.21002 20.46 1.58002 21.06C1.67002 21.22 1.78002 21.37 1.90002 21.51C1.92002 21.54 1.94997 21.56 1.96997 21.59C2.68997 22.45 3.78 23 5 23C6.01 23 6.93 22.63 7.63 22C7.67 21.97 7.69998 21.94 7.72998 21.9C7.99998 21.67 8.22998 21.38 8.41998 21.06C8.78998 20.46 9 19.75 9 19C9 17.95 8.58999 17 7.92999 16.28ZM6.5 19.73H3.51001C3.10001 19.73 2.76001 19.39 2.76001 18.98C2.76001 18.57 3.10001 18.23 3.51001 18.23H6.5C6.91 18.23 7.25 18.57 7.25 18.98C7.25 19.39 6.91 19.73 6.5 19.73Z" fill="currentColor"/>

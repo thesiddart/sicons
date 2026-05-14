@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CallSlashBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CallSlashBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22.0001 18.33C22.0001 18.69 21.9201 19.06 21.7501 19.42C21.5801 19.78 21.3601 20.12 21.0701 20.44C20.5801 20.98 20.0401 21.37 19.4301 21.62C18.8301 21.87 18.1701 22 17.4701 22C16.4501 22 15.3601 21.76 14.2101 21.27C13.0601 20.78 11.9001 20.12 10.7601 19.29C10.1801 18.86 9.61006 18.42 9.06006 17.94L12.3201 14.68C12.3301 14.68 12.3301 14.68 12.3401 14.69C12.8601 15.13 13.2901 15.43 13.6301 15.61C13.6801 15.63 13.7401 15.66 13.8101 15.69C13.8901 15.72 13.9701 15.73 14.0601 15.73C14.2301 15.73 14.3601 15.67 14.4701 15.56L15.2301 14.81C15.4801 14.56 15.7201 14.37 15.9501 14.25C16.1801 14.11 16.4101 14.04 16.6601 14.04C16.8501 14.04 17.0501 14.08 17.2701 14.17C17.4901 14.26 17.7201 14.39 17.9701 14.56L21.2901 16.91C21.5501 17.09 21.7301 17.3 21.8401 17.55C21.9401 17.8 22.0001 18.05 22.0001 18.33Z" fill="currentColor"/>

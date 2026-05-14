@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FolderCrossBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FolderCrossBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M21.8699 9.44H2.12988V6.42C2.12988 3.98 4.10988 2 6.54988 2H8.87988C10.5099 2 11.0199 2.53 11.6699 3.4L13.0699 5.26C13.3799 5.67 13.4199 5.73 13.9999 5.73H16.7899C19.1599 5.72 21.1799 7.28 21.8699 9.44Z" fill="currentColor"/>

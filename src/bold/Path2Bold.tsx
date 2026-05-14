@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Path2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Path2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.15 21.9998H9.82999C8.28999 21.9998 7.14999 20.7498 7.44999 19.4198L7.96999 17.0998C8.06999 16.6398 8.47999 16.3198 8.94999 16.3198H15.04C15.51 16.3198 15.91 16.6398 16.02 17.0998L16.54 19.4098C16.86 20.8398 15.79 21.9998 14.15 21.9998Z" fill="currentColor"/>

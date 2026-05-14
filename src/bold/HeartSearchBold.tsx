@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartSearchBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartSearchBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.74 20.5102L20.88 19.6502C21.33 18.9702 21.59 18.1602 21.59 17.2902C21.59 14.9202 19.67 12.9902 17.29 12.9902C14.91 12.9902 13 14.9202 13 17.3002C13 19.6802 14.92 21.6002 17.3 21.6002C18.17 21.6002 18.98 21.3402 19.66 20.8902L20.52 21.7502C20.69 21.9202 20.91 22.0102 21.14 22.0102C21.37 22.0102 21.59 21.9202 21.76 21.7502C22.09 21.4002 22.09 20.8502 21.74 20.5102Z" fill="currentColor"/>

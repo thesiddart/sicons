@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Clock1Outline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Clock1Outline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M13.4 14.6C13.21 14.6 13.02 14.53 12.87 14.38L11.47 12.98C11.33 12.84 11.25 12.65 11.25 12.45V9.66003C11.25 9.25003 11.59 8.91003 12 8.91003C12.41 8.91003 12.75 9.25003 12.75 9.66003V12.14L13.93 13.32C14.22 13.61 14.22 14.09 13.93 14.38C13.78 14.53 13.59 14.6 13.4 14.6Z" fill="currentColor"/>

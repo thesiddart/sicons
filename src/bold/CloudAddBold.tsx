@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CloudAddBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CloudAddBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 11.5298C9.24 11.5298 7 13.7698 7 16.5298C7 17.2698 7.16 17.9698 7.46 18.5898C7.54 18.7698 7.63 18.9398 7.73 19.0998C8.59 20.5498 10.18 21.5298 12 21.5298C13.82 21.5298 15.41 20.5498 16.27 19.0998C16.37 18.9398 16.46 18.7698 16.54 18.5898C16.84 17.9698 17 17.2698 17 16.5298C17 13.7698 14.76 11.5298 12 11.5298ZM14.07 16.0998L11.94 18.0698C11.8 18.1998 11.61 18.2698 11.43 18.2698C11.24 18.2698 11.05 18.1998 10.9 18.0498L9.91 17.0598C9.62 16.7698 9.62 16.2898 9.91 15.9998C10.2 15.7098 10.68 15.7098 10.97 15.9998L11.45 16.4798L13.05 14.9998C13.36 14.7198 13.83 14.7398 14.11 15.0398C14.39 15.3398 14.37 15.8098 14.07 16.0998Z" fill="currentColor"/>

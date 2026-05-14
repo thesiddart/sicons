@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DiscountShapeBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DiscountShapeBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M3.98987 14.6599L2.46988 13.1399C1.84988 12.5199 1.84988 11.4999 2.46988 10.8799L3.98987 9.3599C4.24987 9.0999 4.45987 8.58989 4.45987 8.22989V6.07993C4.45987 5.19993 5.17988 4.47989 6.05988 4.47989H8.20987C8.56987 4.47989 9.07988 4.26992 9.33988 4.00992L10.8599 2.4899C11.4799 1.8699 12.4999 1.8699 13.1199 2.4899L14.6399 4.00992C14.8999 4.26992 15.4099 4.47989 15.7699 4.47989H17.9199C18.7999 4.47989 19.5199 5.19993 19.5199 6.07993V8.22989C19.5199 8.58989 19.7299 9.0999 19.9899 9.3599L21.5099 10.8799C22.1299 11.4999 22.1299 12.5199 21.5099 13.1399L19.9899 14.6599C19.7299 14.9199 19.5199 15.4299 19.5199 15.7899V17.9399C19.5199 18.8199 18.7999 19.5399 17.9199 19.5399H15.7699C15.4099 19.5399 14.8999 19.7499 14.6399 20.0099L13.1199 21.5299C12.4999 22.1499 11.4799 22.1499 10.8599 21.5299L9.33988 20.0099C9.07988 19.7499 8.56987 19.5399 8.20987 19.5399H6.05988C5.17988 19.5399 4.45987 18.8199 4.45987 17.9399V15.7899C4.45987 15.4199 4.24987 14.9099 3.98987 14.6599Z" fill="currentColor"/>

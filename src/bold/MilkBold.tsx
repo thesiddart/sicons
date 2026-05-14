@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MilkBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MilkBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18 16.0002V19.0002C18 20.6502 16.65 22.0002 15 22.0002H9C7.35 22.0002 6 20.6502 6 19.0002V14.9902C6 14.4402 6.45 13.9902 7.01 13.9902L9.89 14.0002C10.58 14.0002 11.26 14.1502 11.89 14.4502C12.58 14.7702 13.31 15.0002 14.08 15.0002H17C17.55 15.0002 18 15.4502 18 16.0002Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ExternalDriveOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ExternalDriveOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16 22.75H9C5.56 22.75 3.25 20.44 3.25 17V7C3.25 3.56 5.56 1.25 9 1.25H16C19.44 1.25 21.75 3.56 21.75 7V17C21.75 20.44 19.44 22.75 16 22.75ZM9 2.75C6.42 2.75 4.75 4.42 4.75 7V17C4.75 19.58 6.42 21.25 9 21.25H16C18.58 21.25 20.25 19.58 20.25 17V7C20.25 4.42 18.58 2.75 16 2.75H9Z" fill="currentColor"/>

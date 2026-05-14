@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SmallcapsOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SmallcapsOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.6102 6.68001C18.2002 6.68001 17.8602 6.34001 17.8602 5.93001V4.42001C17.8602 3.82001 17.3702 3.32001 16.7602 3.32001H3.83023C3.23023 3.32001 2.73023 3.81001 2.73023 4.42001V5.93001C2.73023 6.34001 2.39023 6.68001 1.98023 6.68001C1.57023 6.68001 1.24023 6.34001 1.24023 5.93001V4.42001C1.24023 2.99001 2.41023 1.82001 3.84023 1.82001H16.7602C18.1902 1.82001 19.3602 2.98001 19.3602 4.42001V5.93001C19.3602 6.34001 19.0202 6.68001 18.6102 6.68001Z" fill="currentColor"/>

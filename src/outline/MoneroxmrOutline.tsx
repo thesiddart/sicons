@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MoneroxmrOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MoneroxmrOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12.0003 22.75C7.3003 22.75 3.1803 19.74 1.7603 15.27C1.6903 15.04 1.7303 14.8 1.8703 14.6C2.0103 14.41 2.2303 14.29 2.4703 14.29L6.2603 14.26V9.00002C6.2603 8.68002 6.4603 8.40002 6.7503 8.29002C7.0503 8.18002 7.3803 8.27001 7.5803 8.52001L12.0003 13.83L16.4203 8.52001C16.6203 8.28001 16.9603 8.19002 17.2503 8.29002C17.5503 8.40002 17.7403 8.68002 17.7403 9.00002V14.25H21.5303C21.7703 14.25 21.9903 14.36 22.1303 14.56C22.2703 14.75 22.3103 15 22.2403 15.23C20.8403 19.73 16.7103 22.75 12.0003 22.75ZM3.5503 15.78C5.0303 19.09 8.3003 21.25 12.0003 21.25C15.7103 21.25 18.9903 19.08 20.4603 15.75H17.0003C16.5903 15.75 16.2503 15.41 16.2503 15V11.07L12.5803 15.48C12.2903 15.82 11.7103 15.82 11.4303 15.48L7.7603 11.07V15C7.7603 15.41 7.4303 15.75 7.0203 15.75L3.5503 15.78Z" fill="currentColor"/>

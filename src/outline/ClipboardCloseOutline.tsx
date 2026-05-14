@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ClipboardCloseOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ClipboardCloseOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.0005 16.91C13.8105 16.91 13.6205 16.84 13.4705 16.69L9.51047 12.73C9.22047 12.44 9.22047 11.96 9.51047 11.67C9.80047 11.38 10.2805 11.38 10.5705 11.67L14.5305 15.63C14.8205 15.92 14.8205 16.4 14.5305 16.69C14.3805 16.83 14.1905 16.91 14.0005 16.91Z" fill="currentColor"/>

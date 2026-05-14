@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PolygonmaticOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PolygonmaticOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M7.50023 15.45C7.37023 15.45 7.24022 15.42 7.12022 15.35L2.62022 12.75C2.39022 12.62 2.24023 12.37 2.24023 12.1V6.89999C2.24023 6.62999 2.38022 6.37999 2.62022 6.24999L7.12022 3.64999C7.35022 3.51999 7.64022 3.51999 7.87022 3.64999L12.3702 6.24999C12.6002 6.37999 12.7502 6.62999 12.7502 6.89999V8.46999C12.7502 8.87999 12.4102 9.21999 12.0002 9.21999C11.5902 9.21999 11.2502 8.87999 11.2502 8.46999V7.32999L7.50023 5.15999L3.75023 7.32999V11.66L7.50023 13.83L11.6202 11.45C11.9802 11.24 12.4402 11.37 12.6402 11.72C12.8502 12.08 12.7202 12.54 12.3702 12.74L7.87022 15.34C7.76022 15.41 7.63023 15.45 7.50023 15.45Z" fill="currentColor"/>

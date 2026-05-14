@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Microphone2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Microphone2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M19.1199 9.11986C18.7299 9.11986 18.4199 9.42986 18.4199 9.81986V11.3999C18.4199 14.9399 15.5399 17.8199 11.9999 17.8199C8.45993 17.8199 5.57993 14.9399 5.57993 11.3999V9.80986C5.57993 9.41986 5.26993 9.10986 4.87993 9.10986C4.48993 9.10986 4.17993 9.41986 4.17993 9.80986V11.3899C4.17993 15.4599 7.30993 18.8099 11.2999 19.1699V21.2999C11.2999 21.6899 11.6099 21.9999 11.9999 21.9999C12.3899 21.9999 12.6999 21.6899 12.6999 21.2999V19.1699C16.6799 18.8199 19.8199 15.4599 19.8199 11.3899V9.80986C19.8099 9.42986 19.4999 9.11986 19.1199 9.11986Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ChartSquareOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ChartSquareOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.1098 18.15H6.31982C5.90982 18.15 5.56982 17.81 5.56982 17.4V12.28C5.56982 11.24 6.41981 10.39 7.45981 10.39H10.1098C10.5198 10.39 10.8598 10.73 10.8598 11.14V17.39C10.8598 17.81 10.5198 18.15 10.1098 18.15ZM7.06982 16.65H9.3598V11.9H7.45981C7.24981 11.9 7.06982 12.07 7.06982 12.29V16.65Z" fill="currentColor"/>

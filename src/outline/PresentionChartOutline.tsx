@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PresentionChartOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PresentionChartOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.1 17.75H5.89999C3.57999 17.75 2.25 16.42 2.25 14.1V2C2.25 1.59 2.59 1.25 3 1.25H21C21.41 1.25 21.75 1.59 21.75 2V14.1C21.75 16.42 20.42 17.75 18.1 17.75ZM3.75 2.75V14.1C3.75 15.59 4.40999 16.25 5.89999 16.25H18.09C19.58 16.25 20.24 15.59 20.24 14.1V2.75H3.75Z" fill="currentColor"/>

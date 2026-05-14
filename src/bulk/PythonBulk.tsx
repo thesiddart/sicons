@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PythonBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PythonBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.02 2.23006C13.02 1.92006 10.9801 1.92006 8.98006 2.23006C8.16006 2.36006 7.56005 3.06005 7.56005 3.88005V7.56005H3.88005C3.06005 7.56005 2.36006 8.16006 2.23006 8.98006C1.92006 10.9801 1.92006 13.0201 2.23006 15.0201C2.36006 15.8401 3.06005 16.4401 3.88005 16.4401H7.56005V14.2201C7.56005 12.9901 8.55005 12.0001 9.78005 12.0001H14.22C15.45 12.0001 16.4401 11.0001 16.4401 9.78005V3.88005C16.4401 3.06005 15.84 2.36006 15.02 2.23006ZM10.33 5.58006C9.92003 5.58006 9.52004 5.19005 9.52004 4.77005C9.52004 4.35005 9.91003 3.97006 10.33 3.97006C10.52 3.97006 10.7501 4.06006 10.8901 4.19006C11.0401 4.33006 11.1401 4.57005 11.1401 4.77005C11.1401 5.19005 10.75 5.58006 10.33 5.58006Z" fill="currentColor"/>

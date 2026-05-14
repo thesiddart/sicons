@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BagTickOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BagTickOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.1196 18.25C10.9296 18.25 10.7396 18.18 10.5896 18.03L9.08957 16.53C8.79957 16.24 8.79957 15.76 9.08957 15.47C9.37957 15.18 9.85957 15.18 10.1496 15.47L11.1396 16.46L13.8596 13.95C14.1596 13.67 14.6396 13.69 14.9196 13.99C15.1996 14.29 15.1796 14.77 14.8796 15.05L11.6296 18.05C11.4896 18.18 11.3096 18.25 11.1196 18.25Z" fill="currentColor"/>

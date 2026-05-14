@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FilterEditBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FilterEditBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.92 6.37C17.59 6.29 17.24 6.25 16.88 6.25C14.26 6.25 12.13 8.38 12.13 11C12.13 11.89 12.38 12.73 12.82 13.45C13.19 14.07 13.7 14.6 14.32 14.98C15.06 15.47 15.94 15.75 16.88 15.75C18.62 15.75 20.13 14.82 20.95 13.45C21.39 12.73 21.63 11.89 21.63 11C21.63 8.74 20.05 6.84 17.92 6.37ZM18.83 10.57L16.4 13C16.31 13.09 16.12 13.18 15.99 13.2L15.06 13.33C14.72 13.38 14.49 13.14 14.54 12.81L14.67 11.88C14.69 11.75 14.78 11.57 14.87 11.47L16.95 9.39L17.3 9.04C17.72 8.62 18.21 8.42 18.82 9.04C19.43 9.66 19.25 10.15 18.83 10.57Z" fill="currentColor"/>

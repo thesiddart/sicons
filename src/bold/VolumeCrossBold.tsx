@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VolumeCrossBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VolumeCrossBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22.5299 13.4202L21.0799 11.9702L22.4799 10.5702C22.7699 10.2802 22.7699 9.80018 22.4799 9.51018C22.1899 9.22018 21.7099 9.22018 21.4199 9.51018L20.0199 10.9102L18.5699 9.46018C18.2799 9.17018 17.7999 9.17018 17.5099 9.46018C17.2199 9.75018 17.2199 10.2302 17.5099 10.5202L18.9599 11.9702L17.4699 13.4602C17.1799 13.7502 17.1799 14.2302 17.4699 14.5202C17.6199 14.6702 17.8099 14.7402 17.9999 14.7402C18.1899 14.7402 18.3799 14.6702 18.5299 14.5202L20.0199 13.0302L21.4699 14.4802C21.6199 14.6302 21.8099 14.7002 21.9999 14.7002C22.1899 14.7002 22.3799 14.6302 22.5299 14.4802C22.8199 14.1902 22.8199 13.7202 22.5299 13.4202Z" fill="currentColor"/>

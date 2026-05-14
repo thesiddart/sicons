@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GridLockBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GridLockBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.5298 17.31V17.15C21.5298 15.22 20.5498 14.25 18.6298 14.25C16.7098 14.25 15.7298 15.23 15.7298 17.15V17.31C14.6798 17.57 14.2598 18.29 14.2598 19.73V20.47C14.2598 22.32 14.9498 23 16.7898 23H20.4698C22.3198 23 22.9998 22.31 22.9998 20.47V19.73C22.9998 18.3 22.5798 17.57 21.5298 17.31ZM18.6198 15.63C19.9098 15.63 20.1398 16.12 20.1398 17.15V17.2H17.0998V17.15C17.0998 16.12 17.3298 15.63 18.6198 15.63Z" fill="currentColor"/>

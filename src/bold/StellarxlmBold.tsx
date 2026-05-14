@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StellarxlmBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StellarxlmBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22.66 4.64C22.46 4.28 22.0001 4.14 21.6401 4.34L4.70008 13.66C4.58008 13.12 4.50007 12.56 4.50007 12C4.50007 7.86 7.86007 4.5 12.0001 4.5C13.4101 4.5 14.7801 4.89 15.9601 5.63C16.3101 5.85 16.7701 5.74 16.9901 5.39C17.2101 5.04 17.1001 4.58 16.7501 4.36C15.3301 3.47 13.6901 3 12.0001 3C7.04007 3 3.00007 7.04 3.00007 12C3.00007 12.81 3.11007 13.61 3.32007 14.39C3.32007 14.4 3.33008 14.4 3.33008 14.41L1.64008 15.34C1.28008 15.54 1.14009 16 1.34009 16.36C1.48009 16.61 1.73007 16.75 2.00007 16.75C2.12007 16.75 2.25005 16.72 2.36005 16.66L22.3601 5.66C22.7201 5.46 22.86 5 22.66 4.64Z" fill="currentColor"/>

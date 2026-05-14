@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MouseOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MouseOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 22.75C7.45 22.75 3.75 19.05 3.75 14.5V9.5C3.75 4.95 7.45 1.25 12 1.25C16.55 1.25 20.25 4.95 20.25 9.5V14.5C20.25 19.05 16.55 22.75 12 22.75ZM12 2.75C8.28 2.75 5.25 5.78 5.25 9.5V14.5C5.25 18.22 8.28 21.25 12 21.25C15.72 21.25 18.75 18.22 18.75 14.5V9.5C18.75 5.78 15.72 2.75 12 2.75Z" fill="currentColor"/>

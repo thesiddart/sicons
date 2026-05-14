@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const CameraOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const CameraOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.2402 22.75H6.76017C3.96017 22.75 2.18017 21.08 2.02017 18.29L1.50017 10.04C1.42017 8.79 1.85017 7.59 2.71017 6.68C3.56017 5.77 4.76017 5.25 6.00017 5.25C6.32017 5.25 6.63017 5.06 6.78017 4.76L7.50017 3.33C8.09017 2.16 9.57017 1.25 10.8602 1.25H13.1502C14.4402 1.25 15.9102 2.16 16.5002 3.32L17.2202 4.78C17.3702 5.06 17.6702 5.25 18.0002 5.25C19.2402 5.25 20.4402 5.77 21.2902 6.68C22.1502 7.6 22.5802 8.79 22.5002 10.04L21.9802 18.3C21.8002 21.13 20.0702 22.75 17.2402 22.75ZM10.8602 2.75C10.1202 2.75 9.18017 3.33 8.84017 4L8.12017 5.44C7.70017 6.25 6.89017 6.75 6.00017 6.75C5.16017 6.75 4.38017 7.09 3.80017 7.7C3.23017 8.31 2.94017 9.11 3.00017 9.94L3.52017 18.2C3.64017 20.22 4.73017 21.25 6.76017 21.25H17.2402C19.2602 21.25 20.3502 20.22 20.4802 18.2L21.0002 9.94C21.0502 9.11 20.7702 8.31 20.2002 7.7C19.6202 7.09 18.8402 6.75 18.0002 6.75C17.1102 6.75 16.3002 6.25 15.8802 5.46L15.1502 4C14.8202 3.34 13.8802 2.76 13.1402 2.76H10.8602V2.75Z" fill="currentColor"/>

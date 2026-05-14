@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GridEraserBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GridEraserBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M18.8 20.7L16.9 22.61C16.38 23.13 15.52 23.13 14.98 22.61L13.4 21.02C12.88 20.49 12.88 19.64 13.4 19.1L15.31 17.21L18.8 20.7Z" fill="currentColor"/>

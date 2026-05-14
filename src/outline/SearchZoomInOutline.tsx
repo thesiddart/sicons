@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SearchZoomInOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SearchZoomInOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.2002 12.45H9.2002C8.7902 12.45 8.4502 12.11 8.4502 11.7C8.4502 11.29 8.7902 10.95 9.2002 10.95H14.2002C14.6102 10.95 14.9502 11.29 14.9502 11.7C14.9502 12.11 14.6102 12.45 14.2002 12.45Z" fill="currentColor"/>

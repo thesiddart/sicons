@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const LampSlashBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const LampSlashBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.7 4.35007L6.39997 13.6501C5.92997 14.1201 5.10997 14.0201 4.80997 13.4201C4.26997 12.3501 3.96997 11.1801 3.96997 10.0501C3.96997 7.60007 5.05997 5.31007 6.96997 3.77007C8.87997 2.23007 11.38 1.66007 13.83 2.20007C14.37 2.32007 14.9 2.49007 15.4 2.72007C16.04 3.01007 16.2 3.85007 15.7 4.35007Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const VelasvlxOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const VelasvlxOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22 3.78H2C1.59 3.78 1.25 3.44 1.25 3.03C1.25 2.62 1.59 2.28 2 2.28H22C22.41 2.28 22.75 2.62 22.75 3.03C22.75 3.44 22.41 3.78 22 3.78Z" fill="currentColor"/>

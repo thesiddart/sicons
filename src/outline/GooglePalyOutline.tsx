@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GooglePalyOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GooglePalyOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.8896 15.96C16.6996 15.96 16.4996 15.88 16.3596 15.74L13.1696 12.55C12.8796 12.26 12.8796 11.78 13.1696 11.49L16.3896 8.26999C16.6196 8.03999 16.9696 7.99 17.2596 8.13L21.7496 10.38C22.3696 10.68 22.7596 11.3 22.7596 12C22.7596 12.7 22.3696 13.32 21.7496 13.62L17.2396 15.88C17.1196 15.93 16.9996 15.96 16.8896 15.96ZM14.7596 12.02L17.0296 14.29L21.0596 12.27C21.0596 12.27 21.0596 12.27 21.0696 12.27C21.2196 12.2 21.2396 12.07 21.2396 12C21.2396 11.93 21.2196 11.8 21.0696 11.73L17.0596 9.72L14.7596 12.02Z" fill="currentColor"/>

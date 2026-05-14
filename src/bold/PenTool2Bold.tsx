@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PenTool2Bold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PenTool2Bold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M20.98 10.7C20.76 6.8 17.87 3.55 14.01 2.89C13.95 2.12 13.31 1.5 12.52 1.5H11.52C10.73 1.5 10.1 2.11 10.03 2.88C6.15 3.52 3.24 6.78 3.02 10.7C2.31 10.82 1.77 11.43 1.77 12.17V13.17C1.77 14 2.44 14.67 3.27 14.67H4.27C5.1 14.67 5.77 14 5.77 13.17V12.17C5.77 11.43 5.23 10.82 4.52 10.7C4.73 7.58 7.02 4.99 10.08 4.39C10.25 5.03 10.83 5.5 11.52 5.5H12.52C13.21 5.5 13.78 5.03 13.96 4.4C17 5.01 19.27 7.6 19.48 10.7C18.77 10.82 18.23 11.43 18.23 12.17V13.17C18.23 14 18.9 14.67 19.73 14.67H20.73C21.56 14.67 22.23 14 22.23 13.17V12.17C22.23 11.43 21.69 10.81 20.98 10.7Z" fill="currentColor"/>

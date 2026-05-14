@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const ReceiptSquareBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const ReceiptSquareBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M8.89999 16.5299C9.37999 16.0099 10.12 16.0499 10.54 16.6199L11.14 17.4199C11.61 18.0499 12.39 18.0499 12.86 17.4199L13.45 16.6299C13.87 16.0699 14.61 16.0299 15.09 16.5399C16.14 17.6599 16.99 17.2899 16.99 15.7199V9.08988C16.99 6.71988 16.43 6.12988 14.21 6.12988H9.76999C7.54999 6.12988 6.98999 6.71988 6.98999 9.08988V15.7199C6.99999 17.2699 7.85999 17.6399 8.89999 16.5299Z" fill="currentColor"/>

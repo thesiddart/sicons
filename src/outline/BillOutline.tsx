@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BillOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BillOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M11.9999 22.25C11.1799 22.25 10.3599 21.99 9.6799 21.48L4.46991 17.58C3.49991 16.85 2.91992 15.69 2.91992 14.48V1.76001H21.0799V14.48C21.0799 15.69 20.4999 16.85 19.5299 17.58L14.3199 21.48C13.6399 21.99 12.8199 22.25 11.9999 22.25ZM4.41992 3.25002V14.47C4.41992 15.21 4.7799 15.92 5.3699 16.37L10.5799 20.27C11.4199 20.9 12.5899 20.9 13.4299 20.27L18.6399 16.37C19.2299 15.92 19.5899 15.21 19.5899 14.47V3.25002H4.41992Z" fill="currentColor"/>

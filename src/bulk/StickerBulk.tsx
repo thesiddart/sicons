@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const StickerBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const StickerBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M21.93 12.8598C21.91 13.0498 21.88 13.2298 21.83 13.4098C20.79 12.5298 19.44 11.9998 17.97 11.9998C14.66 11.9998 11.97 14.6898 11.97 17.9998C11.97 19.4698 12.5 20.8198 13.38 21.8598C13.2 21.9098 13.02 21.9398 12.83 21.9598C11.98 22.0398 11.11 21.9998 10.21 21.8498C6.09999 21.1498 2.78999 17.8198 2.10999 13.6998C0.97999 6.84977 6.81999 1.00978 13.67 2.13978C17.79 2.81978 21.12 6.12977 21.82 10.2398C21.97 11.1398 22.01 12.0098 21.93 12.8598Z" fill="currentColor"/>

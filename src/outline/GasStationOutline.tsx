@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GasStationOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GasStationOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.5 22.75H3.5C3.09 22.75 2.75 22.41 2.75 22V5C2.75 2.76 4.26 1.25 6.5 1.25H14.5C16.74 1.25 18.25 2.76 18.25 5V22C18.25 22.41 17.91 22.75 17.5 22.75ZM4.25 21.25H16.75V5C16.75 3.59 15.91 2.75 14.5 2.75H6.5C5.09 2.75 4.25 3.59 4.25 5V21.25Z" fill="currentColor"/>

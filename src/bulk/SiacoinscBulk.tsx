@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SiacoinscBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SiacoinscBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 10.51 1.55001 9.08 2.14001 7.72C2.31001 7.34 2.75 7.17 3.13 7.33C3.51 7.5 3.68002 7.94 3.52002 8.32C3.02002 9.48 2.76001 10.72 2.76001 12C2.76001 17.1 6.91001 21.25 12.01 21.25C17.11 21.25 21.26 17.1 21.26 12C21.26 6.9 17.1 2.75 12 2.75C10.71 2.75 9.45003 3.01 8.28003 3.53C7.91003 3.7 7.45998 3.53 7.28998 3.15C7.11998 2.77 7.28998 2.33 7.66998 2.16C9.03998 1.56 10.49 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const DirectSendBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const DirectSendBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.5302 3.46999L12.5302 1.46999C12.5202 1.45999 12.5102 1.45999 12.5102 1.44999C12.4502 1.38999 12.3702 1.33999 12.2902 1.29999C12.2802 1.29999 12.2802 1.29999 12.2702 1.28999C12.1902 1.25999 12.1102 1.24999 12.0302 1.23999C12.0002 1.23999 11.9802 1.23999 11.9502 1.23999C11.8902 1.23999 11.8302 1.25999 11.7702 1.27999C11.7402 1.28999 11.7202 1.29999 11.7002 1.30999C11.6202 1.34999 11.5402 1.38999 11.4802 1.45999L9.4802 3.45999C9.1902 3.74999 9.1902 4.22999 9.4802 4.51999C9.7702 4.80999 10.2502 4.80999 10.5402 4.51999L11.2602 3.79999V8.99999C11.2602 9.40999 11.6002 9.74999 12.0102 9.74999C12.4202 9.74999 12.7502 9.40999 12.7502 8.99999V3.80999L13.4702 4.52999C13.6202 4.67999 13.8102 4.74999 14.0002 4.74999C14.1902 4.74999 14.3802 4.67999 14.5302 4.52999C14.8202 4.23999 14.8202 3.75999 14.5302 3.46999Z" fill="currentColor"/>

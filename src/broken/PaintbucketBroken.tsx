@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const PaintbucketBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const PaintbucketBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15.0006 4.32996C12.4106 1.73996 11.2806 2.38996 9.3406 4.32996L3.7706 9.89996C1.3806 12.29 1.1806 12.96 3.7706 15.56L7.2306 19.02C9.6606 21.45 10.4906 21.41 12.8906 19.02L18.4606 13.45C20.4006 11.51 20.8906 10.22 18.4606 7.78996" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

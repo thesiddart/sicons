@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BrifecaseCrossOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BrifecaseCrossOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 18.95C9.38 18.95 7.25 16.82 7.25 14.2C7.25 11.58 9.38 9.45001 12 9.45001C14.62 9.45001 16.75 11.58 16.75 14.2C16.75 16.82 14.62 18.95 12 18.95ZM12 10.95C10.21 10.95 8.75 12.41 8.75 14.2C8.75 15.99 10.21 17.45 12 17.45C13.79 17.45 15.25 15.99 15.25 14.2C15.25 12.41 13.79 10.95 12 10.95Z" fill="currentColor"/>

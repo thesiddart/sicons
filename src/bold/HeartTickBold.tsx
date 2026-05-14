@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const HeartTickBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const HeartTickBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.2 12.3999C14.55 12.3999 12.4 14.5499 12.4 17.1999C12.4 18.0999 12.65 18.9499 13.1 19.6699C13.93 21.0599 15.45 21.9999 17.2 21.9999C18.95 21.9999 20.48 21.0599 21.3 19.6699C21.74 18.9499 22 18.0999 22 17.1999C22 14.5499 19.85 12.3999 17.2 12.3999ZM19.58 16.5699L17.02 18.9299C16.88 19.0599 16.69 19.1299 16.51 19.1299C16.32 19.1299 16.13 19.0599 15.98 18.9099L14.8 17.7299C14.51 17.4399 14.51 16.9599 14.8 16.6699C15.09 16.3799 15.57 16.3799 15.86 16.6699L16.53 17.3399L18.56 15.4599C18.86 15.1799 19.34 15.1999 19.62 15.4999C19.9 15.8099 19.88 16.2899 19.58 16.5699Z" fill="currentColor"/>

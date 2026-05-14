@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const FlashBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const FlashBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M22.0004 12.63C22.6604 11.88 22.1304 10.71 21.1304 10.71H18.0404V3.50996C18.0404 2.44996 16.7204 1.94996 16.0204 2.74996L8.45043 11.35C7.79043 12.1 8.32043 13.27 9.32043 13.27H12.4104V20.47C12.4104 21.53 13.7304 22.03 14.4304 21.23L19.0604 15.97" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const IostiostBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const IostiostBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" d="M10.99 2.60001L4.48999 6.42001C3.87999 6.78001 3.5 7.44001 3.5 8.14001V15.85C3.5 16.56 3.87999 17.21 4.48999 17.57L10.99 21.39C11.62 21.76 12.39 21.76 13.02 21.39L19.52 17.57C20.13 17.21 20.51 16.55 20.51 15.85V8.14001C20.51 7.43001 20.13 6.78001 19.52 6.42001L13.02 2.60001C12.39 2.23001 11.61 2.23001 10.99 2.60001Z" fill="currentColor"/>

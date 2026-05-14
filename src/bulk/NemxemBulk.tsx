@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const NemxemBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const NemxemBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.6" d="M16.36 18.4901C16.35 18.5001 16.35 18.5101 16.35 18.5101C15.16 19.7701 13.73 20.9601 12 22.0001C12 22.0001 3.15998 17.5801 2.09998 7.08008C5.20998 17.1501 12 10.0001 12 10.0001C18.76 12.9001 16.52 18.1401 16.36 18.4901Z" fill="currentColor"/>

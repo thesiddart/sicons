@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const SpeakerOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const SpeakerOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M15 22.75H9C5.58 22.75 4.25 21.42 4.25 18V6C4.25 2.58 5.58 1.25 9 1.25H15C18.42 1.25 19.75 2.58 19.75 6V18C19.75 21.42 18.42 22.75 15 22.75ZM9 2.75C6.42 2.75 5.75 3.42 5.75 6V18C5.75 20.58 6.42 21.25 9 21.25H15C17.58 21.25 18.25 20.58 18.25 18V6C18.25 3.42 17.58 2.75 15 2.75H9Z" fill="currentColor"/>

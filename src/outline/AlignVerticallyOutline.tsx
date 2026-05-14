@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AlignVerticallyOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AlignVerticallyOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M17.4 20H6.6C4.68 20 3.75 19.02 3.75 17.02V15.98C3.75 13.98 4.68 13 6.6 13H17.4C19.32 13 20.25 13.98 20.25 15.98V17.02C20.25 19.02 19.32 20 17.4 20ZM6.6 14.5C5.59 14.5 5.25 14.71 5.25 15.98V17.02C5.25 18.29 5.59 18.5 6.6 18.5H17.4C18.41 18.5 18.75 18.29 18.75 17.02V15.98C18.75 14.71 18.41 14.5 17.4 14.5H6.6Z" fill="currentColor"/>

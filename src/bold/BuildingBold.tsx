@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BuildingBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BuildingBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M10.75 4.63986L6.31997 2.44986C3.92997 1.27986 1.96997 2.46986 1.96997 5.08986V19.9299C1.96997 21.0699 2.91997 21.9999 4.07997 21.9999H11.5C12.05 21.9999 12.5 21.5499 12.5 20.9999V7.40986C12.5 6.35986 11.71 5.10986 10.75 4.63986ZM8.96997 13.7499H5.49997C5.08997 13.7499 4.74997 13.4099 4.74997 12.9999C4.74997 12.5899 5.08997 12.2499 5.49997 12.2499H8.96997C9.37997 12.2499 9.71997 12.5899 9.71997 12.9999C9.71997 13.4099 9.38997 13.7499 8.96997 13.7499ZM8.96997 9.74986H5.49997C5.08997 9.74986 4.74997 9.40986 4.74997 8.99986C4.74997 8.58986 5.08997 8.24986 5.49997 8.24986H8.96997C9.37997 8.24986 9.71997 8.58986 9.71997 8.99986C9.71997 9.40986 9.38997 9.74986 8.96997 9.74986Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const KeyboardOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const KeyboardOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M16.5 20.75H7.5C6.75 20.75 6.2 20.72 5.73 20.65C2.41 20.29 1.75 18.3 1.75 15V9C1.75 5.7 2.41 3.71 5.76 3.34C6.2 3.28 6.75 3.25 7.5 3.25H16.5C17.25 3.25 17.8 3.28 18.27 3.35C21.59 3.71 22.25 5.7 22.25 9V15C22.25 18.3 21.59 20.29 18.24 20.66C17.8 20.72 17.25 20.75 16.5 20.75ZM7.5 4.75C6.82 4.75 6.34 4.78 5.95 4.83C3.92 5.06 3.25 5.69 3.25 9V15C3.25 18.31 3.92 18.94 5.92 19.17C6.34 19.23 6.82 19.25 7.5 19.25H16.5C17.18 19.25 17.66 19.22 18.05 19.17C20.08 18.95 20.75 18.31 20.75 15V9C20.75 5.69 20.08 5.06 18.08 4.83C17.66 4.77 17.18 4.75 16.5 4.75H7.5Z" fill="currentColor"/>

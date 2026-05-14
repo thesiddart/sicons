@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const AvalancheavaxOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const AvalancheavaxOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.19046 17.01H6.45047C6.02047 17.01 5.62043 16.78 5.41043 16.41C5.20043 16.04 5.20043 15.58 5.41043 15.2L11.0105 5.59C11.2105 5.24 11.5804 5.02001 11.9804 4.99001C12.3804 4.96001 12.7705 5.15001 13.0105 5.47001L14.5805 7.56C15.2105 8.4 15.2605 9.56001 14.7005 10.46L11.3604 15.81C10.8904 16.56 10.0805 17.01 9.19046 17.01ZM6.96048 15.51H9.18045C9.55045 15.51 9.89047 15.32 10.0805 15.01L13.4204 9.66001C13.6504 9.29001 13.6305 8.81001 13.3705 8.46001L12.0705 6.73001L6.96048 15.51Z" fill="currentColor"/>

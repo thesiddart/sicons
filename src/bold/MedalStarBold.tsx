@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MedalStarBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MedalStarBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.25 18.4701L19.6 18.8601C19.23 18.9501 18.94 19.2301 18.86 19.6001L18.51 21.0701C18.32 21.8701 17.3 22.1201 16.77 21.4901L13.78 18.0501C13.54 17.7701 13.67 17.3301 14.03 17.2401C15.8 16.8101 17.39 15.8201 18.56 14.4101C18.75 14.1801 19.09 14.1501 19.3 14.3601L21.52 16.5801C22.28 17.3401 22.01 18.2901 21.25 18.4701Z" fill="currentColor"/>

@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const TwitchBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const TwitchBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path opacity="0.4" fillRule="evenodd" clipRule="evenodd" d="M5.04001 2H20.5C21.05 2 21.5 2.45 21.5 3V13.59C21.5 13.86 21.39 14.11 21.21 14.3L16.8 18.71C16.61 18.9 16.36 19 16.09 19H12.04C11.71 19 11.39 19.17 11.21 19.45L9.80002 21.56C9.61002 21.84 9.30002 22.01 8.97002 22.01H7.51001C6.96001 22.01 6.51001 21.56 6.51001 21.01V20.01C6.51001 19.46 6.06001 19.01 5.51001 19.01H3.51001C2.96001 19.01 2.51001 18.56 2.51001 18.01V5.31C2.51001 5.11 2.57001 4.91999 2.68001 4.75999L4.22002 2.46001C4.39002 2.17001 4.70001 2 5.04001 2Z" fill="currentColor"/>

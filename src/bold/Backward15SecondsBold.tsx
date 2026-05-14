@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const Backward15SecondsBold: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const Backward15SecondsBold: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M14.4301 16.9198H12.1401C11.7301 16.9198 11.3901 16.5798 11.3901 16.1698C11.3901 15.7598 11.7301 15.4198 12.1401 15.4198H14.4301C14.8601 15.4198 15.2101 15.0698 15.2101 14.6398C15.2101 14.2098 14.8601 13.8598 14.4301 13.8598H12.1401C11.9001 13.8598 11.6701 13.7398 11.5301 13.5498C11.3901 13.3598 11.3501 13.0998 11.4301 12.8698L12.1901 10.5798C12.2901 10.2698 12.5801 10.0698 12.9001 10.0698H15.9601C16.3701 10.0698 16.7101 10.4098 16.7101 10.8198C16.7101 11.2298 16.3701 11.5698 15.9601 11.5698H13.4401L13.1801 12.3598H14.4301C15.6901 12.3598 16.7101 13.3798 16.7101 14.6398C16.7101 15.8998 15.6801 16.9198 14.4301 16.9198Z" fill="currentColor"/>

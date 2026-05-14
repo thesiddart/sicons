@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const GraphBulk: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const GraphBulk: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M21.6699 6.9499C21.0299 4.7799 19.2199 2.9699 17.0499 2.3299C15.3999 1.8499 14.2599 1.8899 13.4699 2.4799C12.5199 3.1899 12.4099 4.4699 12.4099 5.3799V7.8699C12.4099 10.3299 13.5299 11.5799 15.7299 11.5799H18.5999C19.4999 11.5799 20.7899 11.4699 21.4999 10.5199C22.1099 9.7399 22.1599 8.5999 21.6699 6.9499Z" fill="currentColor"/>

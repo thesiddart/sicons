@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const BucketCircleBroken: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const BucketCircleBroken: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M9.40994 15.9499L7.01992 13.56C6.21992 12.76 6.21992 11.9599 7.01992 11.1699L11.0099 7.17993L15.3999 11.5699C15.6199 11.7899 15.6199 12.1499 15.3999 12.3699L11.8099 15.9599C11.0099 16.7499 10.2099 16.7499 9.40994 15.9499Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>

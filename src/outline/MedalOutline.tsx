@@ -3,9 +3,19 @@ import { IconProps } from '../IconWrapper';
 
 export const MedalOutline: React.FC<IconProps> = ({
   size = 24,
-  color = 'currentColor',
+  color,
+  style,
   ...props
 }) => {
+  const s = { ...(style || {}) } as Record<string, unknown>;
+  const fromStyle = s.color;
+  delete s.color;
+  const resolvedColor: string =
+    color !== undefined
+      ? String(color)
+      : fromStyle !== undefined && fromStyle !== null
+        ? String(fromStyle)
+        : 'currentColor';
   return (
     <svg
       width={size}
@@ -13,6 +23,7 @@ export const MedalOutline: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ ...(s as React.CSSProperties), color: resolvedColor }}
       {...props}
     >
       <path d="M12 15.75C7.86 15.75 4.5 12.5 4.5 8.5C4.5 4.5 7.86 1.25 12 1.25C16.14 1.25 19.5 4.5 19.5 8.5C19.5 12.5 16.14 15.75 12 15.75ZM12 2.75C8.69 2.75 6 5.33 6 8.5C6 11.67 8.69 14.25 12 14.25C15.31 14.25 18 11.67 18 8.5C18 5.33 15.31 2.75 12 2.75Z" fill="currentColor"/>
